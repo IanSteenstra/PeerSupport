@@ -1,4 +1,4 @@
-![alt text](https://github.com/IanSteenstra/TherapyNow/blob/master/logo.jpg =250x250)
+![alt text](https://github.com/IanSteenstra/TherapyNow/blob/master/logo.jpg)
 
 # TherapyNow
 
