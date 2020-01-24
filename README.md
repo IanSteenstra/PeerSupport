@@ -1,3 +1,4 @@
+![text](https://github.com/IanSteenstra/TherapyNow/blob/master/logo.jpg)
 # TherapyNow
 
 ## Summary
