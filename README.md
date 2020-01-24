@@ -1,3 +1,5 @@
+![alt text](https://raw.githubusercontent.com/iansteenstra/therapynow/logo.png)
+
 # TherapyNow
 
 ## Summary
