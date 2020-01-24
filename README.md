@@ -1,4 +1,4 @@
-![alt text](https://raw.githubusercontent.com/iansteenstra/therapynow/logo.png)
+![alt text](https://raw.githubusercontent.com/iansteenstra/therapynow/logo.jpg)
 
 # TherapyNow
 
