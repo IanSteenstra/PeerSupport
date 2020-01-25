@@ -1,4 +1,4 @@
-![text](https://github.com/IanSteenstra/TherapyNow/blob/master/logo.jpg)
+![text](https://github.com/IanSteenstra/TherapyNow/blob/master/frontend/gui/images/logo-hori.jpg)
 # TherapyNow
 
 ## Summary

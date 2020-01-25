@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../logo.jpg';
+import logo from '../images/logo-hori.jpg';
 
 class HomeLayout extends React.Component {
     render() {
