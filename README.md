@@ -19,8 +19,9 @@ TherapyNow is an anonymous instant-messaging app that provides one-on-one therap
 1. New terminal open in the frontend/gui directory holding the package.json file
 2. Delete/remove node_modules folder and package-lock.json file
 3. Install Node and npm: https://nodejs.org/en/download/
-4. run: npm install --save core-js@^3
-5. run: npm start
+4. run: npm install
+5. run: npm install --save core-js@^3
+6. run: npm start
 
 ## Contact
 Feel free to contact me for any questions at steenstra.ian@gmail.com
