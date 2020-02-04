@@ -77,8 +77,8 @@ const WrappedNormalLoginForm = Form.create()(NormalLoginForm);
 
 const mapStateToProps = (state) => {
     return {
-        loading: state.loading,
-        error: state.error
+        loading: state.authReducer.loading,
+        error: state.authReducer.error
     }
 }
 
