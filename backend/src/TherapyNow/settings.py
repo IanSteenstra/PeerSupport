@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'rest_auth.registration',
 
     'chat',
+    'Profile',
 ]
 
 SITE_ID = 1
@@ -113,6 +114,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGIN_REDIRECT_URL = ('/')
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -138,7 +141,10 @@ REST_FRAMEWORK = {
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication'
+    ],
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
