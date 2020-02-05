@@ -12,7 +12,7 @@ TherapyNow is an anonymous instant-messaging app that provides one-on-one therap
 
 ## Frontend Localhost Setup
 1. New terminal open in the frontend/gui directory holding the package.json file
-2. Install Node and npm: https://nodejs.org/en/download/
+2. run: pip install npm
 3. run: npm install
 4. run: npm start
 
