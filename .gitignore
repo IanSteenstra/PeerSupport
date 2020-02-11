@@ -7,3 +7,4 @@
 *.pyc
 *.pyc
 backend/src/TherapyNow/__pycache__/urls.cpython-37.pyc
+frontend/gui/node_modules/*
