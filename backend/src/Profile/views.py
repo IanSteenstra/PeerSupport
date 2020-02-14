@@ -64,10 +64,12 @@ class UserQuizViewSet(viewsets.ViewSet):
     return super(self.__class__, self).get_permissions()
 
   def list(self, request):
+    queryset = UserQuiz.objects.all()
     serializer = UserQuizSerializer(queryset, many=True)
     return Response(serializer.data)
 
   def retrieve(self, request, pk=None):
+    queryset = UserQuiz.objects.all()
     userQuiz = get_object_or_404(queryset, pk=pk)
     if (request.user != profile.user and not request.user.is_staff):
       return Response("403 Forbidden. User not authorized.")
@@ -99,10 +101,12 @@ class CounselorQuizViewSet(viewsets.ViewSet):
     return super(self.__class__, self).get_permissions()
 
   def list(self, request):
+    queryset = CounselorQuiz.objects.all()
     serializer = CounselorQuizSerializer(queryset, many=True)
     return Response(serializer.data)
 
   def retrieve(self, request, pk=None):
+    queryset = UserQuiz.objects.all()
     counselorQuiz = get_object_or_404(queryset, pk=pk)
     if (request.user != profile.user and not request.user.is_staff):
       return Response("403 Forbidden. User not authorized.")

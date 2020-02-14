@@ -2,10 +2,12 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
-from Profile.views import ProfileViewSet
+from Profile.views import ProfileViewSet, UserQuizViewSet, CounselorQuizViewSet
 
 router = routers.DefaultRouter()
 router.register('profile', ProfileViewSet)
+router.register('userquiz', UserQuizViewSet)
+router.register('counselorquiz', CounselorQuizViewSet)
 
 urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
