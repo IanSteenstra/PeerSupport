@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Profile
+from .models import Profile, UserQuiz, CounselorQuiz
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 
@@ -45,6 +45,11 @@ class UserQuizSerializer(serializers.ModelSerializer):
   a9 = serializers.FloatField()
   a10 = serializers.FloatField()
   created = serializers.DateTimeField()
+
+  class Meta:
+    nodel = UserQuiz
+    fields = ('profile', 'a1', 'a2', 'a3', 'a4', 'a5', 'a6'
+              'a7','a8','a9','a10', 'created')
 
   def create(self, validated_data):
     profile = Profile(
@@ -97,6 +102,11 @@ class CounselorQuizSerializer(serializers.ModelSerializer):
   a9 = serializers.FloatField()
   a10 = serializers.FloatField()
   created = serializers.DateTimeField()
+
+  class Meta:
+    nodel = CounselorQuiz
+    fields = ('profile', 'a1', 'a2', 'a3', 'a4', 'a5', 'a6'
+              'a7','a8','a9','a10', 'created')
 
   def create(self, validated_data):
     profile = Profile(
