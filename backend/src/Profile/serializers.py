@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from .models import Profile, UserQuiz, CounselorQuiz
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
@@ -7,7 +8,6 @@ from django.contrib.auth.hashers import make_password
 Serializers convert model fields to Python data types in the form
 of a dictionary. (i think)
 '''
-
 class ProfileSerializer(serializers.ModelSerializer):
   username = serializers.SerializerMethodField()
 
@@ -30,7 +30,6 @@ class ProfileSerializer(serializers.ModelSerializer):
 
   def get_username(self, obj):
     return obj.user.username
-
 
 class UserQuizSerializer(serializers.ModelSerializer):
   profile = serializers.SerializerMethodField()

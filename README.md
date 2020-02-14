@@ -8,19 +8,13 @@ TherapyNow is an anonymous instant-messaging app that provides one-on-one therap
 1. Terminal open in the backend directory holder the env and src folders
 2. run: source env/Scripts/activate
 3. Open the src directory where the manage.py file is located
-4. run: pip install django-admin
-5. run: pip install django-cors-headers
-6. run: pip install djangorestframework
-7. run: pip install django-rest-auth
-8. run: pip install django-allauth
-9. run: python manage.py runserver
+4. run: python manage.py runserver
 
 ## Frontend Localhost Setup
 1. New terminal open in the frontend/gui directory holding the package.json file
-2. Delete/remove node_modules folder and package-lock.json file
-3. Install Node and npm: https://nodejs.org/en/download/
-4. run: npm install --save core-js@^3
-5. run: npm start
+2. run: pip install npm
+3. run: npm install
+4. run: npm start
 
 ## Contact
 Feel free to contact me for any questions at steenstra.ian@gmail.com

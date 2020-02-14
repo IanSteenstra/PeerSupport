@@ -21,4 +21,3 @@ def create_counselor_quiz(sender, instance, created, **kwargs):
 	if created:
 		CounselorQuiz.objects.create(profile=instance)
 
-

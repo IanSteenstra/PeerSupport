@@ -37,7 +37,7 @@ class ProfileViewSet(viewsets.ViewSet):
 
     serializer = ProfileSerializer(profile)
     return Response(serializer.data)
-
+    
   def update(self, instance, validated_data):
       # First, update the User
       user_data = validated_data.pop('user', None)
