@@ -61,7 +61,7 @@ class UserQuizViewSet(viewsets.ViewSet):
       self.permission_classes = [IsAdminUser, IsAuthenticated]
     elif self.action == 'retrieve':
       self.permission_classes = [IsAuthenticated]
-  return super(self.__class__, self).get_permissions()
+    return super(self.__class__, self).get_permissions()
 
   def list(self, request):
     serializer = UserQuizSerializer(queryset, many=True)
@@ -96,7 +96,7 @@ class CounselorQuizViewSet(viewsets.ViewSet):
       self.permission_classes = [IsAdminUser, IsAuthenticated]
     elif self.action == 'retrieve':
       self.permission_classes = [IsAuthenticated]
-  return super(self.__class__, self).get_permissions()
+    return super(self.__class__, self).get_permissions()
 
   def list(self, request):
     serializer = CounselorQuizSerializer(queryset, many=True)

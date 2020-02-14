@@ -14,7 +14,7 @@ class UserQuiz(models.Model):
 	'''
 	Quiz model that holds responses to questions asked on the perosnality quiz for users
 	'''
-	profile = models.OneToOneField(Profile, on_delete=models.CASCADE, related_name="profile")
+	profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
 	a1 = models.FloatField()
 	a2 = models.FloatField()
 	a3 = models.FloatField()
@@ -31,7 +31,7 @@ class CounselorQuiz(models.Model):
 	'''
 	Quiz model that holds responses to questions asked on the perosnality quiz for counselors
 	'''
-	profile = models.OneToOneField(Profile, on_delete=models.CASCADE, related_name='profile')
+	profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
 	a1 = models.FloatField()
 	a2 = models.FloatField()
 	a3 = models.FloatField()
