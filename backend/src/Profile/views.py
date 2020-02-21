@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 
 from rest_framework import viewsets, permissions
 from rest_framework.response import Response
-from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
 
 from .models import Profile
 from .serializers import ProfileSerializer
@@ -18,9 +18,9 @@ class ProfileViewSet(viewsets.ViewSet):
 
   def get_permissions(self):
     if self.action == 'list':
-    	self.permission_classes = [IsAdminUser, IsAuthenticated]
+    	self.permission_classes = [AllowAny,]
     elif self.action == 'retrieve':
-    	self.permission_classes = [IsAuthenticated]
+    	self.permission_classes = [AllowAny,]
 
     return super(self.__class__, self).get_permissions()
 

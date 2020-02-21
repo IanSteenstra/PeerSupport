@@ -45,9 +45,13 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
+    'channels',
+    'channels_redis',
     'rest_auth.registration',
+    'ws4redis',
 
     'chat',
+    'chat.api',
     'Profile',
 ]
 
@@ -81,8 +85,6 @@ TEMPLATES = [
         },
     },
 ]
-
-WSGI_APPLICATION = 'TherapyNow.wsgi.application'
 
 
 # Database
@@ -145,6 +147,16 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication'
     ],
+}
+
+ASGI_APPLICATION = 'TherapyNow.routing.application'
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": 'channels_redis.core.RedisChannelLayer',
+        "CONFIG": {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
 }
 
 CORS_ORIGIN_ALLOW_ALL = True

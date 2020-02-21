@@ -7,9 +7,10 @@ from rest_framework.generics import (
     DestroyAPIView,
     UpdateAPIView
 )
-from chat.models import Chat, Contact
-from chat.views import get_user_contact
+from chat.models import Chat
 from .serializers import ChatSerializer
+
+from django.shortcuts import render
 
 User = get_user_model()
 
@@ -49,3 +50,9 @@ class ChatDeleteView(DestroyAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
     permission_classes = (permissions.IsAuthenticated, )
+
+
+def room(request, room_name):
+    return render(request, 'room.html', {
+        'room_name': room_name
+    })

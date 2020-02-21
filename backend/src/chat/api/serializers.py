@@ -1,21 +1,31 @@
 from rest_framework import serializers
 
-from chat.models import Chat, Contact
-from chat.views import get_user_contact
+from chat.models import Chat, Message
+
+from Profile.models import Profile
+from Profile.serializers import ProfileSerializer
 
 
-class ContactSerializer(serializers.StringRelatedField):
-    def to_internal_value(self, value):
-        return value
+class MessageSerializer(serializers.ModelSerializer):
+    content = serializers.CharField(max_length=100)
 
+    class Meta:
+        model = Message
+        fields = ('profile','content','timestamp')
+
+    def create(self, validated_data):
+        content = validated_data.pop('content')
+        message = Message.objects.create(content=content)
+        return message
 
 class ChatSerializer(serializers.ModelSerializer):
-    participants = ContactSerializer(many=True)
+    messages = MessageSerializer(many=True)
+    participants = ProfileSerializer(many=True)
 
     class Meta:
         model = Chat
-        fields = ('id', 'messages', 'participants')
-        read_only = ('id')
+        fields = ('id', 'room_name', 'messages', 'participants',)
+        read_only = ('id',)
 
     def create(self, validated_data):
         print(validated_data)
