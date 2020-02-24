@@ -18,5 +18,6 @@ urlpatterns = [
     path('chat/', include('chat.api.urls', namespace='chat')),
     path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
+    path('model/', views.match.as_view())
 ]
 

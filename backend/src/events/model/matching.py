@@ -60,30 +60,25 @@ def generate_data():
             data.append((x1, x2))
     return data
 
-
-def cluster(debug):
-    # TEMPORARY
-    #
-    # Will be retrieved from the number of counselors
-    # 10 Clusters for users
-    num_clusters = 10
-
-    # TEMPORARY
-    #
-    # Generate Random user datapoints
+def plot(M):
     data = generate_data()
+    centers, classifers = gen_centers(M, data) 
+    unique=set(classifers)
+    print(unique)
+    plt.scatter(*zip(*data), c=classifers, cmap='rainbow')
+    plt.scatter(*zip(*centers), c='black')
+    plt.title('Greedy with {} Regions'.format(M))
+    plt.xlabel('x1', color='#1C2833')
+    plt.ylabel('x2', color='#1C2833')
+    plt.grid()
+    plt.show()
+    
 
-    centers, classifers = gen_centers(num_clusters, data) 
-    # unique = set(classifers)
-    # print(unique)
-    if debug:
-        plt.scatter(*zip(*data), c=classifers, cmap='rainbow')
-        plt.scatter(*zip(*centers), c='black')
-        plt.title('Greedy with {} Regions'.format(num_clusters))
-        plt.xlabel('x1', color='#1C2833')
-        plt.ylabel('x2', color='#1C2833')
-        plt.grid()
-        plt.show()
+
+if __name__ == "__main__":
+    # 10 Clusters for users
+    regions = 10
+    plot(regions)
 
     # Assumption: Users will be datapoints, users will create a voronoi region and counselors
     # will be assigned to their closest associated region.
