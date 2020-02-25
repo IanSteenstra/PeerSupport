@@ -14,3 +14,4 @@ Profession
 Hometown
 Cultural Background
 Group Identity 
+Family - Scale of 1-5, how important is family to you
