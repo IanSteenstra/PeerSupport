@@ -7,16 +7,21 @@ from Profile.serializers import ProfileSerializer
 
 
 class MessageSerializer(serializers.ModelSerializer):
+    username = serializers.SerializerMethodField('get_username')
     content = serializers.CharField(max_length=100)
 
     class Meta:
         model = Message
-        fields = ('profile','content','timestamp')
+        fields = ('username','content','timestamp')
 
     def create(self, validated_data):
         content = validated_data.pop('content')
         message = Message.objects.create(content=content)
         return message
+
+    def get_username(self, obj):
+        if obj.profile:
+            return obj.profile.user.username
 
 class ChatSerializer(serializers.ModelSerializer):
     messages = MessageSerializer(many=True)

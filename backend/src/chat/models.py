@@ -8,7 +8,7 @@ User = get_user_model()
 
 class Message(models.Model):
     profile = models.ForeignKey(
-        Profile, related_name='messages', on_delete=models.CASCADE, null=True)
+        Profile, related_name='profile', on_delete=models.CASCADE, null=True)
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
 
@@ -18,7 +18,7 @@ class Message(models.Model):
 
 class Chat(models.Model):
     participants = models.ManyToManyField(
-        Profile, related_name='chats', blank=True)
+        Profile, related_name='participants', blank=True)
     messages = models.ManyToManyField(Message, blank=True)
     room_name = models.CharField(blank=False, unique=True, null=True, max_length=16)
 
@@ -29,8 +29,9 @@ class Chat(models.Model):
             c = Chat.objects.create(**kwargs)
         return c
 
-    def add_profile(profile):
-        participants.add(profile)
+    def add_participant(profile):
+        if not participants.filter(profile=profile).exists():
+            participants.add(profile)
 
     def __str__(self):
-        return "{}".format(self.pk)
+        return self.room_name

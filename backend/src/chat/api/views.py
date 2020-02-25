@@ -11,13 +11,14 @@ from chat.models import Chat
 from .serializers import ChatSerializer
 
 from django.shortcuts import render
+from django.http import HttpResponse
 
 User = get_user_model()
 
 
 class ChatListView(ListAPIView):
     serializer_class = ChatSerializer
-    permission_classes = (permissions.AllowAny, )
+    permission_classes = (permissions.IsAuthenticated, )
 
     def get_queryset(self):
         queryset = Chat.objects.all()
@@ -31,7 +32,7 @@ class ChatListView(ListAPIView):
 class ChatDetailView(RetrieveAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
-    permission_classes = (permissions.AllowAny, )
+    permission_classes = (permissions.IsAuthenticated, )
 
 
 class ChatCreateView(CreateAPIView):
@@ -53,6 +54,8 @@ class ChatDeleteView(DestroyAPIView):
 
 
 def room(request, room_name):
+    if not request.user.is_authenticated:
+        return HttpResponse("Login required")
     return render(request, 'room.html', {
         'room_name': room_name
     })

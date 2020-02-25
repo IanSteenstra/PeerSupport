@@ -8,6 +8,7 @@ User = get_user_model()
 
 class ProfileSerializer(serializers.ModelSerializer):
   username = serializers.SerializerMethodField('get_username')
+  chat_rooms = serializers.StringRelatedField(many=True)
 
   def create(self, validated_data):
     user = User(
@@ -22,7 +23,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = Profile
-    fields = ('user', 'username', 'alias')
+    fields = ('id', 'username', 'friends', 'chat_rooms')
     extra_kwargs = {'password': {'write_only': True}}
 
 

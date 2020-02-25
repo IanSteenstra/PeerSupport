@@ -5,12 +5,13 @@ from django.core.exceptions import ObjectDoesNotExist
 import json
 
 from chat.models import Chat, Message
-
-user = get_user_model()
+from Profile.models import Profile
 
 
 class ChatConsumer(WebsocketConsumer):
     def connect(self):
+        self.user = self.scope['user']
+        self.profile = Profile.objects.get(id=self.user.profile.id)
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'chat_%s' % self.room_name
 
@@ -22,11 +23,11 @@ class ChatConsumer(WebsocketConsumer):
 
         # Load or create chat object
         c = Chat.get_or_create(room_name=self.room_name)
-        try:
-            profile = Profile.objects.get(user=user)
-            c.add_participant(profile)
-        except:
-            pass
+        
+        c.participants.add(self.profile)
+        self.profile.chat_rooms.add(c)
+        self.profile.save()
+        c.save()
 
         self.accept()
 
@@ -51,7 +52,7 @@ class ChatConsumer(WebsocketConsumer):
             }
         )
 
-        m = Message.objects.create(content=message)
+        m = Message.objects.create(profile=self.profile,content=message)
         c = Chat.objects.get(room_name=self.room_name)
         c.messages.add(m)
 
