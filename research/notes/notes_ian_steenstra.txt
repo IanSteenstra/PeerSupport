@@ -1,0 +1,16 @@
+Hypothesis:
+Homophilic relationship features can indicate the level of trust someone would have for another.
+
+Features:
+Age
+Gender
+Economic Background
+Education
+Love Language
+Political Stance
+Religious Stance
+Interests
+Profession 
+Hometown
+Cultural Background
+Group Identity 
