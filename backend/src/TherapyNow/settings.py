@@ -49,7 +49,7 @@ INSTALLED_APPS = [
 
     'chat',
     'Profile',
-    'events'
+    'events',
 ]
 
 SITE_ID = 1
