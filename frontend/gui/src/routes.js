@@ -4,6 +4,7 @@ import Login from "./containers/Login";
 import Signup from "./containers/Signup";
 import Profile from "./containers/Profile";
 import Home from "./containers/Home";
+import Quiz from "./containers/Quiz";
 
 const BaseRouter = () => (
     <div>
