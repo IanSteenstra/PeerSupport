@@ -12,7 +12,7 @@ class Profile(models.Model):
 
 class UserQuiz(models.Model):
 	'''
-	Quiz model that holds responses to questions asked on the perosnality quiz for users
+	Quiz model that holds responses to questions asked on the personality quiz for users
 	'''
 	profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
 	a1 = models.FloatField()
@@ -29,7 +29,7 @@ class UserQuiz(models.Model):
 
 class CounselorQuiz(models.Model):
 	'''
-	Quiz model that holds responses to questions asked on the perosnality quiz for counselors
+	Quiz model that holds responses to questions asked on the personality quiz for counselors
 	'''
 	profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
 	a1 = models.FloatField()
