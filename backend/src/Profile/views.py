@@ -39,6 +39,10 @@ class ProfileViewSet(viewsets.ViewSet):
     return Response(serializer.data)
 
 
+def get_profile(username):
+  user = User.objects.get(username=username)
+  return user.profile
+
 def update(self, instance, validated_data):
     # First, update the User
     user_data = validated_data.pop('user', None)

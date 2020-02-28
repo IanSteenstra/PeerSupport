@@ -29,9 +29,5 @@ class Chat(models.Model):
             c = Chat.objects.create(**kwargs)
         return c
 
-    def add_participant(profile):
-        if not participants.filter(profile=profile).exists():
-            participants.add(profile)
-
     def __str__(self):
         return self.room_name

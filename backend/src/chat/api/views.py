@@ -40,6 +40,15 @@ class ChatCreateView(CreateAPIView):
     serializer_class = ChatSerializer
     permission_classes = (permissions.IsAuthenticated, )
 
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context.update(
+            {
+                "usernames": self.request.data.get('usernames')
+            }
+        )
+        return context
+
 
 class ChatUpdateView(UpdateAPIView):
     queryset = Chat.objects.all()
@@ -56,6 +65,8 @@ class ChatDeleteView(DestroyAPIView):
 def room(request, room_name):
     if not request.user.is_authenticated:
         return HttpResponse("Login required")
+    if not request.user.profile.chat_rooms.filter(room_name=room_name).exists():
+        return HttpResponse("User not in chat")
     return render(request, 'room.html', {
         'room_name': room_name
     })

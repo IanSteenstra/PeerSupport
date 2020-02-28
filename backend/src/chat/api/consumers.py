@@ -23,7 +23,7 @@ class ChatConsumer(WebsocketConsumer):
 
         # Load or create chat object
         c = Chat.get_or_create(room_name=self.room_name)
-        
+
         c.participants.add(self.profile)
         self.profile.chat_rooms.add(c)
         self.profile.save()
