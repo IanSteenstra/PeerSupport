@@ -89,3 +89,9 @@ What kind of area did you grow up in?
 3 - suburban
 4 - rural
 5 - exurban (commuter towns)
+
+Do you find happiness more in the realtionships with other people or by the job or repsonbilities you have?
+On a scale from 1 to 5, how much should the government provide assistance to the poor?
+On a scale from 1 to 5, how much does religion affect your daily decision and life?
+Do you enjoy receiving more than giving?
+Would you call yourself the leader of your social circle?
