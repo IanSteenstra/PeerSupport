@@ -1,8 +1,9 @@
 import React from 'react';
-import { Drawer } from 'antd';
+import { Tabs, Radio } from 'antd';
 import * as actions from "../store/actions/userData";
-import {connect} from "react-redux";
-import {setUsername} from "../store/actions/userData";
+import { TabPane } = Tabs;
+import { connect } from "react-redux";
+import { setUsername } from "../store/actions/userData";
 import Text from "antd/es/typography/Text";
 
 class ChatDrawer extends React.Component {
