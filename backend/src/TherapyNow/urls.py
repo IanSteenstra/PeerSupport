@@ -18,5 +18,5 @@ urlpatterns = [
     path('chat/', include('chat.api.urls', namespace='chat')),
     path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
-    # path('model/', include('events.urls'))
+    path('events/', include('events.urls'))
 ]
