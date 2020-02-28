@@ -1,10 +1,3 @@
-Multidimensional Homophily in Frienship Networks (2014)
-
-<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
-
-Possible Questions
-
------ Maybe these questions should be a part of the user's profile?? -----
 Age
 * 18 - 24
 * 25 - 
@@ -34,7 +27,7 @@ Hometown
 Fiscal Responsibility
 * Are you fiscally responsible?
 1 = I spend my money irresponsibly and am often in debt. 
-3 = 
+3 = I would generally consider myself fiscally responsible. 
 5 = I am financially stable and I am conscientious of how I spend my money. 
 
 Introvert/Extrovert
@@ -47,8 +40,8 @@ Introvert/Extrovert
 Political Stance
 * Are you affiliated with a political party?
 1 = I do not keep up to date with the current politics.
-3 = I have a general idea of who I support.
-5 = I follow, and I'm affiliated. 
+3 = I have a general idea of who I support and I am somewhat knowledgeable about politics.
+5 = I keep myself up to date, and I'm affiliated with a party. I am actively involved. 
 
 
 Religious Stance
