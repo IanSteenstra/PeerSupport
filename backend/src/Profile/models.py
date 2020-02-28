@@ -43,3 +43,27 @@ class CounselorQuiz(models.Model):
 	a9 = models.FloatField()
 	a10 = models.FloatField()
 	created = models.DateTimeField()
+
+class ResearchQuiz(models.Model):
+	"""
+	Quiz model that holds responses to questions asked on the quiz to get people's opinions on what they would want
+	"""
+	profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+
+	#Fields:
+	gender = models.CharField(max_length=100)
+	race = models.CharField(max_length=100)
+	exp = models.CharField(max_length=100)
+	methods = models.CharField(max_length=100)
+	age = models.CharField(max_length=100)
+	specializations = models.CharField(max_length=100)
+	goTo = models.CharField(max_length=100)
+	understands = models.CharField(max_length=100)
+	anon = models.CharField(max_length=100)
+	compatible = models.CharField(max_length=100)
+	sameProbs = models.CharField(max_length=100)
+	support = models.CharField(max_length=100)
+	contact = models.CharField(max_length=100)
+
+	created = models.DateTimeField(auto_now_add=True)
+		
