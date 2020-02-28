@@ -18,7 +18,7 @@ class User(models.Model):
         ('Non Binary' 'Non Binary'),
         ('Transgender', 'Transgender'),
         ('Gender Fluid', 'Gender Fluid'),
-        ('Perfer not to answer', 'Perfer not to answer')
+        ('Prefer not to answer', 'Prefer not to answer')
     )
     Ethnic_Choice = (
     	('White', 'White'),
