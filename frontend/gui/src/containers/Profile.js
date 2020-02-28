@@ -1,18 +1,3 @@
-<<<<<<< Updated upstream
-import React from 'react';
-
-class ProfileLayout extends React.Component {
-    render() {
-        return (
-            <div>
-                <p>this is a test</p>
-            </div>
-        )
-    }
-}
-
-export default ChatLayout;
-=======
 import React from 'react';
 import {Avatar, Descriptions, Button } from 'antd';
 import Editprofile from "./Editprofile";
