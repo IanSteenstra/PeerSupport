@@ -74,3 +74,18 @@ Work/Life Balance
 1 = I am not close, I do not have a positive relationship with my immediate family members. 
 3 = We're not especially close, but I contact them when there's something important in my life.
 5 = I am very close with my immediate family and I let them know about everything.
+
+On a scale from 1 to 5, How much is religion important to you?
+
+On a scale from 1 to 5, How important is family to you?
+
+On a scale from 1 to 5, How much of an introvert are you?
+
+On a scale from 1 to 5, How much does politicals matter to you?
+
+What kind of area did you grow up in?
+1 - metropolis
+2 - city
+3 - suburban
+4 - rural
+5 - exurban (commuter towns)
