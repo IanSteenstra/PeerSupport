@@ -1,0 +1,83 @@
+Multidimensional Homophily in Frienship Networks (2014)
+
+<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
+
+Possible Questions
+
+----- Maybe these questions should be a part of the user's profile?? -----
+Age
+* 18 - 24
+* 25 - 
+
+Gender
+* Male
+* Female
+* Other [Please specify]
+* Prefer not to say
+
+Education
+* Please select the highest degree you have attained:
+- GED
+- Highschool Diploma
+- B.S./B.A.
+- MBA
+- Masters
+- PhD
+___________________________________________________________________________
+
+Hometown
+* How would you describe the area you grew up in?
+1 = Rural
+3 = Suburban
+5 = Urban
+
+Fiscal Responsibility
+* Are you fiscally responsible?
+1 = I spend my money irresponsibly and am often in debt. 
+3 = 
+5 = I am financially stable and I am conscientious of how I spend my money. 
+
+Introvert/Extrovert
+* How would you relate to others?
+1 = I am reserved and generally keep to myself. 
+3 = I find it generally easy to make friends, but I'm close with a select few.. 
+5 = I have many close friends and I go out of my way to have an active social life. 
+
+
+Political Stance
+* Are you affiliated with a political party?
+1 = I do not keep up to date with the current politics.
+3 = I have a general idea of who I support.
+5 = I follow, and I'm affiliated. 
+
+
+Religious Stance
+* Do you practice a religion?
+1 = I am not currently affiliated with a religion, and I would not consider myself to be spiritual. 
+3 = I am culturally tied to a religion, but I do not strictly follow the guidelines of my faith.
+5 = I attend service regularly, and my ties to my faith strongly influence my worldview.  
+
+
+Interests
+* How involved are you in your local community?
+1 = I am relatively uninvolved, and I pursue my own interests from the comfort of my home. 
+3 = I am somewhat involved, and I try to participate when I have the time. 
+5 = I am very involved, and I often find myself running to and from events that I've helped plan.
+
+
+* Do you often find yourself busy with new activities?
+1 = I prefer to develop the skills that I already have rather than pick up new hobbies. 
+3 = I don't really have hobbies outside of my work tbh
+5 = I am often looking for new experiences to grow.
+
+* If employed, do you find your work fulfilling?
+1 = I am disatisfied, and I feel like I am in a dead-end job.
+3 = I am content with where I'm at, although I never really see the impact I'm making, if any.
+5 = I am very satisfied with my work and feel like I am making positive contributions to society.
+
+
+Work/Life Balance
+* How close are you with your immediate family?
+1 = I am not close, I do not have a positive relationship with my immediate family members. 
+3 = We're not especially close, but I contact them when there's something important in my life.
+5 = I am very close with my immediate family and I let them know about everything.
