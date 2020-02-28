@@ -34,8 +34,9 @@ class ChatDrawer extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    username: state.userReducer.username
-})
+// const mapStateToProps = (state) => ({
+//     username: state.userReducer.username
+// })
 
-export default connect(mapStateToProps)(ChatDrawer);
+export default ChatDrawer;
+//export default connect(mapStateToProps)(ChatDrawer);

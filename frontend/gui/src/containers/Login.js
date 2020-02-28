@@ -59,12 +59,12 @@ class NormalLoginForm extends React.Component {
                             <FormItem>
                                 <Button type="primary" htmlType="submit" style={{ marginRight: '10px' }}>
                                     Login
-                    </Button>
+                                </Button>
                                 Or
-                    <NavLink
+                                <NavLink
                                     style={{ marginRight: '10px' }}
                                     to='/signup/'> signup
-                    </NavLink>
+                                </NavLink>
                             </FormItem>
                         </Form>
                 }
@@ -77,8 +77,8 @@ const WrappedNormalLoginForm = Form.create()(NormalLoginForm);
 
 const mapStateToProps = (state) => {
     return {
-        loading: state.authReducer.loading,
-        error: state.authReducer.error
+        loading: state.loading,
+        error: state.error
     }
 }
 

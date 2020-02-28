@@ -10,6 +10,8 @@ import Column from "antd/es/table/Column";
 const data = [];
 const { } = Table;
 
+let currentUser = "";
+
 class ChatList extends React.Component {
 
     state = {
@@ -30,7 +32,8 @@ class ChatList extends React.Component {
     }
 
     test (currentUser) {
-        this.props.setUsername(currentUser);
+        alert(currentUser);
+        //this.props.setUsername(currentUser);
     }
 
     showDrawer = () => {
@@ -79,18 +82,18 @@ class ChatList extends React.Component {
                         <Column align="center" title="Actions" dataIndex="firstName" key="firstName"
                                 render={(text, record) => (
                                     <div>
-                                        <Button type="primary" onClick={() => { this.showDrawer(); this.test(record.name);}
+                                        <Button type="primary" onClick={() => { this.showDrawer(); currentUser=record.name;}
                                         }>
                                             Chat
                                         </Button>
                                         <a style={{paddingLeft:15}}> Archive </a>
                                         <Divider type="vertical" />
-                                        <a> Archive </a>
+                                        <a> Delete </a>
                                     </div>
                                 )}
                         />
                 </Table>
-                <ChatDrawer onClose={this.onClose} visible={this.state.visible}/>
+                <ChatDrawer onClose={this.onClose} visible={this.state.visible} username={currentUser}/>
             </div>
         )
     }
@@ -98,12 +101,13 @@ class ChatList extends React.Component {
 
 //const WrappedChatList = Form.create()(ChatList);
 
-const mapStateToProps = state => ({
-        username: state.userReducer.username
-})
+// const mapStateToProps = state => ({
+//         username: state.userReducer.username
+// })
+//
+// const mapDispatchToProps = dispatch => ({
+//     setUsername: (username) => dispatch(setUsername(username))
+// })
 
-const mapDispatchToProps = dispatch => ({
-    setUsername: (username) => dispatch(setUsername(username))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(ChatList);
+export default ChatList;
+//export default connect(mapStateToProps, mapDispatchToProps)(ChatList);
