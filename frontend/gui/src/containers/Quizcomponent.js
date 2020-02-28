@@ -77,7 +77,11 @@ export default class QuizComponent extends Component {
         };
         return (
                 <container>
-                <Carousel ref={node => (this.carousel = node)} {...props}>
+                <Carousel ref={node => (this.carousel = node)} style={{minHeight:0,
+                    minWidth: 0,
+                    maxHeight: 1000,
+                    maxWidth: 1000,
+                }} {...props}>
                     <div style={ {display:'flex',
                         flexDirection: 'column',
                         alignItems:'center',

@@ -6,12 +6,13 @@ import Signup from "./containers/Signup";
 import Profile from "./containers/Profile";
 import Quiz from "./containers/Quiz";
 import Home from "./containers/Home";
+import ChatLayout from "./containers/Chat";
 
 const BaseRouter = () => (
     <div>
         <Route exact path="/login/" component={Login} />
         <Route exact path="/signup/" component={Signup} />
-        <Route exact path="/chat/" component={Chat} />
+        <Route exact path="/chat/" component={ChatLayout} />
         <Route exact path="/profile/" component={Profile} />
         <Route exact path="/quiz/" component={Quiz} />
         <Route exact path="/" component={Home} />

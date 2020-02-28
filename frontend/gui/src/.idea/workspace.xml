@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="37504600-1d08-4bc0-b6ba-9753f735343d" name="Default Changelist" comment="" />
+    <list default="true" id="37504600-1d08-4bc0-b6ba-9753f735343d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/containers/ChatDrawer.js" beforeDir="false" afterPath="$PROJECT_DIR$/containers/ChatDrawer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/containers/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/containers/Profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/containers/Quiz.js" beforeDir="false" afterPath="$PROJECT_DIR$/containers/Quiz.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/containers/Quizcomponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/containers/Quizcomponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -56,6 +63,7 @@
       <workItem from="1582669021353" duration="93000" />
       <workItem from="1582830189184" duration="20092000" />
       <workItem from="1582924183639" duration="231000" />
+      <workItem from="1582924622359" duration="2328000" />
     </task>
     <servers />
   </component>

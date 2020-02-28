@@ -1,11 +1,11 @@
 import React from 'react';
-import { Tabs, Radio } from 'antd';
+import { Tabs, Radio, Drawer } from 'antd';
 import * as actions from "../store/actions/userData";
-import { TabPane } = Tabs;
+
 import { connect } from "react-redux";
 import { setUsername } from "../store/actions/userData";
 import Text from "antd/es/typography/Text";
-
+const { TabPane } = Tabs;
 class ChatDrawer extends React.Component {
 
     // constructor(props) {
