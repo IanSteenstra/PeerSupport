@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Carousel, Button, Radio, Modal, message} from "antd";
+import { Carousel, Button, Radio, Modal, message, Col, Row, Icon} from "antd";
 const { confirm } = Modal;
 export default class QuizComponent extends Component {
 
@@ -101,9 +101,46 @@ export default class QuizComponent extends Component {
                             </Radio>
                         </Radio.Group>
                         <p></p>
+                        <Row>
+                        <Col span={8} offset={17}>
                         <Button type="primary" onClick={this.next}>
                             Next question
+                            <Icon type={"right"}></Icon>
                         </Button>
+                        </Col>
+                        </Row>
+                    </div>
+                    <div>
+                        <h1>Question</h1>
+                        <p>this is a question</p>
+                        <Radio.Group onChange={this.radioChange} value = {this.state.radioValues[this.state.slideNumber]}>
+                            <Radio style={radioStyle} value={1}>
+                                Option A
+                            </Radio>
+                            <Radio style={radioStyle} value={2}>
+                                Option B
+                            </Radio>
+                            <Radio style={radioStyle} value={3}>
+                                Option C
+                            </Radio>
+                        </Radio.Group>
+                        <p></p>
+                        <Row>
+                            <Col span={12}>
+                            <Button type="secondary" onClick={this.previous}>
+                                <Icon type={"left"}></Icon>
+                                Previous question
+                            </Button>
+                            </Col>
+                            <Col span={7} offset = {5}>
+                                <Button type="primary" onClick={this.next}>
+                                    Next question
+                                    <Icon type={"right"}></Icon>
+                                </Button>
+
+                            </Col>
+
+                        </Row>
 
                     </div>
                     <div>
@@ -121,13 +158,22 @@ export default class QuizComponent extends Component {
                             </Radio>
                         </Radio.Group>
                         <p></p>
-                        <Button type="secondary" onClick={this.previous}>
-                            Previous question
-                        </Button>
-                        <p></p>
-                        <Button type="primary" onClick={this.next}>
-                            Next question
-                        </Button>
+                        <Row>
+                            <Col span={12}>
+                                <Button type="secondary" onClick={this.previous}>
+                                    <Icon type={"left"}></Icon>
+                                    Previous question
+                                </Button>
+                            </Col>
+                            <Col span={7} offset = {5}>
+                                <Button type="primary" onClick={this.next}>
+                                    Next question
+                                    <Icon type={"right"}></Icon>
+                                </Button>
+
+                            </Col>
+
+                        </Row>
 
                     </div>
                     <div>
@@ -145,37 +191,23 @@ export default class QuizComponent extends Component {
                             </Radio>
                         </Radio.Group>
                         <p></p>
-                        <Button type="secondary" onClick={this.previous}>
-                            Previous question
-                        </Button>
-                        <p></p>
-                        <Button type="primary" onClick={this.next}>
-                            Next question
-                        </Button>
+                        <Row>
+                            <Col span={12}>
+                                <Button type="secondary" onClick={this.previous}>
+                                    <Icon type={"left"}></Icon>
+                                    Previous question
+                                </Button>
+                            </Col>
+                            <Col span={6} offset = {6}>
+                                <Button type="primary" loading={this.state.loading} onClick={this.enterLoading} style={{ background: "green", borderColor: "green" }}>
+                                    Submit
+                                    <Icon type={"check"}></Icon>
+                                </Button>
 
-                    </div>
-                    <div>
-                        <h1>Question</h1>
-                        <p>this is a question</p>
-                        <Radio.Group onChange={this.radioChange} value = {this.state.radioValues[this.state.slideNumber]}>
-                            <Radio style={radioStyle} value={1}>
-                                Option A
-                            </Radio>
-                            <Radio style={radioStyle} value={2}>
-                                Option B
-                            </Radio>
-                            <Radio style={radioStyle} value={3}>
-                                Option C
-                            </Radio>
-                        </Radio.Group>
-                        <p></p>
-                        <Button type="secondary" onClick={this.previous}>
-                            Previous question
-                        </Button>
-                        <p></p>
-                        <Button type="primary" loading={this.state.loading} onClick={this.enterLoading} style={{ background: "green", borderColor: "green" }}>
-                            Submit
-                        </Button>
+                            </Col>
+
+                        </Row>
+
 
                     </div>
                 </Carousel>

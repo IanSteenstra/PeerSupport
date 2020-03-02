@@ -23,7 +23,6 @@ class Quiz extends React.Component {
                         <Divider></Divider>
                         <QuizComponent></QuizComponent>
                         <Divider></Divider>
-
                     </Col>
                 </Row>
             </div>
