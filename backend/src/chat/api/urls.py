@@ -17,5 +17,7 @@ urlpatterns = [
     path('<pk>', ChatDetailView.as_view()),
     path('<pk>/update/', ChatUpdateView.as_view()),
     path('<pk>/delete/', ChatDeleteView.as_view()),
-    path('<str:room_name>/', views.room, name='room'),
+
+    path('<pk>/', views.room, name='room'),
+
 ]

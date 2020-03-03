@@ -5,7 +5,6 @@ from chat.models import Chat, Message
 
 from Profile.models import Profile
 from Profile.serializers import ProfileSerializer, ProfileUsernameSerializer
-from Profile.views import get_profile
 
 
 class MessageSerializer(serializers.ModelSerializer):
@@ -23,27 +22,28 @@ class MessageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Message
-        fields = ('username','content','timestamp')
+        fields = ('pk', 'username','content','timestamp')
 
 
 class ChatSerializer(serializers.ModelSerializer):
     participants = ProfileSerializer(many=True, required=False)
+    messages = MessageSerializer(many=True, required=False)
 
     def create(self, validated_data):
-        room_name = validated_data.pop('room_name')
-        chat = Chat.objects.create(room_name=room_name)
-        usernames = self.context.get("usernames")
+        chat = Chat.objects.create()
+        profilepks = self.context.get("profilepks")
+        if not profilepks:
+            profilepks = []
 
-        for u in usernames:
-            profile = get_profile(u)
+        for pk in profilepks:
+            profile = Profile.objects.get(pk=pk)
             chat.participants.add(profile)
             profile.chat_rooms.add(chat)
             profile.save()
         chat.save()
         return chat
 
-
     class Meta:
         model = Chat
-        fields = ('id', 'room_name', 'messages', 'participants',)
-        read_only = ('id',)
+        fields = ('pk', 'messages', 'participants',)
+        read_only = ('pk',)

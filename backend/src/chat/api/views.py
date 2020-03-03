@@ -10,10 +10,11 @@ from rest_framework.generics import (
 from chat.models import Chat
 from .serializers import ChatSerializer
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
+from django.urls import path
 
-User = get_user_model()
+user = get_user_model()
 
 
 class ChatListView(ListAPIView):
@@ -44,7 +45,7 @@ class ChatCreateView(CreateAPIView):
         context = super().get_serializer_context()
         context.update(
             {
-                "usernames": self.request.data.get('usernames')
+                "profilepks": self.request.data.get('profilepks')
             }
         )
         return context
@@ -62,11 +63,11 @@ class ChatDeleteView(DestroyAPIView):
     permission_classes = (permissions.IsAuthenticated, )
 
 
-def room(request, room_name):
+def room(request, pk):
     if not request.user.is_authenticated:
         return HttpResponse("Login required")
-    if not request.user.profile.chat_rooms.filter(room_name=room_name).exists():
+    if not request.user.profile.chat_rooms.filter(pk=pk).exists():
         return HttpResponse("User not in chat")
     return render(request, 'room.html', {
-        'room_name': room_name
+        'room_name': pk
     })

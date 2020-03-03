@@ -8,7 +8,6 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
 from .models import Profile
 from .serializers import ProfileSerializer
 
-
 class ProfileViewSet(viewsets.ViewSet):
   """
   A viewset for viewing and editing profile instances.
@@ -37,11 +36,7 @@ class ProfileViewSet(viewsets.ViewSet):
 
     serializer = ProfileSerializer(profile)
     return Response(serializer.data)
-
-
-def get_profile(username):
-  user = User.objects.get(username=username)
-  return user.profile
+    
 
 def update(self, instance, validated_data):
     # First, update the User
