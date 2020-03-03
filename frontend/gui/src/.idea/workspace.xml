@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37504600-1d08-4bc0-b6ba-9753f735343d" name="Default Changelist" comment="">
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/containers/Quiz.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/containers/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/containers/Profile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes.js" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/containers/Quiz.js" beforeDir="false" afterPath="$PROJECT_DIR$/containers/Quiz.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/containers/Quizcomponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/containers/Quizcomponent.js" afterDir="false" />
+>>>>>>> chat_page
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +61,16 @@
       <option name="presentableId" value="Default" />
       <updated>1582315405058</updated>
       <workItem from="1582315406443" duration="2598000" />
+<<<<<<< HEAD
+=======
+      <workItem from="1582666522080" duration="69000" />
+      <workItem from="1582667891823" duration="870000" />
+      <workItem from="1582669021353" duration="93000" />
+      <workItem from="1582830189184" duration="20092000" />
+      <workItem from="1582924183639" duration="231000" />
+      <workItem from="1582924622359" duration="3730000" />
+      <workItem from="1583027020285" duration="6595000" />
+>>>>>>> chat_page
     </task>
     <servers />
   </component>
@@ -62,9 +78,24 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+<<<<<<< HEAD
     <state x="431" y="145" key="search.everywhere.popup" timestamp="1582316917622">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="431" y="145" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1582316917622" />
+=======
+    <state x="420" y="43" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1583100299000">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="420" y="43" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1536.824@0.0.1536.824" timestamp="1583100298999" />
+    <state x="426" y="188" key="run.anything.popup" timestamp="1582866980833">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="426" y="188" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1582866980833" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1582841752341">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1582841752341" />
+>>>>>>> chat_page
   </component>
 </project>
