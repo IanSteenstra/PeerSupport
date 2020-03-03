@@ -1,30 +1,22 @@
 import React from 'react';
 import { Button, Modal, Form, Input } from 'antd';
-<<<<<<< HEAD
-=======
 
 //these values would be fetched from database, placeholders for now.
->>>>>>> chat_page
 const currentName = 'sample name';
 const currentBio = 'Placeholder bio brief information about me';
 const currentGender = 'male';
 class Editprofile extends React.Component {
     state = {
-<<<<<<< HEAD
-=======
 
         //stores value of new name, gender, bio, from edit profile page, empty string if not to be changed
         name: '',
         gender: '',
         bio: '',
->>>>>>> chat_page
         ModalText: '',
         visible: false,
         confirmLoading: false,
     };
 
-<<<<<<< HEAD
-=======
     onNameChange = ({ target: { value } }) => {
         this.setState({ name:value} );
     };
@@ -34,7 +26,6 @@ class Editprofile extends React.Component {
     onGenderChange = ({ target: { value } }) => {
         this.setState({ gender:value });
     };
->>>>>>> chat_page
     showModal = () => {
         this.setState({
             visible: true,
@@ -50,10 +41,6 @@ class Editprofile extends React.Component {
             this.setState({
                 visible: false,
                 confirmLoading: false,
-<<<<<<< HEAD
-            });
-        }, 1000);
-=======
                 ModalText: '',
             });
         }, 1000);
@@ -64,7 +51,6 @@ class Editprofile extends React.Component {
             gender: '',
             bio: '',
         })
->>>>>>> chat_page
     };
 
     handleCancel = e => {
@@ -89,21 +75,6 @@ class Editprofile extends React.Component {
                 >
                     <Form
                         layout="vertical">
-<<<<<<< HEAD
-                        <Form.Item
-                            name="name"
-                            label="Name"
-                            rules={[{ required: true, message: 'Name cannot be blank.' }]}
-                        >
-                            <Input defaultValue=
-                                       {currentName}/>
-                        </Form.Item>
-                        <Form.Item name="gender" label="Gender">
-                            <Input defaultValue={currentGender} type="textarea" />
-                        </Form.Item>
-                        <Form.Item name="bio" label="Bio">
-                            <Input defaultValue={currentBio} type = "textarea" rows={8} />
-=======
                         <Form.Item name="name" label="Name" >
                             <Input placeholder={currentName} value = {this.state.name}
                                    onChange={this.onNameChange}/>
@@ -119,7 +90,6 @@ class Editprofile extends React.Component {
                                 onChange={this.onBioChange}
                                 autosize={{ minRows: 3, maxRows: 8}}
                             />
->>>>>>> chat_page
                         </Form.Item>
                         <Button type="primary">Reset password</Button>
                         <p></p>
@@ -134,4 +104,3 @@ class Editprofile extends React.Component {
 }
 
 export default Editprofile;
-

@@ -2,12 +2,9 @@ import React from 'react';
 import {Avatar, Descriptions, Button } from 'antd';
 import Editprofile from "./Editprofile";
 class Profile extends React.Component {
-<<<<<<< HEAD
-=======
     openQuiz() {
         window.location='/quiz/';
     }
->>>>>>> chat_page
     render() {
         return(
             <div style={{display:'flex',
@@ -19,12 +16,8 @@ class Profile extends React.Component {
                 <Avatar size={128} icon={"user"}/>
                 <p></p>
                 <Editprofile></Editprofile>
-<<<<<<< HEAD
-                <Button type="primary" onclick="window.location='/quiz/';">Take Quiz</Button>
-=======
                 <p></p>
                 <Button type="primary" onClick={this.openQuiz} >Take Quiz</Button>
->>>>>>> chat_page
                 <Descriptions
                     title="Your Profile"
                     bordered
@@ -38,16 +31,8 @@ class Profile extends React.Component {
                 </Descriptions>
             </div>
 
-<<<<<<< HEAD
-        )
-    }
-}
-
-export default Profile;
-=======
         );
     }
 }
 
 export default Profile;
->>>>>>> chat_page
