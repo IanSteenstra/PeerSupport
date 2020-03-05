@@ -30,6 +30,10 @@ class UserQuiz(models.Model):
     a10 = models.FloatField()
     created = models.DateTimeField()
 
+    class Meta:
+        verbose_name = u'User Quiz'
+        verbose_name_plural = u'User Quizzes'
+
 
 class CounselorQuiz(models.Model):
     '''
@@ -47,6 +51,10 @@ class CounselorQuiz(models.Model):
     a9 = models.FloatField()
     a10 = models.FloatField()
     created = models.DateTimeField()
+
+    class Meta:
+        verbose_name = u'Counselor Quiz'
+        verbose_name_plural = u'Counselor Quizzes'
 
 
 class ResearchQuiz(models.Model):
@@ -71,3 +79,7 @@ class ResearchQuiz(models.Model):
     contact = models.CharField(max_length=100)
 
     created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = u'Research Quiz'
+        verbose_name_plural = u'Research Quizzes'
