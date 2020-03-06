@@ -49,6 +49,7 @@ INSTALLED_APPS = [
 
     'chat',
     'Profile',
+    'uniauth',
 ]
 
 SITE_ID = 1
@@ -62,6 +63,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'uniauth.backends.CASBackend',
 ]
 
 ROOT_URLCONF = 'TherapyNow.urls'
@@ -115,6 +121,10 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LOGIN_REDIRECT_URL = ('/')
+LOGIN_URL = "/accounts/login/"
+UNIAUTH_LOGIN_DISPLAY_STANDARD = False
+UNIAUTH_LOGOUT_CAS_COMPLETELY = True
+
 
 
 # Internationalization
