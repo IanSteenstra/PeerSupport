@@ -8,6 +8,7 @@ class Profile(models.Model):
 	alias = models.CharField(max_length=20, null=True, blank=True)
 	friends = models.ManyToManyField('self', blank=True, symmetrical=False)
 	chat_rooms = models.ManyToManyField('chat.Chat', related_name='chat_rooms', blank=True)
+	best_matches = models.ManyToManyField('self', related_name='matches', blank=True, symmetrical=False)
 
 	def __str__(self):
 		return self.user.username

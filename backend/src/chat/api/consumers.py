@@ -53,7 +53,7 @@ class ChatConsumer(WebsocketConsumer):
             }
         )
 
-        m = Message.objects.create(profile=self.profile,content=message)
+        m = Message.objects.create(sender=self.profile,content=message)
         c = Chat.objects.get(pk=self.room_pk)
         c.messages.add(m)
 

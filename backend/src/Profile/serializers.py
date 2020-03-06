@@ -22,7 +22,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = Profile
-    fields = ('pk', 'username', 'friends', 'chat_rooms')
+    fields = ('pk', 'username', 'friends', 'chat_rooms', 'best_matches')
     extra_kwargs = {'password': {'write_only': True}}
 
 

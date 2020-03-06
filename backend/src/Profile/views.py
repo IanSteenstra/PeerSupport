@@ -60,6 +60,12 @@ class ProfileViewSet(viewsets.ViewSet):
         return Response("Friend request sent")
 
     return Response("Profile pk required")
+
+  @action(detail=True, methods=['put'], url_path='update-matches')
+  def update_matches(self, request, pk=None):
+    profile = get_object_or_404(Profile, pk=pk)
+    profile.matches.set(matching_algorithm(pk=pk))
+    return Response("Matches updated")
     
 
 def update(self, instance, validated_data):
@@ -78,3 +84,7 @@ def friends_with(profile, p):
     if p.friends.filter(pk=profile.pk).exists():
       return True
   return False
+
+def matching_algorithm(pk):
+  matches = []
+  return matches
