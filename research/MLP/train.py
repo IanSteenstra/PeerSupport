@@ -4,7 +4,7 @@ import torch.optim as optim
 import torch.nn.functional as F
 import numpy as np
 import argparse
-import tqdm
+from tqdm import tqdm
 
 class QuizResponseData():
 	def __init__(self, filename):
@@ -13,36 +13,46 @@ class QuizResponseData():
 			for line in f.readlines()[1:]:
 				line = line.strip('\n').strip(' ')
 				line = line.split(',')
-				self.responses.append(line[2:])
-		print(self.responses)
-
+				line = [int(x) for x in line[2:]]
+				self.responses.append(line)
 
 	def get_batches(self, batch_size):
 		'''
 		should return torch.tensor() of list of data of size batch_size
 		'''
-		pass
+		targets = []
+		labels = []
+		for response in self.responses:
+			targets.append(response[:-1])
+			labels.append(response[-1])
+			if len(targets) >= batch_size or len(labels) >= batch_size:
+				yield self.to_tensor(targets, labels)
+				targets = []
+				labels = []
+		if len(targets) > 0 or len(labels) > 0:
+			return self.to_tensor(targets, labels)
 
-	def to_tensor():
-		pass
-
+	def to_tensor(self, targets, labels):
+		targets = torch.tensor(targets, dtype=torch.float)
+		labels = torch.tensor(labels, dtype=torch.float)
+		return targets, labels
 
 class MLP(nn.Module):
 	def __init__(self, input_dim, hidden_dims):
 		super(MLP, self).__init__()
-		self.layers = []
-		self.layers.append(nn.Linear(input_dim, hidden_dims[0]))
-		for i in range(1, len(hidden_dims)):
-			self.layers.append(nn.Linear(hidden_dims[i-1], hidden_dims[i]))
+		self.h1 = nn.Linear(input_dim, hidden_dims[0])
+		self.h2 = nn.Linear(hidden_dims[0], hidden_dims[1])
+		self.out = nn.Linear(hidden_dims[1], 1)
 		self.sigmoid = nn.Sigmoid()
 
 	def forward(self, x):
 		'''
 		Forward function with ReLU activation at each hidden layer
 		'''
-		for i in range(len(self.layers)):
-			x = F.relu(self.layers[i](x))
-		return self.sigmoid(x)
+		x = F.relu(self.h1(x))
+		x = F.relu(self.h2(x))
+		x = self.out(x)
+		return self.sigmoid(x).view(1)
 
 
 def parse_args():
@@ -60,20 +70,25 @@ def parse_args():
 	parser = argparse.ArgumentParser(description='train.py')
 
 	parser.add_argument('-f', dest='fname')
-	parser.add_argument('-e', dest='epochs', default=10, type=int)
-	parser.add_argument('-hd', dest='hidden_dims', nargs='+', default=[], type=list)
-	parser.add_argument('-b', dest='batch_size', default=1024, type=int)
+	parser.add_argument('-d', dest='input_dim', default=20, type=int)
+	parser.add_argument('-e', dest='epochs', default=100, type=int)
+	parser.add_argument('-hd', dest='hidden_dims', nargs='+', default=[[8], [4]], type=list)
+	parser.add_argument('-b', dest='batch_size', default=1, type=int)
 	parser.add_argument('-lr', dest='learning_rate', default=0.01, type=float)
 	parser.add_argument('-j', dest='jobid', default=0, type=int)
 
+	args = parser.parse_args()
+	if len(args.hidden_dims) != 2:
+		print('Two Hidden Layer dimensions must be specified.')
 	return parser.parse_args()
 
 if __name__=='__main__':
 	args = parse_args()
 
+	input_dim = args.input_dim
 	filename = args.fname
 	epochs = args.epochs
-	hidden_dims = args.hidden_dims
+	hidden_dims = [int(x[0]) for x in args.hidden_dims]
 	batch_size = args.batch_size
 	learning_rate = args.learning_rate
 	jobid = args.jobid
@@ -85,13 +100,13 @@ if __name__=='__main__':
 	else:
 		device = 'cpu'
 
-	network = MLP(data.size, hidden_dims)
+	network = MLP(input_dim, hidden_dims)
 	loss_function = nn.BCELoss()
-	optimizer = optim.SGD(network.parameters(), lr=learning_rate)
+	optimizer = optim.Adam(network.parameters(), lr=learning_rate)
 
 	for e in range(epochs):
 		running_loss = 0
-		for bidx, (targets, labels) in enumerate(tqdm(data.get_batches(batch_size), total=batch_size)):
+		for targets, labels in tqdm(data.get_batches(batch_size), total=len(data.responses)//batch_size):
 			targets = targets.to(device)
 			labels = labels.to(device)
 			network.zero_grad()
@@ -101,7 +116,7 @@ if __name__=='__main__':
 			optimizer.step()
 			running_loss += loss.item()
 
-		print('epoch', e, running_loss, bidx, running_loss/(bidx+1))
+		print('epoch', e, running_loss)
 
 
 
