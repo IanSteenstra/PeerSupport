@@ -1,5 +1,6 @@
 import React from 'react';
-import { Tabs, Radio, Drawer } from 'antd';
+import { Tabs, Radio, Drawer, Input, Button } from 'antd';
+import { Row, Col } from 'antd';
 import * as actions from "../store/actions/userData";
 
 import { connect } from "react-redux";
@@ -20,7 +21,7 @@ class ChatDrawer extends React.Component {
         return (
             <div>
                 <Drawer
-                    title="Basic Drawer"
+                    title={this.props.username}
                     placement="right"
                     closable={false}
                     onClose={this.props.onClose}
@@ -28,7 +29,22 @@ class ChatDrawer extends React.Component {
                     getContainer={false}
                     width="60%"
                     style={{ position: 'absolute' }}>
-                    <Text>{this.props.username}</Text>
+                    <div style={{position: 'absolute',
+                                bottom: 0,
+                                width: 430,
+                                padding: 20}}>
+                        <Row>
+                            <Col span={18}>
+                                <Input placeholder="Enter a message...">
+                                </Input>
+                            </Col>
+                            <Col span={5} offset={1}>
+                                <Button type="primary">
+                                    Send
+                                </Button>
+                            </Col>
+                        </Row>
+                    </div>
                 </Drawer>
             </div>
         )
