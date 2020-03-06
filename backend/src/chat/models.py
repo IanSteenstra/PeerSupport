@@ -7,13 +7,15 @@ User = get_user_model()
 
 
 class Message(models.Model):
-    profile = models.ForeignKey(
-        Profile, related_name='profile', on_delete=models.CASCADE, null=True)
+    sender = models.ForeignKey(
+        Profile, related_name='sender', on_delete=models.CASCADE, null=True)
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
 
+
     def __str__(self):
         return self.content
+
 
 
 class Chat(models.Model):
@@ -30,4 +32,4 @@ class Chat(models.Model):
         return c
 
     def __str__(self):
-        return self.room_name
+        return str(self.pk)

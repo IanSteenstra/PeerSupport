@@ -6,7 +6,7 @@ from django.dispatch import receiver
 class Profile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
 	alias = models.CharField(max_length=20, null=True, blank=True)
-	friends = models.ManyToManyField('self', related_name='friends', blank=True)
+	friends = models.ManyToManyField('self', blank=True, symmetrical=False)
 	chat_rooms = models.ManyToManyField('chat.Chat', related_name='chat_rooms', blank=True)
 
 	def __str__(self):
