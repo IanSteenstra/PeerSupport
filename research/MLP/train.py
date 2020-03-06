@@ -6,13 +6,16 @@ import numpy as np
 import argparse
 import tqdm
 
-class QuizReponseData():
+class QuizResponseData():
 	def __init__(self, filename):
 		self.responses = []
 		with open(filename, 'r') as f:
-			for line in f:
+			for line in f.readlines()[1:]:
 				line = line.strip('\n').strip(' ')
-				self.responses.append(line)
+				line = line.split(',')
+				self.responses.append(line[2:])
+		print(self.responses)
+
 
 	def get_batches(self, batch_size):
 		'''
@@ -58,7 +61,7 @@ def parse_args():
 
 	parser.add_argument('-f', dest='fname')
 	parser.add_argument('-e', dest='epochs', default=10, type=int)
-	parser.add_argument('-h', dest='hidden_dims', nargs='+', default=[], type=list)
+	parser.add_argument('-hd', dest='hidden_dims', nargs='+', default=[], type=list)
 	parser.add_argument('-b', dest='batch_size', default=1024, type=int)
 	parser.add_argument('-lr', dest='learning_rate', default=0.01, type=float)
 	parser.add_argument('-j', dest='jobid', default=0, type=int)
