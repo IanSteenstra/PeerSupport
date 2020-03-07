@@ -17,6 +17,6 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
 
-    path('<pk>/', room, name='room'),
+    path('<int:pk>/', room, name='room'),
 ]
 

@@ -17,8 +17,8 @@ class MessageSerializer(serializers.ModelSerializer):
         return message
 
     def get_username(self, obj):
-        if obj.profile:
-            return obj.profile.user.username
+        if obj.sender:
+            return obj.sender.user.username
 
     class Meta:
         model = Message
