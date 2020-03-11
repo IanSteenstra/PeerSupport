@@ -1,0 +1,51 @@
+------------------------------------------------------------------------------
+Some questions should be a part of the profile creation portion such as:
+Age Group? 						(0-17) (18-25) (26-40) (40+)
+Gender? 						(Male/Female/Other)
+
+------------------------------------------------------------------------------
+User to User Matching Questions:
+
+Economic Background? 			Poor 0 --- 1 --- 2 --- 3 --- 4 Wealthy
+Education? 						(None/Some/High School/Some College/College)
+Interests?
+	**needs subquestions to be able to use for matching**
+
+Profession/Career Goals?
+	- Do you have any career/professional goals?
+		(yes/no)
+	- If yes, how satisfied are you with where you are in your career?
+		Very Unsatisfied 0 --- 1 --- 2 --- 3 --- 4 Very Satisfied
+
+Hometown?
+	- What kind of area did you grow up in?
+		Rural 0 --- 1 --- 2 --- 3 --- 4 Urban
+
+Cultural Background?
+	- How much of an impact does religion have in your life?
+		No impact 0 --- 1 --- 2 --- 3 --- 4 Large impact
+	- How important are other cultures to you?
+		Not important 0 --- 1 --- 2 --- 3 --- 4 Very important
+-------------------------------------------------------------------------------
+Matching Algorithm
+
+Possible User to User matching algorithm:
+
+def getMatchingScore(quiz1, quiz2):
+	'''
+	This matching algorithm returns a score based on
+	questions with a scale of value in the range of 0-4
+	'''
+	score = 0
+	for answer1 in quiz1.getAnswers():
+		for answer2 in quiz2.getAnswers():
+			difference = abs(answer1 - answer2)
+			if difference == 0:
+				score = score + 3
+			else if difference == 1:
+				score = score + 1
+			else if difference >= 3:
+				score = score - 1
+			else do nothing
+	return score
+-------------------------------------------------------------------------------
