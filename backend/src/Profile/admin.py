@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Profile, UserQuiz, CounselorQuiz
+from .models import Profile, UserQuiz, CounselorQuiz, ResearchQuiz, Counselor
 
 class ProfileAdmin(admin.ModelAdmin):
 	list_display = ('user', 'alias')
@@ -26,3 +26,8 @@ class CounselorQuizAdmin(admin.ModelAdmin):
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(UserQuiz, UserQuizAdmin)
 admin.site.register(CounselorQuiz, CounselorQuizAdmin)
+admin.site.register(Profile)
+admin.site.register(UserQuiz)
+admin.site.register(CounselorQuiz)
+admin.site.register(ResearchQuiz)
+admin.site.register(Counselor)

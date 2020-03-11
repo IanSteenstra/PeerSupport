@@ -21,5 +21,5 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
     path('<int:pk>/', room, name='room'),
+    path('events/', include('events.urls'))
 ]
-

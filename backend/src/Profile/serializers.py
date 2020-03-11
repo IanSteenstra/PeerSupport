@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Profile, UserQuiz, CounselorQuiz
+from .models import Profile, UserQuiz, CounselorQuiz, ResearchQuiz
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import get_user_model
@@ -11,28 +11,30 @@ User = get_user_model()
 Serializers convert model fields to Python data types in the form
 of a dictionary. (i think)
 '''
+
+
 class ProfileSerializer(serializers.ModelSerializer):
   username = serializers.SerializerMethodField('get_username')
 
-  def create(self, validated_data):
-    user = User(
-      email=validated_data['email'],
-      username=validated_data['username']
-    )
-    user.set_password(validated_data['password'])
-    user.save()
-    profile = Profile(user=user)
-    profile.save()
-    return profile
+    def create(self, validated_data):
+        user = User(
+            email=validated_data['email'],
+            username=validated_data['username']
+        )
+        user.set_password(validated_data['password'])
+        user.save()
+        profile = Profile(user=user)
+        profile.save()
+        return profile
 
   class Meta:
     model = Profile
     fields = ('pk', 'username', 'friends', 'chat_rooms', 'best_matches')
     extra_kwargs = {'password': {'write_only': True}}
 
+    def get_username(self, obj):
+        return obj.user.username
 
-  def get_username(self, obj):
-    return obj.user.username
 
 class UserQuizSerializer(serializers.ModelSerializer):
   profile = serializers.SerializerMethodField()
@@ -147,3 +149,53 @@ class CounselorQuizSerializer(serializers.ModelSerializer):
     instance.a10 = validated_data.get('a10', instance.a10)
     instance.created = validated_data.get('created', instance.created)
     return instance
+    
+class ResearchQuizSerializer(serializers.ModelSerializer):
+    profile = serializers.SerializerMethodField()
+    gender = serializers.CharField()
+    race = serializers.CharField()
+    exp = serializers.CharField()
+    methods = serializers.CharField()
+    age = serializers.CharField()
+    specializations = serializers.CharField()
+    goTo = serializers.CharField()
+    understands = serializers.CharField()
+    anon = serializers.CharField()
+    compatible = serializers.CharField()
+    sameProbs = serializers.CharField()
+    support = serializers.CharField()
+    contact = serializers.CharField()
+    created = serializers.DateTimeField()
+
+    class Meta:
+        nodel = ResearchQuiz
+        fields = '__all__'
+
+    def create(self, validated_data):
+        profile = Profile(**validated_data)
+        profile.save()
+        researchQuiz = ResearchQuiz(**validated_data)
+        researchQuiz.save()
+        return researchQuiz
+
+    def update(self, instance, validated_data):
+        instance.profile = validated_data.get('profile', instance.profile)
+        instance.gender = validated_data.get('gender', instance.gender)
+        instance.race = validated_data.get('race', instance.race)
+        instance.exp = validated_data.get('exp', instance.exp)
+        instance.methods = validated_data.get('methods', instance.methods)
+        instance.age = validated_data.get('age', instance.age)
+        instance.specializations = validated_data.get(
+            'specializations', instance.specializations)
+        instance.goTo = validated_data.get('goTo', instance.goTo)
+        instance.understands = validated_data.get(
+            'understands', instance.understands)
+        instance.anon = validated_data.get('anon', instance.anon)
+        instance.compatible = validated_data.get(
+            'compatible', instance.compatible)
+        instance.sameProbs = validated_data.get(
+            'sameProbs', instance.sameProbs)
+        instance.support = validated_data.get('support', instance.support)
+        instance.contact = validated_data.get('contact', instance.contact)
+        instance.created = validated_data.get('created', instance.created)
+        return instance

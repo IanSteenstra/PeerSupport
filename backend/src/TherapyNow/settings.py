@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'chat',
     'chat.api',
     'Profile',
+    'events',
 ]
 
 SITE_ID = 1
@@ -124,7 +125,7 @@ LOGIN_REDIRECT_URL = ('/')
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 
