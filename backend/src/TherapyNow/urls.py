@@ -3,6 +3,7 @@ from django.urls import path, include
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
 from chat.api.views import room
+from django.conf.urls import url
 from Profile.views import ProfileViewSet, UserQuizViewSet, CounselorQuizViewSet
 
 router = routers.DefaultRouter()
@@ -22,4 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('<int:pk>/', room, name='room'),
     path('events/', include('events.urls'))
+    path('account/', include('uniauth.urls.cas_only', namespace='uniauth')),
 ]
+# uniauth.urls.cas_only
