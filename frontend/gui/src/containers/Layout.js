@@ -22,14 +22,22 @@ class CustomLayout extends React.Component {
                             <Link to="/">Home</Link>
                         </Menu.Item>
                         <Menu.Item key="2">
-                            <Link to="/profile">Profile</Link>
-                        </Menu.Item>
-                        <Menu.Item key="3">
                             <Link to="/chat">Chat</Link>
                         </Menu.Item>
                         {
                             this.props.isAuthenticated ?
 
+                                <Menu.Item key="3">
+                                    <Link to="/profile">Profile</Link>
+                                </Menu.Item>
+                                :
+                                <Menu.Item key="3" disabled>
+                                    Profile
+                                </Menu.Item>
+
+                        }
+                        {
+                            this.props.isAuthenticated ?
                                 <Menu.Item key="4" onClick={this.props.logout}>
                                     Logout
                                 </Menu.Item>

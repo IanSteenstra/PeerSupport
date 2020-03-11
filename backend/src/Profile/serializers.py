@@ -3,13 +3,16 @@ from rest_framework import serializers
 from .models import Profile, UserQuiz, CounselorQuiz
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 '''
 Serializers convert model fields to Python data types in the form
 of a dictionary. (i think)
 '''
 class ProfileSerializer(serializers.ModelSerializer):
-  username = serializers.SerializerMethodField()
+  username = serializers.SerializerMethodField('get_username')
 
   def create(self, validated_data):
     user = User(
@@ -24,7 +27,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = Profile
-    fields = ('username', 'user', 'alias')
+    fields = ('pk', 'username', 'friends', 'chat_rooms', 'best_matches')
     extra_kwargs = {'password': {'write_only': True}}
 
 
