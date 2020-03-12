@@ -6,11 +6,14 @@ from multiselectfield import MultiSelectField
 
 
 class Profile(models.Model):
-	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+	user = models.OneToOneField(
+	    User, on_delete=models.CASCADE, related_name="profile")
 	alias = models.CharField(max_length=20, null=True, blank=True)
 	friends = models.ManyToManyField('self', blank=True, symmetrical=False)
-	chat_rooms = models.ManyToManyField('chat.Chat', related_name='chat_rooms', blank=True)
-	best_matches = models.ManyToManyField('self', related_name='matches', blank=True, symmetrical=False)
+	chat_rooms = models.ManyToManyField(
+	    'chat.Chat', related_name='chat_rooms', blank=True)
+	best_matches = models.ManyToManyField(
+	    'self', related_name='matches', blank=True, symmetrical=False)
     alias = models.CharField(max_length=20, null=True, blank=True)
 
     def __str__(self):
