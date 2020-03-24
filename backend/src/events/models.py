@@ -52,3 +52,10 @@ class Event(models.Model):
                     raise ValidationError((
                         'There is an overlap with another event: ' + str(event.name) + ', ' + str(
                             event.start_time) + '-' + str(event.end_time)))
+
+
+class EventManager(models.Model):
+    users = models.ManyToManyField(
+        Profile, on_delete=models.CASCADE, related_name="users")
+    event = models.OneToOneField(
+        Event, on_delete=models.CASCADE, related_name="event")

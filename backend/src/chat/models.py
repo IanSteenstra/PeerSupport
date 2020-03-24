@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from events.models import Event
 
 User = get_user_model()
 
@@ -27,6 +28,8 @@ class Chat(models.Model):
     participants = models.ManyToManyField(
         Contact, related_name='chats', blank=True)
     messages = models.ManyToManyField(Message, blank=True)
+    event = models.ForeignKey(
+        Event, on_delete=models.CASCADE, related_name='event', blank=True, null=True)
 
     def __str__(self):
         return "{}".format(self.pk)
