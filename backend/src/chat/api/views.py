@@ -39,7 +39,7 @@ class ChatDetailView(RetrieveAPIView):
 class ChatCreateView(CreateAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
-    permission_classes = (permissions.IsAuthenticated, )
+    permission_classes = (permissions.AllowAny, )
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
@@ -61,6 +61,10 @@ class ChatDeleteView(DestroyAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
     permission_classes = (permissions.IsAuthenticated, )
+
+
+def index(request):
+    return render(request, 'index.html')
 
 
 def room(request, pk):

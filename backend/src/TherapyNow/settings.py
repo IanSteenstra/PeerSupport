@@ -37,24 +37,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'channels',
+    'allauth',
+    'allauth.account',
     'corsheaders',
-
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
-    'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'channels',
-    'channels_redis',
     'rest_auth.registration',
-    'ws4redis',
 
     'chat',
     'chat.api',
-    'Profile',
     'events',
-    'uniauth',
+    'Profile',
 ]
 
 SITE_ID = 1
@@ -68,11 +64,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
-
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'uniauth.backends.CASBackend',
 ]
 
 ROOT_URLCONF = 'TherapyNow.urls'
@@ -93,6 +84,17 @@ TEMPLATES = [
     },
 ]
 
+WSGI_APPLICATION = 'TherapyNow.wsgi.application'
+ASGI_APPLICATION = 'TherapyNow.routing.application'
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": 'channels_redis.core.RedisChannelLayer',
+        "CONFIG": {
+            "hosts": [('localhost', 6379)],
+        },
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -124,10 +126,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LOGIN_REDIRECT_URL = ('/')
-LOGIN_URL = "/accounts/login/"
-UNIAUTH_LOGIN_DISPLAY_STANDARD = False
-UNIAUTH_LOGOUT_CAS_COMPLETELY = True
-
 
 
 # Internationalization
@@ -135,7 +133,7 @@ UNIAUTH_LOGOUT_CAS_COMPLETELY = True
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'America/New_York'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -148,27 +146,27 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        'rest_framework.permissions.DjangoModelPermissions',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
     ],
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ]
 }
 
-ASGI_APPLICATION = 'TherapyNow.routing.application'
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": 'channels_redis.core.RedisChannelLayer',
-        "CONFIG": {
-            "hosts": [('127.0.0.1', 6379)],
-        },
-    },
-}
 
 CORS_ORIGIN_ALLOW_ALL = True
 

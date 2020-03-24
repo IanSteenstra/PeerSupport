@@ -2,10 +2,8 @@ import React from 'react';
 import { Tabs, Radio, Drawer, Input, Button, List } from 'antd';
 import { Row, Col } from 'antd';
 import MessageInstance from "./MessageInstance";
-import * as actions from "../store/actions/userData";
 
 import { connect } from "react-redux";
-import { setUsername } from "../store/actions/userData";
 import Text from "antd/es/typography/Text";
 const { TabPane } = Tabs;
 const { Search } = Input;
@@ -49,17 +47,19 @@ class ChatDrawer extends React.Component {
                     visible={this.props.visible}
                     getContainer={false}
                     width="60%"
-                    height ="100%"
-                    >
+                    height="100%"
+                >
                     <List
                         id="msg-list"
                         dataSource={this.state.data}
                         renderItem={item => <List.Item>{item}</List.Item>}>
                     </List>
-                    <div style={{position: 'absolute',
+                    <div style={{
+                        position: 'absolute',
                         bottom: 0,
                         width: "90%",
-                        padding: 20}}>
+                        padding: 20
+                    }}>
                         <Row>
                             <Col span={18}>
                                 <Search

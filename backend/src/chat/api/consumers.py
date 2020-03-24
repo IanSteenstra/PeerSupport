@@ -8,6 +8,9 @@ from chat.models import Chat, Message
 from Profile.models import Profile
 
 
+User = get_user_model()
+
+
 class ChatConsumer(WebsocketConsumer):
     def connect(self):
         self.user = self.scope['user']
@@ -53,7 +56,7 @@ class ChatConsumer(WebsocketConsumer):
             }
         )
 
-        m = Message.objects.create(sender=self.profile,content=message)
+        m = Message.objects.create(sender=self.profile, content=message)
         c = Chat.objects.get(pk=self.room_pk)
         c.messages.add(m)
 
