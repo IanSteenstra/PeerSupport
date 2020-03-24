@@ -7,6 +7,7 @@ from django.dispatch import receiver
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 from django.utils.translation import gettext as _
+from Profile.models import Profile
 
 
 class Event(models.Model):
@@ -54,8 +55,8 @@ class Event(models.Model):
                             event.start_time) + '-' + str(event.end_time)))
 
 
-class EventManager(models.Model):
-    users = models.ManyToManyField(
-        Profile, on_delete=models.CASCADE, related_name="users")
-    event = models.OneToOneField(
-        Event, on_delete=models.CASCADE, related_name="event")
+# class EventManager(models.Model):
+#     users = models.ManyToManyField(
+#         Profile, related_name="users")
+#     event = models.OneToOneField(
+#         Event, on_delete=models.CASCADE, related_name="event")
