@@ -1,0 +1,3 @@
+adaboost
+random forest
+multilayer perceptron 

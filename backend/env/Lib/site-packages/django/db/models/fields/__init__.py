@@ -272,10 +272,10 @@ class Field(RegisterLookupMixin):
                 ):
                     break
                 if self.max_length is not None and group_choices:
-                    choice_max_length = max(
+                    choice_max_length = max([
                         choice_max_length,
                         *(len(value) for value, _ in group_choices if isinstance(value, str)),
-                    )
+                    ])
             except (TypeError, ValueError):
                 # No groups, choices in the form [value, display]
                 value, human_name = group_name, group_choices
@@ -767,7 +767,11 @@ class Field(RegisterLookupMixin):
             if not getattr(cls, self.attname, None):
                 setattr(cls, self.attname, self.descriptor_class(self))
         if self.choices is not None:
-            if not hasattr(cls, 'get_%s_display' % self.name):
+            # Don't override a get_FOO_display() method defined explicitly on
+            # this class, but don't check methods derived from inheritance, to
+            # allow overriding inherited choices. For more complex inheritance
+            # structures users should override contribute_to_class().
+            if 'get_%s_display' % self.name not in cls.__dict__:
                 setattr(
                     cls,
                     'get_%s_display' % self.name,
