@@ -1,0 +1,144 @@
+---
+title: "Principal Component Analysis"
+author: "Thomas Hopkins"
+subtitle: "TherapyNow"
+output:
+  html_document: default
+  header-includes: \usepackage{color}
+  pdf_document: default
+  toc: yes
+---
+
+```{r setup, include=FALSE}
+# Required R package installation:
+
+# Set the correct default repository
+r = getOption("repos")
+r["CRAN"] = "http://cran.rstudio.com"
+options(repos = r)
+
+
+# These will install packages if they are not already installed
+if (!require("devtools")) {
+   install.packages("devtools")
+   library(devtools)
+}
+
+if (!require("ggplot2")) {
+   install.packages("ggplot2")
+   library(ggplot2)
+}
+if (!require("knitr")) {
+   install.packages("knitr")
+   library(knitr)
+}
+if (!require("gplots")) {
+   install.packages("gplots")
+   library(gplots)
+}
+if (!require("ggbiplot")) {
+   devtools::install_git("https://github.com/vqv/ggbiplot.git")
+   library(ggbiplot)
+}
+  if (!require("dplyr")) {
+   install.packages("dplyr")
+   library(dplyr)
+  }
+
+  if (!require("ggdendro")) {
+   install.packages("ggdendro")
+   library(ggdendro)
+  }
+  if (!require("plotly")) {
+   install.packages("plotly")
+   library(plotly)
+  }
+  if (!require("heatmaply")) {
+   install.packages("heatmaply")
+   library(heatmaply)
+  }
+  if (!require("scatterplot3d")) {
+   install.packages("scatterplot3d")
+   library(scatterplot3d)
+  }
+
+  if (!require("rgl")) {
+   install.packages("rgl")
+   library(rgl)
+  }
+
+# We'll use this later
+
+# We'll use this later to only print plotly code when valid
+out_type<-NULL
+out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+if (is.null(out_type)) {out_type <- "none"}
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Please note that this analysis should be re-done when more data is acquired**
+
+We start by importing the data and transforming it to extract only the answers to the questions.
+
+```{r}
+raw.df <- read.csv('processed_personality_quiz_responses.csv')
+colnames(raw.df) <- c('X1','X2','q1.1','q1.2','q1.3','q1.4','q1.5','q1.6','q1.7','q1.8','q1.9','q1.10',
+                      'q2.1','q2.2','q2.3','q2.4','q2.5','q2.6','q2.7','q2.8','q2.9','q2.10', 'X3')
+col_select1 <- c('q1.1','q1.2','q1.3','q1.4','q1.5','q1.6','q1.7','q1.8','q1.9','q1.10')
+col_select2 <- c('q2.1','q2.2','q2.3','q2.4','q2.5','q2.6','q2.7','q2.8','q2.9','q2.10')
+q1.df <- raw.df[,col_select1]
+q2.df <- raw.df[,col_select2]
+colnames(q1.df) <- c('q1','q2','q3','q4','q5','q6','q7','q8','q9','q10')
+colnames(q2.df) <- c('q1','q2','q3','q4','q5','q6','q7','q8','q9','q10')
+data.df <- rbind(q1.df, q2.df)
+head(data.df)
+```
+
+Now we scale the data and perform k-means clustering with 2 classes to try and determine trust between users.
+
+```{r}
+scaled_data.matrix <- scale(data.matrix(data.df))
+km <- kmeans(scaled_data.matrix, centers=2)
+kcluster=as.factor(km$cluster)
+heatmap.2(km$centers, main='Heatmap of Cluster Centroids', cexRow=0.75, cexCol=0.75, scale="none", dendrogram="none",Colv= FALSE, Rowv=FALSE, tracecol=NA,density.info='none')
+```
+
+From the heatmap above, we can see that the important questions for determining trust are:
+
+  - Do you find happiness more in the relationships with other people or by the job/responsibilities you have? (q1)
+  
+  - Do you enjoy receiving more than giving? (q3)
+  
+  - Do you practice a religion? (q4)
+  
+  - How do you relate to others? (q5)
+  
+  - How involved are you in your local community? (q7)
+  
+  - Do you find your work fulfilling? (q9)
+  
+  - Would you call yourself the leader of your social circle? (q10)
+  
+Now we can perform PCA on the scaled data:
+
+```{r}
+my.pca <- prcomp(scaled_data.matrix,retx=TRUE)
+head(t(summary(my.pca)$importance))
+```
+
+As we can see from the Cumulative Proportion, the first two principal components only explain around 43% of the variance in the data. With more data, this proportion should increase which will result in a more accurate analysis (hopefully).
+
+
+Lastly, we plot the data points on an interactive biplot, which shows the data plotted with respect to PC1 and PC2 as well as having the each question with its own feature axis. The longer the feature axis line, the more influence it has.
+
+```{r}
+plot1<-ggbiplot(my.pca,choices=c(1,2),
+                labels=rownames(scaled_data.matrix), #show point labels
+                var.axes=TRUE, # Display axes 
+                ellipse = FALSE, # Don't display ellipse
+                groups=kcluster,
+                obs.scale=1) + # Keep original scaling
+  ggtitle("Quiz Data Projected on PC1 and PC2 by Cluster")
+if (out_type=="latex") {plot1} else {ggplotly(plot1)}
+```
