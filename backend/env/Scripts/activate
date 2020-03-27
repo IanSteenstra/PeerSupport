@@ -40,7 +40,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="$(if [ "$OSTYPE" "==" "cygwin" ]; then cygpath -u 'C:\Users\steeni\DOCUME~1\Github\THERAP~2\backend\env'; else echo '/C/Users/steeni/DOCUME~1/Github/THERAP~2/backend/env'; fi;)"
+VIRTUAL_ENV="$(if [ "$OSTYPE" "==" "cygwin" ]; then cygpath -u 'C:\Users\steeni\Documents\Github\TherapyNow\backend\env'; else echo '/C/Users/steeni/Documents/Github/TherapyNow/backend/env'; fi;)"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
