@@ -7,19 +7,16 @@ from rest_framework.generics import (
     DestroyAPIView,
     UpdateAPIView
 )
-from chat.models import Chat
+from chat.models import Chat, Contact
+from chat.views import get_user_contact
 from .serializers import ChatSerializer
 
-from django.shortcuts import render, redirect, reverse
-from django.http import HttpResponse
-from django.urls import path
-
-user = get_user_model()
+User = get_user_model()
 
 
 class ChatListView(ListAPIView):
     serializer_class = ChatSerializer
-    permission_classes = (permissions.IsAuthenticated, )
+    permission_classes = (permissions.AllowAny, )
 
     def get_queryset(self):
         queryset = Chat.objects.all()
@@ -33,22 +30,13 @@ class ChatListView(ListAPIView):
 class ChatDetailView(RetrieveAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
-    permission_classes = (permissions.IsAuthenticated, )
+    permission_classes = (permissions.AllowAny, )
 
 
 class ChatCreateView(CreateAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
-    permission_classes = (permissions.AllowAny, )
-
-    def get_serializer_context(self):
-        context = super().get_serializer_context()
-        context.update(
-            {
-                "profilepks": self.request.data.get('profilepks')
-            }
-        )
-        return context
+    permission_classes = (permissions.IsAuthenticated, )
 
 
 class ChatUpdateView(UpdateAPIView):
@@ -61,17 +49,3 @@ class ChatDeleteView(DestroyAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
     permission_classes = (permissions.IsAuthenticated, )
-
-
-def index(request):
-    return render(request, 'index.html')
-
-
-def room(request, pk):
-    if not request.user.is_authenticated:
-        return HttpResponse("Login required")
-    if not request.user.profile.chat_rooms.filter(pk=pk).exists():
-        return HttpResponse("User not in chat")
-    return render(request, 'room.html', {
-        'room_name': pk
-    })

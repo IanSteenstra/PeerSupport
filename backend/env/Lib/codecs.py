@@ -904,16 +904,11 @@ def open(filename, mode='r', encoding=None, errors='strict', buffering=1):
     file = builtins.open(filename, mode, buffering)
     if encoding is None:
         return file
-
-    try:
-        info = lookup(encoding)
-        srw = StreamReaderWriter(file, info.streamreader, info.streamwriter, errors)
-        # Add attributes to simplify introspection
-        srw.encoding = encoding
-        return srw
-    except:
-        file.close()
-        raise
+    info = lookup(encoding)
+    srw = StreamReaderWriter(file, info.streamreader, info.streamwriter, errors)
+    # Add attributes to simplify introspection
+    srw.encoding = encoding
+    return srw
 
 def EncodedFile(file, data_encoding, file_encoding=None, errors='strict'):
 

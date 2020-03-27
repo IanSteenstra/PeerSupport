@@ -1,5 +1,5 @@
 @echo off
-set "VIRTUAL_ENV=C:\Users\steeni\Documents\Github\TherapyNow\backend\env"
+set "VIRTUAL_ENV=C:\Users\steeni\DOCUME~1\Github\THERAP~2\backend\env"
 
 if defined _OLD_VIRTUAL_PROMPT (
     set "PROMPT=%_OLD_VIRTUAL_PROMPT%"

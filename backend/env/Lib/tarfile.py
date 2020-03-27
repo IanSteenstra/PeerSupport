@@ -1629,12 +1629,13 @@ class TarFile(object):
             raise ValueError("mode must be 'r', 'w' or 'x'")
 
         try:
-            from gzip import GzipFile
-        except ImportError:
+            import gzip
+            gzip.GzipFile
+        except (ImportError, AttributeError):
             raise CompressionError("gzip module is not available")
 
         try:
-            fileobj = GzipFile(name, mode + "b", compresslevel, fileobj)
+            fileobj = gzip.GzipFile(name, mode + "b", compresslevel, fileobj)
         except OSError:
             if fileobj is not None and mode == 'r':
                 raise ReadError("not a gzip file")
@@ -1662,11 +1663,12 @@ class TarFile(object):
             raise ValueError("mode must be 'r', 'w' or 'x'")
 
         try:
-            from bz2 import BZ2File
+            import bz2
         except ImportError:
             raise CompressionError("bz2 module is not available")
 
-        fileobj = BZ2File(fileobj or name, mode, compresslevel=compresslevel)
+        fileobj = bz2.BZ2File(fileobj or name, mode,
+                              compresslevel=compresslevel)
 
         try:
             t = cls.taropen(name, mode, fileobj, **kwargs)
@@ -1690,15 +1692,15 @@ class TarFile(object):
             raise ValueError("mode must be 'r', 'w' or 'x'")
 
         try:
-            from lzma import LZMAFile, LZMAError
+            import lzma
         except ImportError:
             raise CompressionError("lzma module is not available")
 
-        fileobj = LZMAFile(fileobj or name, mode, preset=preset)
+        fileobj = lzma.LZMAFile(fileobj or name, mode, preset=preset)
 
         try:
             t = cls.taropen(name, mode, fileobj, **kwargs)
-        except (LZMAError, EOFError):
+        except (lzma.LZMAError, EOFError):
             fileobj.close()
             if mode == 'r':
                 raise ReadError("not an lzma file")

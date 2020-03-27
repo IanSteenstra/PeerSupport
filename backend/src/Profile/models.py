@@ -4,11 +4,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 class Profile(models.Model):
-	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="user")
 	alias = models.CharField(max_length=20, null=True, blank=True)
-	friends = models.ManyToManyField('self', blank=True, symmetrical=False)
-	chat_rooms = models.ManyToManyField('chat.Chat', related_name='chat_rooms', blank=True)
-	best_matches = models.ManyToManyField('self', related_name='matches', blank=True, symmetrical=False)
 
 	def __str__(self):
 		return self.user.username
