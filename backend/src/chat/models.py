@@ -13,17 +13,18 @@ class Message(models.Model):
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
 
-
     def __str__(self):
         return self.content
-
 
 
 class Chat(models.Model):
     participants = models.ManyToManyField(
         Profile, related_name='participants', blank=True)
     messages = models.ManyToManyField(Message, blank=True)
-    room_name = models.CharField(blank=False, unique=True, null=True, max_length=16)
+    room_name = models.CharField(
+        blank=False, unique=True, null=True, max_length=16)
+    event = models.ForeignKey(
+        Event, on_delete=models.CASCADE, related_name='event', blank=True, null=True)
 
     def get_or_create(**kwargs):
         try:
@@ -31,8 +32,6 @@ class Chat(models.Model):
         except ObjectDoesNotExist:
             c = Chat.objects.create(**kwargs)
         return c
-    event = models.ForeignKey(
-        Event, on_delete=models.CASCADE, related_name='event', blank=True, null=True)
 
     def __str__(self):
         return str(self.pk)
