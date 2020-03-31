@@ -128,6 +128,3 @@ if __name__=='__main__':
         correct += pred.eq(labels.data).sum()
     correct = correct.item()
     print('Accuracy: ' + str(100.0* correct/len(data.responses)) + str('%'))
-
-
-
