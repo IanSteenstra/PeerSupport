@@ -24,7 +24,6 @@ def token_to_username(request, format=None):
     payload = {'username': username}
     return Response(payload)
 
-
 @api_view(['POST'])
 @renderer_classes([JSONRenderer])
 @permission_classes((permissions.AllowAny,))
@@ -33,7 +32,6 @@ def username_to_pk(request, format=None):
     pk = User.objects.get(username=username).pk
     payload = {'pk': pk}
     return Response(payload)
-
 
 class ProfileViewSet(viewsets.ViewSet):
     """
