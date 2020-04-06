@@ -1,0 +1,18 @@
+.event-name {
+    cursor: pointer;
+  }
+  .ended-event {
+    opacity: 0.6;
+    filter: alpha(opacity = 60);
+  }
+  .tab-list > span {
+    padding: 5px 8px;
+    border: 1px solid #282c34;
+    border-radius: 10px;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+  .tab-list > span.active {
+    background-color: #282c34;
+    color: #ffffff;
+  }
