@@ -2,7 +2,6 @@ import React from 'react';
 import { Button, Table, Avatar, Divider} from 'antd';
 import ChatDrawer from './ChatDrawer';
 import {connect} from 'react-redux'
-import {setUsername} from "../store/actions/userData";
 import ColumnGroup from "antd/es/table/ColumnGroup";
 import Column from "antd/es/table/Column";
 //import 'antd/dist/antd.css';

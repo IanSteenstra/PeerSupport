@@ -13,9 +13,9 @@ class WebSocketService {
         this.socketRef = null;
     }
 
-    connect = chatURL => {
+    connect = chatId => {
         const path = 'ws://127.0.0.1:8000' +
-            '/ws/chat/' + chatURL + '/';
+            '/ws/chat/' + chatId + '/';
         this.socketRef = new WebSocket(path);
         this.socketRef.onopen = () => {
             console.log("WebSocket open");
@@ -28,7 +28,7 @@ class WebSocketService {
         };
         this.socketRef.onclose = () => {
             console.log("WebSocket closed let's reopen");
-            this.connect(chatURL);
+            this.connect();
         };
     }
 
@@ -58,7 +58,7 @@ class WebSocketService {
         });
     }
 
-    newChatMessage(message) {
+    newChatMessage(message, chatId) {
         this.sendMessage({
             command: "new_message",
             from: message.from,

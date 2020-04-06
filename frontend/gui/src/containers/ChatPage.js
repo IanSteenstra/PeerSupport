@@ -3,6 +3,8 @@ import { Input } from 'antd';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import Chat from './ChatUI'
+import WebSocketInstance from "../websocket";
+import * as messageActions from "../store/actions/message";
 
 const { Search } = Input;
 
@@ -10,43 +12,36 @@ class ChatPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
-            pk: '',
             currentChat: ''
         };
-    }
-
-    componentDidMount() {
-        const token_url = `http://127.0.0.1:8000/api/username/`;
-        axios.post(token_url, { 'token': this.props.authToken }).then(response => response.data)
-            .then((data) => {
-                this.setState(
-                    { username: data['username'] }
-                )
-                console.log(data)
-                const user_url = `http://127.0.0.1:8000/api/user-pk/`;
-                axios.post(user_url, { 'username': data['username'] }).then(response => response.data)
-                    .then((data) => {
-                        this.setState(
-                            { pk: data['pk'] }
-                        )
-                    })
-            })
+        WebSocketInstance.addCallbacks(
+            this.props.setMessages.bind(this),
+            this.props.addMessage.bind(this)
+          );
     }
 
     createNewChat = value => {
-        const user_url = `http://127.0.0.1:8000/api/user-pk/`;
-        axios.post(user_url, { 'username': value }).then(response => response.data)
+        const url = 'http://127.0.0.1:8000/api/chats/create/';
+        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+        axios.defaults.xsrfCookieName = "csrftoken";
+        axios.defaults.headers = {
+          "Content-Type": "application/json",
+          Authorization: `Token ${this.props.token}`
+        };
+        console.log([this.props.username, value])
+        axios.post(url, { 'usernames': [this.props.username, value] }).then(response => response.data)
             .then((data) => {
-                const url = 'http://127.0.0.1:8000/api/chats/create/';
-                axios.post(url, { 'profilepks': [this.state.pk, data['pk']] }).then(response => response.data)
-                    .then((data) => {
-                        console.log(data)
-                        this.setState(
-                            { currentChat: data['pk'] }
-                        )
-                    })
+                console.log(data)
+                this.setState(
+                    { currentChat: data['pk'] }
+                )
             })
+    }
+
+    startChat = value => {
+        this.setState(
+            { currentChat: value }
+        )    
     }
 
 
@@ -56,16 +51,27 @@ class ChatPage extends React.Component {
             <div>
                 Search and create a chat with a user from searching for their username below!
                 <Search placeholder="input username" onSearch={this.createNewChat} enterButton />
+                Search for an existing chat room!
+                <Search placeholder="input chat room name" onSearch={this.startChat} enterButton />
                 {openChat != '' &&
-                    <Chat chatURL={this.state.currentChat} username={this.state.username} pk={this.state.pk} />
+                    <Chat chatId={this.state.currentChat} username={this.props.username}  />
                 }
             </div>
         )
     }
 }
 
+
 const mapStateToProps = state => ({
-    authToken: state.token
+    token: state.auth.token,
+    username: state.auth.username,
 });
 
-export default connect(mapStateToProps)(ChatPage);
+const mapDispatchToProps = dispatch => {
+    return {
+      addMessage: message => dispatch(messageActions.addMessage(message)),
+      setMessages: messages => dispatch(messageActions.setMessages(messages))
+    };
+  };
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatPage);
