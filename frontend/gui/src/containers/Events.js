@@ -1,13 +1,40 @@
 import React from 'react';
-import { Table } from 'antd';
+import { Table, Tabs, Icon } from 'antd';
 import Item from 'antd/lib/list/Item';
 import Button from 'react-bootstrap/Button';
+import 'antd/dist/antd.css';
+import { CarryOutTwoTone, CalendarTwoTone } from '@ant-design/icons'
+
+const TabPane = Tabs.TabPane;
 
 
 class Events extends React.Component {
     constructor(props) {
         super(props);
-        this.columns = [
+        this.pastColumns = [
+            {
+                title: 'Event',
+                dataIndex: 'name',
+                key: 'name',
+                render: text => <a>{text}</a>
+            },
+            {
+                title: 'Start Time',
+                dataIndex: 'start_time',
+                key: 'start_time',
+            },
+            {
+                title: 'End Time',
+                dataIndex: 'end_time',
+                key: 'end_time',
+            },
+            {
+                title: 'Description',
+                dataIndex: 'description',
+                key: 'description',
+            },
+        ];
+        this.upcomingColumns = [
             {
                 title: 'Event',
                 dataIndex: 'name',
@@ -31,95 +58,88 @@ class Events extends React.Component {
             },
             {
                 title: 'Action',
-                dataIndex: '',
                 key: 'x',
                 render: (text, record) => (
                     <span>
                         {/* 
                         TODO - Add functionality to disable button after time expires
                         */}
-                        <Button variant="success">Join</Button>
+                        <Button variant="success" disabled={record === true}>Join</Button>
                     </span>
                 ),
             },
         ];
 
-        this.events = [
+        this.pastEvents = [
             {
                 key: '1',
                 name: 'Active Minds',
-                start_time: 'March 12th, 2020',
-                end_time: 'March 12th, 2020',
+                start_time: date_conversion(2020, 3, 12, 10, 0),
+                end_time: date_conversion(2020, 3, 12, 12, 0),
                 description: 'words',
-                status: false,
+            },
+        ];
+        this.upcomingEvents = [
+            {
+                key: '1',
+                name: 'Mindfulness Week',
+                start_time: date_conversion(2020, 4, 6, 12, 0),
+                end_time: date_conversion(2020, 4, 10, 17, 0),
+                description: 'stuff',
             },
             {
                 key: '2',
-                name: 'Mindfulness Week',
-                start_time: 'April 6th, 2020',
-                end_time: 'April 10th, 2020',
-                description: 'stuff',
-                status: true,
+                name: 'Finals',
+                start_time: date_conversion(2020, 5, 1, 12, 0),
+                end_time: date_conversion(2020, 5, 5, 12, 0),
+                description: 'stress',
             },
             {
                 key: '3',
-                name: 'Finals',
-                start_time: 'May 1st, 2020',
-                end_time: 'May 5th, 2020',
-                description: 'stress',
-                status: false,
-            },
-            {
-                key: '4',
                 name: 'Online Graduation',
-                start_time: 'May 23th, 2020',
-                end_time: 'March 23th, 2020',
+                start_time: date_conversion(2020, 5, 23, 12, 0),
+                end_time: date_conversion(2020, 5, 23, 14, 0),
                 description: 'Graduation',
-                status: true,
             },
         ];
         this.state = {
-            columns: this.columns,
-            eventsList: this.events,
-            viewStatus: false
+            pastColumns: this.pastColumns,
+            upcomingColumns: this.upcomingColumns,
+            pastEvents: this.pastEvents,
+            upcomingEvents: this.upcomingEvents,
+        };
+
+        // Possible bug if server is not running on same server time as user
+        function date_conversion(year, month, day, hours, minutes) {
+            var d = new Date(year, month, day, hours, minutes)
+            return d.toLocaleString('en-US', {
+                timeZone: "America/New_York", dateStyle: "full", timeStyle: "long", hour12: true
+            });
         };
     }
-
-    displayStatus = status => {
-        if (status) {
-            return this.setState({ status: true });
-        }
-        return this.setState({ status: false });
-    };
-
-    renderTabList = () => {
-        return (
-            <div className="my-5 tab-list">
-                <span
-                    onClick={() => this.displayStatus(true)}
-                    className={this.state.viewStatus ? "active" : ""}
-                >
-                    Active
-                </span>
-                <span
-                    onClick={() => this.displayStatus(false)}
-                    className={this.state.viewStatus ? "" : "active"}
-                >
-                    Ended
-                </span>
-            </div>
-        );
-    };
-
 
     render() {
         return (
             <div>
-                <Table
-                    columns={this.state.columns}
-                    dataSource={this.state.eventsList}
-                />
-            </div >
+                <Tabs defaultActiveKey="1">
+                    <TabPane tab={<span><CalendarTwoTone />Upcoming Events</span>} key="1">
+                        <div>
+                            <Table
+                                columns={this.state.upcomingColumns}
+                                dataSource={this.state.upcomingEvents}
+                            />
+                        </div>
+                    </TabPane>
+                    <TabPane tab={<span><CarryOutTwoTone />Past Events</span>} key="2">
+                        <div>
+                            <Table
+                                columns={this.state.pastColumns}
+                                dataSource={this.state.pastEvents}
+                            />
+                        </div>
+                    </TabPane>
+                </Tabs>
+            </div>
         );
     }
 }
