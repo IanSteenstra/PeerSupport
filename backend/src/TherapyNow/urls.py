@@ -3,12 +3,10 @@ from django.urls import path, include
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
 from Profile.views import ProfileViewSet, token_to_username, username_to_pk
-from events.views import EventViewSet
 from chat.api.views import room
 
 router = routers.DefaultRouter()
 router.register('profiles', ProfileViewSet)
-router.register('events', EventViewSet, 'events')
 
 urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
