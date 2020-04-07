@@ -22,7 +22,6 @@ class Chat(models.Model):
     participants = models.ManyToManyField(
         Profile, related_name='participants', blank=True)
     messages = models.ManyToManyField(Message, blank=True)
-    room_name = models.CharField(blank=False, unique=True, null=True, max_length=16)
 
     def get_or_create(**kwargs):
         try:
