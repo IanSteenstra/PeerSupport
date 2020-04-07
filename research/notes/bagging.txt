@@ -1,0 +1,11 @@
+Bagging- Bootstrap Aggregation
+two parts:
+	aggregation and bootstrapping
+Bootstrapping is a sampling method, where a sample is chosen using the replacement method.
+Then the learning algorithm is then run on the samples selected.
+The bootstrapping technique uses samples with replacement to make the selection procedure completely random. 
+Aggregation creates the final prediction.
+Bagging is an ensemble method:
+	helps multiple models in training through the use of the same learning algorithm.
+Bagging offers the advantage of allowing many weak learners to combine efforts to outdo a single strong learner.
+One disadvantage of bagging is that it introduces a loss of interpretability of a model.

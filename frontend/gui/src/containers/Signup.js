@@ -9,19 +9,34 @@ const FormItem = Form.Item;
 class RegistrationForm extends React.Component {
     state = {
         confirmDirty: false,
+        userName: '',
+        email: '',
+        password: '',
+        loading:'',
+        error:''
     };
-
+    onNameChange = ({ target: { value } }) => {
+        this.setState({ userName:value} );
+    };
+    onEmailChange = ({ target: { value } }) => {
+        this.setState({ email:value} );
+    };
+    onPasswordChange = ({ target: { value } }) => {
+        this.setState({ password:value} );
+    };
     handleSubmit = (e) => {
         e.preventDefault();
-        this.props.form.validateFieldsAndScroll((err, values) => {
+        this.props.form.validateFieldsAndScroll((err) => {
             if (!err) {
                 this.props.onAuth(
-                    values.userName,
-                    values.email,
-                    values.password,
-                    values.confirm
+                    this.state.userName,
+                    this.state.email,
+                    this.state.password,
                 );
                 this.props.history.push('/');
+            }
+            else {
+                console.log(err);
             }
         });
     }
@@ -34,7 +49,7 @@ class RegistrationForm extends React.Component {
     compareToFirstPassword = (rule, value, callback) => {
         const form = this.props.form;
         if (value && value !== form.getFieldValue('password')) {
-            callback('Two passwords that you enter is inconsistent!');
+            callback('Two passwords that you entered are inconsistent!');
         } else {
             callback();
         }
@@ -48,7 +63,6 @@ class RegistrationForm extends React.Component {
         callback();
     }
 
-
     render() {
         const { getFieldDecorator } = this.props.form;
 
@@ -59,10 +73,10 @@ class RegistrationForm extends React.Component {
                     {getFieldDecorator('userName', {
                         rules: [{ required: true, message: 'Please input your username!' }],
                     })(
-                        <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+                        <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" value = {this.state.name}
+                               onChange={this.onNameChange}/>
                     )}
                 </FormItem>
-
                 <FormItem>
                     {getFieldDecorator('email', {
                         rules: [{
@@ -71,7 +85,8 @@ class RegistrationForm extends React.Component {
                             required: true, message: 'Please input your E-mail!',
                         }],
                     })(
-                        <Input prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Email" />
+                        <Input prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Email" value = {this.state.email}
+                               onChange={this.onEmailChange}/>
                     )}
                 </FormItem>
 
@@ -83,7 +98,8 @@ class RegistrationForm extends React.Component {
                             validator: this.validateToNextPassword,
                         }],
                     })(
-                        <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
+                        <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" value = {this.state.password}
+                               onChange={this.onPasswordChange}/>
                     )}
                 </FormItem>
 
@@ -102,12 +118,7 @@ class RegistrationForm extends React.Component {
                 <FormItem>
                     <Button type="primary" htmlType="submit" style={{ marginRight: '10px' }}>
                         Signup
-        </Button>
-                    Or
-        <NavLink
-                        style={{ marginRight: '10px' }}
-                        to='/login/'> login
-        </NavLink>
+                    </Button>
                 </FormItem>
 
             </Form>
@@ -126,7 +137,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (username, email, password1, password2) => dispatch(actions.authSignup(username, email, password1, password2))
+        onAuth: (username, email, password1 ) => dispatch(actions.authSignup(username, email, password1, password1))
     }
 }
 

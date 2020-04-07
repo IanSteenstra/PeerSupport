@@ -7,6 +7,8 @@ import * as actions from '../store/actions/auth';
 const { Header, Content, Footer } = Layout;
 
 class CustomLayout extends React.Component {
+
+
     render() {
         return (
             <Layout className="layout">
@@ -22,21 +24,39 @@ class CustomLayout extends React.Component {
                             <Link to="/">Home</Link>
                         </Menu.Item>
                         <Menu.Item key="2">
-                            <Link to="/profile">Profile</Link>
-                        </Menu.Item>
-                        <Menu.Item key="3">
-                            <Link to="/chat">Chat</Link>
+                            <Link to="/events">Events</Link>
                         </Menu.Item>
                         {
                             this.props.isAuthenticated ?
+                                <Menu.Item key="3">
+                                    <Link to="/chat">Chat</Link>
+                                </Menu.Item>
+                                :
+                                <Menu.Item key="3" disabled>
+                                    Chat
+                        </Menu.Item>
+                        }
+                        {
+                            this.props.isAuthenticated ?
 
-                                <Menu.Item key="4" onClick={this.props.logout}>
+                                <Menu.Item key="4">
+                                    <Link to="/profile">Profile</Link>
+                                </Menu.Item>
+                                :
+                                <Menu.Item key="4" disabled>
+                                    Profile
+                                </Menu.Item>
+
+                        }
+                        {
+                            this.props.isAuthenticated ?
+                                <Menu.Item key="5" onClick={this.props.logout}>
                                     Logout
                                 </Menu.Item>
 
                                 :
 
-                                <Menu.Item key="4">
+                                <Menu.Item key="5">
                                     <Link to="/login/">Login</Link>
                                 </Menu.Item>
                         }

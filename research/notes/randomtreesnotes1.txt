@@ -1,0 +1,19 @@
+Decision Trees are the building blocks of the random forest model. 
+Decision trees split up data using 1s and 0s.
+At each node, "What feature will allow me to split the observations at hand in a way that the resulting groups are
+as different from each other as possible (and the members of each resulting subgroup are as similar to each other
+as possible)?"
+The fundamental concept behind random forest is the wisdom of crowds. 
+"A large number of relatively uncorrelated models (trees) operating as a committee will outperform any of the individual
+constituent models."
+The models have a low correlation which produce ensemble predictions that are more accurate than any of the indivdual predictions."
+The trees protect each other from their individual errors. 
+In order for the random forest to perform well, 
+	1. there needs to be some actual signal in our features so that models built using those features do better than 
+	random guessing.
+	2. The predictions made by the individual trees need to have low correlations with each other.
+Our chances of making correct predictions increase with the number of uncorrelated trees in our model.
+Bagging (Bootstrap Aggregation) - small changes to the training set can result in different tree structures.
+	- each individual tree can randomly sample from the dataset with replacement, resulting in different trees.
+Feature Randomness - each tree in a random forest can pick only from a random subset of features. This forces even more
+variation amongst the trees in the model and ultimately results in lower correlation across trees and more diversification.
