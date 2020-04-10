@@ -49,29 +49,7 @@ class ChatDrawer extends React.Component {
                     width="60%"
                     height="100%"
                 >
-                    <List
-                        id="msg-list"
-                        dataSource={this.state.data}
-                        renderItem={item => <List.Item>{item}</List.Item>}>
-                    </List>
-                    <div style={{
-                        position: 'absolute',
-                        bottom: 0,
-                        width: "90%",
-                        padding: 20
-                    }}>
-                        <Row>
-                            <Col span={18}>
-                                <Search
-                                    id="message-box"
-                                    placeholder="Enter a message..."
-                                    enterButton="Send"
-                                    onSearch={value =>
-                                        this.onSend(value, this.props.username)}>
-                                </Search>
-                            </Col>
-                        </Row>
-                    </div>
+                    {this.props.chat}
                 </Drawer>
             </div>
         )

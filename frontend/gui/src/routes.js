@@ -8,6 +8,7 @@ import Quiz from "./containers/Quiz";
 import Events from "./containers/Events";
 import Home from "./containers/Home";
 import ChatPage from "./containers/ChatPage";
+import ChatList from "./containers/ChatList";
 
 
 const BaseRouter = () => (
