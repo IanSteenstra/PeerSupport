@@ -132,3 +132,4 @@ dmypy.json
 
 # Vim
 .swp
+.vscode/settings.json
