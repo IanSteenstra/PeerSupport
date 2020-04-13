@@ -23,7 +23,7 @@ class Event(models.Model):
     description = models.TextField(
         u'Description', help_text=u'Description', blank=True, null=True)
     users = models.ManyToManyField(
-        Profile, related_name='users', blank=True)
+        Profile, related_name='Users', blank=True)
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:

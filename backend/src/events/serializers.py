@@ -7,15 +7,17 @@ from django.contrib.auth.models import User
 class EventSerializer(serializers.ModelSerializer):
     event = serializers.SerializerMethodField('get_event')
 
+    key = serializers.SerializerMethodField(
+        source='id')
     name = serializers.CharField()
     start_time = serializers.DateTimeField()
     end_time = serializers.DateTimeField()
     description = serializers.CharField()
     created = serializers.DateTimeField()
-
+    
     class Meta:
         model = Event
-        fields = ('name', 'start_time',
+        fields = ('key','name', 'start_time',
                   'end_time', 'description', 'created', 'event')
 
     def create(self, validated_data):
@@ -23,6 +25,9 @@ class EventSerializer(serializers.ModelSerializer):
 
     def get_event(self, obj):
         return obj.name
+    
+    def get_key(self, obj):
+        return obj.id
 
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name', instance.name)

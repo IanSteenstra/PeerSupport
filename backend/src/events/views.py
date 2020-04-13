@@ -14,14 +14,6 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from .models import Event
 from .serializers import EventSerializer
 
-# class match(APIView):
-
-#     def get(self, request):
-#         if request.method == 'GET':
-#             params = request.GET.get('sentence')
-#             response = EventsConfig.clusters
-#             return JsonResponse(response)
-
 
 class EventViewSet(viewsets.ViewSet):
     """
