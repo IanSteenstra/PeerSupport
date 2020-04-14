@@ -73,7 +73,7 @@ class Editprofile extends React.Component {
                     confirmLoading={confirmLoading}
                     onCancel={this.handleCancel}
                 >
-                    <Form
+                <Form
                         layout="vertical">
                         <Form.Item name="name" label="Name" >
                             <Input placeholder={currentName} value = {this.state.name}

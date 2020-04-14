@@ -31,6 +31,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
+    'chat',
+    'chat.api',
+    'events',
+    'Profile',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'channels',
+    
     'allauth',
     'allauth.account',
     'corsheaders',
@@ -47,10 +52,8 @@ INSTALLED_APPS = [
     'rest_auth',
     'rest_auth.registration',
 
-    'chat',
-    'chat.api',
-    'events',
-    'Profile',
+  
+
 ]
 
 SITE_ID = 1
@@ -84,14 +87,13 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'TherapyNow.wsgi.application'
 ASGI_APPLICATION = 'TherapyNow.routing.application'
 
 CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": 'channels_redis.core.RedisChannelLayer',
-        "CONFIG": {
-            "hosts": [('localhost', 6379)],
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
         },
     },
 }
@@ -170,6 +172,6 @@ REST_FRAMEWORK = {
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_VERIFICATION = 'none'

@@ -9,6 +9,7 @@ from rest_framework.generics import (
 )
 from chat.models import Chat
 from .serializers import ChatSerializer
+from chat.views import get_user_profile
 
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
@@ -19,13 +20,13 @@ user = get_user_model()
 
 class ChatListView(ListAPIView):
     serializer_class = ChatSerializer
-    permission_classes = (permissions.IsAuthenticated, )
+    permission_classes = (permissions.AllowAny, )
 
     def get_queryset(self):
         queryset = Chat.objects.all()
         username = self.request.query_params.get('username', None)
         if username is not None:
-            contact = get_user_contact(username)
+            profile = get_user_profile(username)
             queryset = contact.chats.all()
         return queryset
 
@@ -33,22 +34,13 @@ class ChatListView(ListAPIView):
 class ChatDetailView(RetrieveAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
-    permission_classes = (permissions.IsAuthenticated, )
+    permission_classes = (permissions.AllowAny, )
 
 
 class ChatCreateView(CreateAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
-    permission_classes = (permissions.AllowAny, )
-
-    def get_serializer_context(self):
-        context = super().get_serializer_context()
-        context.update(
-            {
-                "profilepks": self.request.data.get('profilepks')
-            }
-        )
-        return context
+    permission_classes = (permissions.IsAuthenticated, )
 
 
 class ChatUpdateView(UpdateAPIView):
@@ -64,7 +56,7 @@ class ChatDeleteView(DestroyAPIView):
 
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'chat/index.html')
 
 
 def room(request, pk):
@@ -72,6 +64,6 @@ def room(request, pk):
         return HttpResponse("Login required")
     if not request.user.profile.chat_rooms.filter(pk=pk).exists():
         return HttpResponse("User not in chat")
-    return render(request, 'room.html', {
+    return render(request, 'chat/room.html', {
         'room_name': pk
     })
