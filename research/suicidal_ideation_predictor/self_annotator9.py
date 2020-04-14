@@ -29,7 +29,6 @@ for index, row in df.iterrows():
             check = False
         else:
             print("!!!!Invalid input!!!!")
-    break
 
 
 df.to_csv('annotated_data9.csv', index=False)
