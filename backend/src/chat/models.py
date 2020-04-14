@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 from Profile.models import Profile
+from events.models import Event
 from django.core.exceptions import ObjectDoesNotExist
 
 User = get_user_model()
@@ -22,6 +23,7 @@ class Chat(models.Model):
     participants = models.ManyToManyField(
         Profile, related_name='participants', blank=True)
     messages = models.ManyToManyField(Message, blank=True)
+    event = models.ForeignKey(Event, blank=True, null=True, related_name='event', on_delete=models.CASCADE)
 
     def get_or_create(**kwargs):
         try:

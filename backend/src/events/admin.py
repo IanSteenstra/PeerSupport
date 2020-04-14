@@ -1,5 +1,5 @@
 from django.contrib import admin
-
+from chat.models import Chat
 from .models import Event
 
 class ChatInline(admin.TabularInline):
