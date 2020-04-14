@@ -61,47 +61,11 @@ class Events extends React.Component {
                 key: 'x',
                 render: (text, record) => (
                     <span>
-                        {/* 
-                        TODO - Add functionality to disable button after time expires
-                        */}
-                        <Button variant="success" disabled={record === true}>Join</Button>
+                        <Button variant="success" disabled={record === true}>Attend</Button>
                     </span>
                 ),
             },
         ];
-
-        // this.pastEvents = [
-        //     {
-        //         key: '1',
-        //         name: 'Active Minds',
-        //         start_time: date_conversion(2020, 3, 12, 10, 0),
-        //         end_time: date_conversion(2020, 3, 12, 12, 0),
-        //         description: 'words',
-        //     },
-        // ];
-        // this.upcomingEvents = [
-        //     {
-        //         key: '1',
-        //         name: 'Mindfulness Week',
-        //         start_time: date_conversion(2020, 4, 6, 12, 0),
-        //         end_time: date_conversion(2020, 4, 10, 17, 0),
-        //         description: 'stuff',
-        //     },
-        //     {
-        //         key: '2',
-        //         name: 'Finals',
-        //         start_time: date_conversion(2020, 5, 1, 12, 0),
-        //         end_time: date_conversion(2020, 5, 5, 12, 0),
-        //         description: 'stress',
-        //     },
-        //     {
-        //         key: '3',
-        //         name: 'Online Graduation',
-        //         start_time: date_conversion(2020, 5, 23, 12, 0),
-        //         end_time: date_conversion(2020, 5, 23, 14, 0),
-        //         description: 'Graduation',
-        //     },
-        // ];
 
         this.pastEvents = [];
         this.upcomingEvents = [];
@@ -140,11 +104,11 @@ class Events extends React.Component {
     }
 
     componentDidMount() {
-        this.updateData()
+        this.updateEventsData()
     }
 
-    updateData = value => {
-        const url = 'http://127.0.0.1:8000/api/events/';
+    updateEventsData = value => {
+        const url = '/api/events/';
         axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
         axios.defaults.xsrfCookieName = "csrftoken";
         axios.defaults.headers = {
