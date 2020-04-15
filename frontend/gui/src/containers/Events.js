@@ -61,7 +61,7 @@ class Events extends React.Component {
                 key: 'x',
                 render: (text, record) => (
                     <span>
-                        <Button variant="success" disabled={record === true}>Attend</Button>
+                        <Button variant="success">Attend</Button>
                     </span>
                 ),
             },
@@ -84,7 +84,7 @@ class Events extends React.Component {
     organize_events = function (json) {
         var i, ended = false, past = [], upcoming = [];
         for (i = 0; i < json.length; i++) {
-            var d = new Date(json[i]["start_time"])
+            var d = new Date(json[i]["start_time"]);
             json[i]["start_time"] = d.toLocaleString('en-US', {
                 dateStyle: "full", timeStyle: "long", hour12: true
             });
@@ -108,7 +108,7 @@ class Events extends React.Component {
     }
 
     updateEventsData = value => {
-        const url = '/api/events/';
+        const url = 'http://localhost:8000/api/events/';
         axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
         axios.defaults.xsrfCookieName = "csrftoken";
         axios.defaults.headers = {

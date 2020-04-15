@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 
 class EventSerializer(serializers.ModelSerializer):
-    event = serializers.SerializerMethodField()
+    event = serializers.SerializerMethodField('get_event')
 
     key = serializers.SerializerMethodField(
         source='id')
@@ -23,7 +23,7 @@ class EventSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         return Event.objects.create(**validated_data)
 
-    def get_event_name(self, obj):
+    def get_event(self, obj):
         return obj.name
     
     def get_key(self, obj):

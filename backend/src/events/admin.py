@@ -1,6 +1,7 @@
 from django.contrib import admin
-from chat.models import Chat
+
 from .models import Event
+from chat.models import Chat
 
 class ChatInline(admin.TabularInline):
     model = Chat
