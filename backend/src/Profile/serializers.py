@@ -24,7 +24,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ('pk', 'username', 'friends', 'chat_rooms', 'best_matches')
+        fields = ('pk', 'username', 'email', 'friends', 'chat_rooms', 'best_matches')
         extra_kwargs = {'password': {'write_only': True}}
 
     def get_username(self, obj):
