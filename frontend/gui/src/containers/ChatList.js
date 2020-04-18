@@ -10,7 +10,6 @@ import axios from 'axios';
 import Chat from './ChatUI'
 import WebSocketInstance from "../websocket";
 import * as messageActions from "../store/actions/message";
-import {getUserChats} from "../store/actions/message";
 
 const data = [];
 let test = [];
@@ -29,20 +28,14 @@ class ChatList extends React.Component {
 
     constructor(props) {
         super(props);
-        WebSocketInstance.addCallbacks(
-            this.props.getUserChats.bind(this),
-        );
-        //let i;
-        //test = getUserChats();
-        //console.log(test);
+        let i;
         //data.length = 0; // Clear list of current chats
-        //for(i = 0; i < test.length; i++){
+        for(i = 0; i < this.props.chats.length; i++){
             // data.push({
             //     key: i,
             //     name: this.props.people[i],
             // });
-            //console.log(test[i]);
-        //}
+        }
     }
 
     test (currentUser) {
@@ -63,23 +56,14 @@ class ChatList extends React.Component {
     };
 
     showModal = () => {
-        test = this.props.getUserChats(this.props.username, this.props.token);
-        console.log(test);
-        //data.length = 0; // Clear list of current chats
-        // let i;
-        // for(i = 0; i < test.length; i++){
-        //     // data.push({
-        //     //     key: i,
-        //     //     name: this.props.people[i],
-        //     // });
-        //     console.log(test[i]);
-        // }
+        console.log("heeee: " + this.props.chats);
         this.setState({
             modalVisible: true,
         });
     };
 
     onCancel = () => {
+        console.log("ir did ti");
         this.setState({
             modalVisible: false,
         });
@@ -109,25 +93,25 @@ class ChatList extends React.Component {
                     <Button type="primary" onClick={() => { this.showModal();}}> Find New Chat </Button>
                 </div>
                 <Table dataSource={this.props.chats}>
-                    <Column title="Name" dataIndex="name" key="name"
-                            render={(text) => (
-                                <div>
-                                    <Avatar size={32} icon="user"/>
-                                    <a style={{paddingLeft:10}}>{text}</a>
-                                </div>
-                            )}/>
-                    <Column align="center" title="Actions" dataIndex="firstName" key="firstName"
-                            render={(text, record) => (
-                                <div>
-                                    <Button type="primary" onClick={() => { this.showDrawer(); currentUser=record.name;}}>
-                                        Chat
-                                    </Button>
-                                    <a style={{paddingLeft:15}}> Archive </a>
-                                    <Divider type="vertical" />
-                                    <a> Delete </a>
-                                </div>
-                            )}
-                    />
+                        <Column title="Name" dataIndex="name" key="name"
+                                render={(text) => (
+                                    <div>
+                                        <Avatar size={32} icon="user"/>
+                                        <a style={{paddingLeft:10}}>{text}</a>
+                                    </div>
+                                )}/>
+                        <Column align="center" title="Actions" dataIndex="firstName" key="firstName"
+                                render={(text, record) => (
+                                    <div>
+                                        <Button type="primary" onClick={() => { this.showDrawer(); currentUser=record.name;}}>
+                                            Chat
+                                        </Button>
+                                        <a style={{paddingLeft:15}}> Archive </a>
+                                        <Divider type="vertical" />
+                                        <a> Delete </a>
+                                    </div>
+                                )}
+                        />
                 </Table>
                 <ChatDrawer onClose={this.onClose} visible={this.state.drawerVisible} username={currentUser}/>
                 <Modal visible={this.state.modalVisible} onCancel={this.onCancel}>
@@ -141,13 +125,11 @@ class ChatList extends React.Component {
 //const WrappedChatList = Form.create()(ChatList);
 
 const mapStateToProps = state => ({
-    token: state.auth.token,
-    username: state.auth.username,
+    chats: state.message.chats
 });
 
 const mapDispatchToProps = dispatch => ({
     //setUsername: (username) => dispatch(setUsername(username))
-    getUserChats: (username, token) => dispatch(getUserChats(username, token))
 });
 
 //export default ChatList;
