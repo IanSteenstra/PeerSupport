@@ -8,8 +8,8 @@ import Quiz from "./containers/Quiz";
 import Events from "./containers/Events";
 import Home from "./containers/Home";
 import ChatPage from "./containers/ChatPage";
-import ChangePassword from "./containers/ChangePassword";
-//import ChatList from "./containers/ChatList";
+// import ChangePassword from "./containers/ChangePassword";
+import ChatList from "./containers/ChatList";
 
 
 const BaseRouter = () => (
@@ -20,7 +20,8 @@ const BaseRouter = () => (
         <Route exact path="/chat/" component={ChatPage} />
         <Route exact path="/profile/" component={Profile} />
         <Route exact path="/quiz/" component={Quiz} />
-        <Route exact path="/changepassword/" component={ChangePassword} />
+        <Route exact path="/chatlist/" component={ChatList} />
+        {/* <Route exact path="/changepassword/" component={ChangePassword} /> */}
         <Route exact path="/" component={Home} />
     </div>
 );
