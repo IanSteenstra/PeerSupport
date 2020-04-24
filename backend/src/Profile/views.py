@@ -110,7 +110,21 @@ def friends_with(profile, p):
             return True
     return False
 
+def add_to_queue(pk, score):
+    queue = ChatQueue.objects.all()
+    queue.chatQ.add(pk, score)
 
+#create list of the users in queue with the 3 closest personality scores to this user
 def matching_algorithm(pk):
-    matches = []
+    queue = ChatQueue.objects.all()
+    matches = list()
+    minDiff = -1
+    thisScore = ChatQueue.objects.get(pk)
+    for i in range(min(queue.count(), 3)):
+        nextMatch = 0;
+        for user in queue:
+            if minDiff == -1 or abs(user[1] - userScore) <= minDiff and not user[0] in matches:
+                minDiff = user[1] - userScore
+                nextMatch = user[0]
+        matches.append(nextMatch)
     return matches

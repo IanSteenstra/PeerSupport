@@ -33,3 +33,6 @@ class Chat(models.Model):
 
     def __str__(self):
         return str(self.pk)
+
+class ChatQueue(models.Model):
+    chatQ = models.ManyToManyField(pk, score)
