@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table, Tabs } from 'antd';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import 'antd/dist/antd.css';
 import { CarryOutTwoTone, CalendarTwoTone } from '@ant-design/icons'
@@ -118,10 +119,10 @@ class Events extends React.Component {
         axios({
             method: 'get',
             url: url,
-            auth: {
-                username: "herrab",
-                password: "admin"
-            }
+            // auth: {
+            //     username: "herrab",
+            //     password: "admin"
+            // }
         })
             .then(res => {
                 console.log(res.data[0]["key"])
@@ -159,4 +160,9 @@ class Events extends React.Component {
         );
     }
 }
-export default Events;
+const mapStateToProps = state => ({
+    token: state.auth.token,
+    username: state.auth.username,
+});
+
+export default connect(mapStateToProps)(Events);

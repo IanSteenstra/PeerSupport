@@ -11,19 +11,12 @@ class EventSerializer(serializers.ModelSerializer):
     # for the API to allow it to connect to a table on the frontend
     key = serializers.SerializerMethodField(
         source='id')
-    name = serializers.CharField()
-    start_time = serializers.DateTimeField()
-    end_time = serializers.DateTimeField()
-    description = serializers.CharField()
-    created = serializers.DateTimeField()
-    # TODO: add 'users' here
     
     class Meta:
         model = Event
         # fields: Configure what is displayed on the API View
-        # TODO: Add 'users' to end of the fields tuple
         fields = ('key','name', 'start_time',
-                  'end_time', 'description', 'created', 'event')
+                  'end_time', 'description', 'created', 'event', 'users')
 
     # create: Creates a new Event object
     def create(self, validated_data):
