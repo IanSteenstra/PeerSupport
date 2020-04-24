@@ -16,11 +16,12 @@ An event is a scheduled session for users to discuss their stressors, one-on-one
 2. In the command line, in the `TherapyNow/backend/src` directory, run the command `python manage.py makemigrations events`
 3. In the same directory, run the command `python manage.py migrate`
 ## Set up the Backend Server
+### Enter the Virtual Environment
+1. In the `TherapyNow/backend` directory, run the command `source env/Scripts/activate`
+2. Change to the source directory, `cd src`
 ### Create an Admin User (if you don't already have one)
 1. In the command line, in the `TherapyNow/backend/src` directory, run the command `python manage.py createsuperuser`
 2. Follow the prompts to create a new superuser
-### Set up the Virtual Environment
-1. In the `TherapyNow/backend` directory, run the command `source env/Scripts/activate`
 ### Start the Backend Server
 1. In the `TherapyNow/backend/src` directory, run the command `python manage.py runserver`
 ### Log in to Django Admin
