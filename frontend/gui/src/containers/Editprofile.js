@@ -10,8 +10,6 @@ class Editprofile extends React.Component {
 
         //stores value of new name, gender, bio, from edit profile page, empty string if not to be changed
         name: '',
-        gender: '',
-        bio: '',
         ModalText: '',
         visible: false,
         confirmLoading: false,
@@ -19,12 +17,6 @@ class Editprofile extends React.Component {
 
     onNameChange = ({ target: { value } }) => {
         this.setState({ name:value} );
-    };
-    onBioChange = ({ target: { value } }) => {
-        this.setState({bio:value });
-    };
-    onGenderChange = ({ target: { value } }) => {
-        this.setState({ gender:value });
     };
     showModal = () => {
         this.setState({
@@ -48,8 +40,6 @@ class Editprofile extends React.Component {
         //here is where code to submit info to database would go
         this.setState({
             name: '',
-            gender: '',
-            bio: '',
         })
     };
 
@@ -78,18 +68,6 @@ class Editprofile extends React.Component {
                         <Form.Item name="name" label="Name" >
                             <Input placeholder={currentName} value = {this.state.name}
                                    onChange={this.onNameChange}/>
-                        </Form.Item>
-                        <Form.Item name="gender" label="Gender">
-                            <Input placeholder={currentGender} value = {this.state.gender}
-                                   onChange={this.onGenderChange} type="textarea" />
-                        </Form.Item>
-                        <Form.Item name="bio" label="Bio">
-                            <Input
-                                placeholder={currentBio}
-                                value = {this.state.bio}
-                                onChange={this.onBioChange}
-                                autosize={{ minRows: 3, maxRows: 8}}
-                            />
                         </Form.Item>
                         <Button type="primary">Reset password</Button>
                         <p></p>

@@ -10,7 +10,7 @@ User = get_user_model()
 
 class ProfileSerializer(serializers.ModelSerializer):
     username = serializers.SerializerMethodField('get_username')
-
+    email = serializers.SerializerMethodField('get_email')
     def create(self, validated_data):
         user = User(
             email=validated_data['email'],
@@ -24,16 +24,17 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ('pk', 'username', 'friends', 'chat_rooms', 'best_matches')
+        fields = ('pk', 'username', 'email', 'friends', 'chat_rooms', 'best_matches')
         extra_kwargs = {'password': {'write_only': True}}
 
     def get_username(self, obj):
         return obj.user.username
+    def get_email(self, obj):
+        return obj.user.email
 
 
 class ProfileUsernameSerializer(serializers.ModelSerializer):
     username = serializers.SerializerMethodField('get_username')
-
     class Meta:
         model = Profile
         fields = ('username',)

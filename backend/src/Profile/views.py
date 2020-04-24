@@ -21,7 +21,8 @@ from .serializers import ProfileSerializer
 def token_to_username(request, format=None):
     token = request.data['token']
     username = Token.objects.get(key=token).user.username
-    payload = {'username': username}
+    email = Token.objects.get(key=token).user.email
+    payload = {'username': username, 'email': email}
     return Response(payload)
 
 @api_view(['POST'])
