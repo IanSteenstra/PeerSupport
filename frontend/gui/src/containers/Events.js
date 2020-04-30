@@ -62,7 +62,7 @@ class Events extends React.Component {
                 key: 'x',
                 render: (text, record) => (
                     <span>
-                        <Button variant="success">Attend</Button>
+                        <Button variant="success" onClick={this.postParticipant()}>Attend</Button>
                     </span>
                 ),
             },
@@ -104,26 +104,16 @@ class Events extends React.Component {
         return [upcoming, past]
     }
 
-    componentDidMount() {
-        this.updateEventsData()
+    componentDidMount(){
+        this.listEventsData()
     }
 
-    updateEventsData = value => {
+    listEventsData = () => {
+        console.log(this.props.token);
         const url = 'http://localhost:8000/api/events/';
-        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-        axios.defaults.xsrfCookieName = "csrftoken";
-        axios.defaults.headers = {
-            "Content-Type": "application/json",
-            Authorization: `Token ${this.props.token}`
-        };
-        axios({
-            method: 'get',
-            url: url,
-            // auth: {
-            //     username: "herrab",
-            //     password: "admin"
-            // }
-        })
+        axios.get(
+            url
+            )
             .then(res => {
                 console.log(res.data[0]["key"])
                 var events = this.organize_events(res.data) //
@@ -133,6 +123,23 @@ class Events extends React.Component {
                 })
             })
             .catch(err => console.log(err));
+    }
+
+    postParticipant = () => {
+        console.log(this.props.token);
+        const url = 'http://localhost:8000/api/events/';
+        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+        axios.defaults.xsrfCookieName = "csrftoken";
+        axios.defaults.headers = {
+            "Content-Type": "application/json",
+            Authorization: `Token ${this.props.token}`
+        };
+        // axios.post({
+        //     method: 'get',
+        //     url: url,
+        //     })
+        //     .then(res => {})
+        //     .catch(err => console.log(err));
     }
 
     render() {
@@ -160,9 +167,10 @@ class Events extends React.Component {
         );
     }
 }
-const mapStateToProps = state => ({
-    token: state.auth.token,
-    username: state.auth.username,
-});
+const mapStateToProps = state => {
+    return {
+      token: state.auth.token
+    }
+}
 
 export default connect(mapStateToProps)(Events);

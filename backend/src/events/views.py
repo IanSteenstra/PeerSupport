@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from rest_framework import viewsets, permissions
-from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
 
 from .models import Event
 from .serializers import EventSerializer
@@ -23,24 +23,20 @@ class EventViewSet(viewsets.ViewSet):
     queryset = Event.objects.all()
 
     def get_permissions(self):
-        if self.action == 'list':
+        if self.action == 'retreive':
+            self.permission_classes = [AllowAny]
+        else:
             self.permission_classes = [IsAdminUser, IsAuthenticated]
-        elif self.action == 'retrieve':
-            self.permission_classes = [IsAuthenticated]
 
-        return super(self.__class__, self).get_permissions()
+        return [permission() for permission in self.permission_classes]
 
     def list(self, request):
         queryset = Event.objects.all()
         serializer = EventSerializer(queryset, many=True)
         return Response(serializer.data)
 
-    def retrieve(self, request, pk=None):
-        queryset = Event.objects.all()
-        event = get_object_or_404(queryset, pk=pk)
-        if (request.user != profile.user and not request.user.is_staff):
-            return Response("403 Forbidden. User not authorized.")
-
+    def retrieve(self, request):
+        event = Event.objects.all()
         serializer = EventSerializer(event)
         return Response(serializer.data)
 
