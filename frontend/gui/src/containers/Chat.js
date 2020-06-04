@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography } from 'antd';
-import { Events } from './Events';
+// import { Events } from './Events';
 import ChatList from './ChatList';
 import ChatDrawer from './ChatDrawer';
 
@@ -12,8 +12,8 @@ class ChatLayout extends React.Component {
             <div>
                 <Title>Messages</Title>
                 <ChatList people={["Bobby Smith", "United Bagels"]}/>
-                <Title>Events</Title>
-                <Events/>
+                {/* <Title>Events</Title> */}
+                {/* <Events/> */}
                 <ChatDrawer/>
             </div>
         )

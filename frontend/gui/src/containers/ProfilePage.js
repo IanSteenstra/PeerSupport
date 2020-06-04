@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import {Avatar, Descriptions, Button } from 'antd';
 import Editprofile from "./Editprofile";
 
@@ -8,16 +7,6 @@ class ProfilePage extends React.Component {
     constructor(props) {
         super(props);
         this.state = { username: "", email: ""};
-    }
-
-    componentDidMount() {
-        const url = `http://127.0.0.1:8000/api/username/`;
-        axios.post(url, { 'headers': { 'Authorization': 'Token ' + this.props.authToken }, 'token': this.props.authToken }).then(response => response.data)
-            .then((data) => {
-                this.setState(
-                    { username: data['username'], email: data['email']}
-                )
-            })
     }
     openQuiz() {
         window.location='/quiz/';

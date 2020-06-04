@@ -3,8 +3,6 @@ import { Button, Modal, Form, Input } from 'antd';
 
 //these values would be fetched from database, placeholders for now.
 const currentName = 'sample name';
-const currentBio = 'Placeholder bio brief information about me';
-const currentGender = 'male';
 class Editprofile extends React.Component {
     state = {
 

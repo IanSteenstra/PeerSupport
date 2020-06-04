@@ -1,33 +1,24 @@
 import React from 'react';
 import WebSocketInstance from '../websocket';
 import { connect } from 'react-redux';
-import { Tabs, Radio, Drawer, Input, Button, List, message } from 'antd';
-import { Row, Col } from 'antd';
 
+class ChatUI extends React.Component {
 
-const { Search } = Input;
+    constructor(props) {
+      super(props);
+        this.state = { 
+            message: "" 
+        };
 
-const data = [
-    'Test1',
-    'Test2'
-];
-
-class Chat extends React.Component {
-
-    state = { message: "" };
-
+        this.initialiseChat();
+      }
+    
     initialiseChat() {
         this.waitForSocketConnection(() => {
             WebSocketInstance.fetchMessages(this.props.username, this.props.chatId);
         });
         WebSocketInstance.connect(this.props.chatId)
     }
-
-    constructor(props) {
-        super(props);
-        this.initialiseChat();
-      }
-
 
     waitForSocketConnection(callback) {
         const component = this;
@@ -116,7 +107,7 @@ class Chat extends React.Component {
 
     render() {
         return (
-            <div>               
+            <div>            
                 <div className="messages">
                     <ul id="chat-log">
                         {this.props.messages && this.renderMessages(this.props.messages)}
@@ -155,5 +146,5 @@ const mapStateToProps = state => ({
     messages: state.message.messages
 });
 
-export default connect(mapStateToProps)(Chat);
+export default connect(mapStateToProps)(ChatUI);
   

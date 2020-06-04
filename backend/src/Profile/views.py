@@ -11,28 +11,11 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
 from rest_framework.decorators import action
 
 from .models import Profile
+from chat.models import Chat
 from rest_framework.authtoken.models import Token
 from .serializers import ProfileSerializer
-
-
-@api_view(['POST'])
-@renderer_classes([JSONRenderer])
-@permission_classes((permissions.AllowAny,))
-def token_to_username(request, format=None):
-    token = request.data['token']
-    username = Token.objects.get(key=token).user.username
-    email = Token.objects.get(key=token).user.email
-    payload = {'username': username, 'email': email}
-    return Response(payload)
-
-@api_view(['POST'])
-@renderer_classes([JSONRenderer])
-@permission_classes((permissions.AllowAny,))
-def username_to_pk(request, format=None):
-    username = request.data['username']
-    pk = User.objects.get(username=username).pk
-    payload = {'pk': pk}
-    return Response(payload)
+from chat.api.serializers import ChatSerializer
+import json
 
 class ProfileViewSet(viewsets.ViewSet):
     """
@@ -114,3 +97,33 @@ def friends_with(profile, p):
 def matching_algorithm(pk):
     matches = []
     return matches
+
+@api_view(['GET'])
+@renderer_classes([JSONRenderer])
+@permission_classes((permissions.IsAuthenticated,))
+def get_chats(request):
+    profile = get_object_or_404(Profile, pk=request.user.pk)
+    queryset = profile.chat_rooms.all()
+    chat_list = []
+    for chat in queryset:
+        chat_user = chat.participants.exclude(pk=request.user.pk)[0]
+        chat_list.append(
+            {
+                'key': str(chat.pk),
+                'name': chat_user.user.username
+            })
+    return Response(chat_list)
+
+@api_view(['GET'])
+@renderer_classes([JSONRenderer])
+@permission_classes((permissions.IsAuthenticated,))
+def get_friends(request):
+    profile = get_object_or_404(Profile, pk=request.user.pk)
+    queryset = profile.friends.all()
+    friends = []
+    for idx, friend in enumerate(queryset):
+        friends.append({
+            'key': str(idx),
+            'name': friend.user.username
+        })
+    return Response(friends)
