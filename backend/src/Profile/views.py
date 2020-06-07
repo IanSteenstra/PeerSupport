@@ -112,6 +112,155 @@ def matching_algorithm(pk):
         matches.append(nextMatch)
     return matches
 
+class UserQuizViewSet(viewsets.ViewSet):
+    '''
+    A viewset for viewing and editing UserQuiz instances
+    '''
+    serializer_class = UserQuizSerializer
+    queryset = UserQuiz.objects.all()
+    @action(detail=True, methods=['post'], url_path='add-friend')
+    def add_friend(self, request, pk=None):
+      profile = Profile.objects.get(pk=pk)
+    
+      if request.user.pk is not profile.user.pk:
+        return HttpResponseForbidden()
+
+      if 'pk' in request.data:
+        p = get_object_or_404(Profile,pk=request.data['pk'])
+
+        if friends_with(profile, p):
+          return Response("You are already friends with this person")
+
+        if profile.friends.filter(pk=request.data['pk']).exists():
+          return Response("Friend request has already been sent")
+        else:
+          profile.friends.add(p)
+          profile.save()
+          return Response("Friend request sent")
+
+      return Response("Profile pk required")
+
+    @action(detail=True, methods=['put'], url_path='update-matches')
+    def update_matches(self, request, pk=None):
+      profile = get_object_or_404(Profile, pk=pk)
+      profile.matches.set(matching_algorithm(pk=pk))
+      return Response("Matches updated")
+      
+    def get_permission(self):
+      if self.action == 'list':
+        self.permission_classes = [IsAdminUser, IsAuthenticated]
+      elif self.action == 'retrieve':
+        self.permission_classes = [IsAuthenticated]
+      return super(self.__class__, self).get_permissions()
+
+    def list(self, request):
+          queryset = UserQuiz.objects.all()
+          serializer = UserQuizSerializer(queryset, many=True)
+          return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        queryset = UserQuiz.objects.all()
+        userQuiz = get_object_or_404(queryset, pk=pk)
+        if (request.user != profile.user and not request.user.is_staff):
+            return Response("403 Forbidden. User not authorized.")
+
+        serializer = UserQuizSerializer(userQuiz)
+        return Response(serializer.data)
+
+    def update(self, instance, validated_data):
+        profile_data = validated_data.pop('profile', None)
+        for attr, value in profile_data.items():
+            setattr(instance.profile, attr, value)
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+        return instance
+    
+
+class CounselorQuizViewSet(viewsets.ViewSet):
+    '''
+    A viewset for viewing and editing UserQuiz instances
+    '''
+    serializer_class = CounselorQuizSerializer
+    queryset = CounselorQuiz.objects.all()
+
+    def retrieve(self, request, pk=None):
+      queryset = UserQuiz.objects.all()
+      counselorQuiz = get_object_or_404(queryset, pk=pk)
+      if (request.user != profile.user and not request.user.is_staff):
+        return Response("403 Forbidden. User not authorized.")
+
+      serializer = CounselorQuizSerializer(userQuiz)
+      return Response(serializer.data)
+
+    def update(self, instance, validated_data):
+      profile_data = validated_data.pop('profile', None)
+      for attr, value in profile_data.items():
+        setattr(instance.profile, attr, value)
+      for attr, value in validated_data.items():
+        setattr(instance, attr, value)
+      instance.save()
+      return instance
+
+    def friends_with(profile, p):
+      if profile.friends.filter(pk=p.pk).exists():
+        if p.friends.filter(pk=profile.pk).exists():
+          return True
+      return False
+
+    def matching_algorithm(pk):
+      matches = []
+      return matches
+
+    def get_permission(self):
+        if self.action == 'list':
+            self.permission_classes = [IsAdminUser, IsAuthenticated]
+        elif self.action == 'retrieve':
+            self.permission_classes = [IsAuthenticated]
+        return super(self.__class__, self).get_permissions()
+
+    def list(self, request):
+        queryset = CounselorQuiz.objects.all()
+        serializer = CounselorQuizSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+class ResearchQuizViewSet(viewsets.ViewSet):
+    '''
+    A viewset for viewing and editing UserQuiz instances
+    '''
+    serializer_class = ResearchQuizSerializer
+    queryset = ResearchQuiz.objects.all()
+
+    def get_permission(self):
+        if self.action == 'list':
+            self.permission_classes = [IsAdminUser, IsAuthenticated]
+        elif self.action == 'retrieve':
+            self.permission_classes = [IsAuthenticated]
+        return super(self.__class__, self).get_permissions()
+
+    def list(self, request):
+        queryset = ResearchQuiz.objects.all()
+        serializer = ResearchQuizSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        queryset = ResearchQuiz.objects.all()
+        counselorQuiz = get_object_or_404(queryset, pk=pk)
+        if (request.user != profile.user and not request.user.is_staff):
+            return Response("403 Forbidden. User not authorized.")
+
+        serializer = ResearchQuizSerializer(userQuiz)
+        return Response(serializer.data)
+
+    def update(self, instance, validated_data):
+        profile_data = validated_data.pop('profile', None)
+        for attr, value in profile_data.items():
+            setattr(instance.profile, attr, value)
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+        return instance
 @api_view(['GET'])
 @renderer_classes([JSONRenderer])
 @permission_classes((permissions.IsAuthenticated,))

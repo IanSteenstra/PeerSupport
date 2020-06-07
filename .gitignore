@@ -137,3 +137,6 @@ dmypy.json
 .swp
 .vscode/settings.json
 *.code-workspace
+.vs/PythonSettings.json
+.vs/slnx.sqlite
+.vs/TherapyNow/v16/.suo
