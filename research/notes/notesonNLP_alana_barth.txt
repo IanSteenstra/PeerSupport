@@ -1,0 +1,7 @@
+It is a field of artificial intelligence in which computers analyze, understand, and derive meaning from 
+human language in a smart and useful way.
+NLP considers the hierarchical structure of languages: severl words make a phrase, several phrases, and ultimately sentences convey ideas.
+NLP systems can correct grammer, convert speech to text, and translate between languages. 
+They allow developers to create a software that understands human language.
+They can use Sentiment Analysis to identify the sentiment of a string of text
+NLP algorithms are typically based on machine learning algorithms.
