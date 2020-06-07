@@ -10,10 +10,10 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
 from rest_framework.decorators import action
 
-from .models import Profile
+from .models import Profile, UserQuiz, CounselorQuiz, ResearchQuiz, Counselor
 from chat.models import Chat
 from rest_framework.authtoken.models import Token
-from .serializers import ProfileSerializer
+from .serializers import ProfileSerializer, UserQuizSerializer, CounselorQuizSerializer, ResearchQuizSerializer
 from chat.api.serializers import ChatSerializer
 import json
 
@@ -261,6 +261,7 @@ class ResearchQuizViewSet(viewsets.ViewSet):
             setattr(instance, attr, value)
         instance.save()
         return instance
+        
 @api_view(['GET'])
 @renderer_classes([JSONRenderer])
 @permission_classes((permissions.IsAuthenticated,))

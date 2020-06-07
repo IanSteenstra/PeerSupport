@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
-from Profile.views import ProfileViewSet, get_chats, get_friends
+from Profile.views import ProfileViewSet, UserQuizViewSet, CounselorQuizViewSet, ResearchQuizViewSet, get_chats, get_friends
 from events.views import EventViewSet
 from chat.api.views import room
 

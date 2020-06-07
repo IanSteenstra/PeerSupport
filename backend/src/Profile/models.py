@@ -24,17 +24,17 @@ class UserQuiz(models.Model):
     Quiz model that holds responses to questions asked on the perosnality quiz for users
     '''
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
-    happiness = models.IntegerField()
-    hometown = models.IntegerField()
-    receiving_giving = models.IntegerField()
-    religion = models.IntegerField()
-    relation_to_others = models.IntegerField()
-    government_assistance = models.IntegerField()
-    local_community = models.IntegerField()
-    immediate_family = models.IntegerField()
-    fulfilling_work = models.IntegerField()
-    leader_social_circle = models.IntegerField()
-    created = models.DateTimeField()
+    happiness = models.IntegerField(null=True)
+    hometown = models.IntegerField(null=True)
+    receiving_giving = models.IntegerField(null=True)
+    religion = models.IntegerField(null=True)
+    relation_to_others = models.IntegerField(null=True)
+    government_assistance = models.IntegerField(null=True)
+    local_community = models.IntegerField(null=True)
+    immediate_family = models.IntegerField(null=True)
+    fulfilling_work = models.IntegerField(null=True)
+    leader_social_circle = models.IntegerField(null=True)
+    created = models.DateTimeField(null=True)
 
     class Meta:
         verbose_name = u'User Quiz'
@@ -46,17 +46,17 @@ class CounselorQuiz(models.Model):
     Quiz model that holds responses to questions asked on the personality quiz for counselors
     '''
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
-    a1 = models.FloatField()
-    a2 = models.FloatField()
-    a3 = models.FloatField()
-    a4 = models.FloatField()
-    a5 = models.FloatField()
-    a6 = models.FloatField()
-    a7 = models.FloatField()
-    a8 = models.FloatField()
-    a9 = models.FloatField()
-    a10 = models.FloatField()
-    created = models.DateTimeField()
+    a1 = models.FloatField(null=True)
+    a2 = models.FloatField(null=True)
+    a3 = models.FloatField(null=True)
+    a4 = models.FloatField(null=True)
+    a5 = models.FloatField(null=True)
+    a6 = models.FloatField(null=True)
+    a7 = models.FloatField(null=True)
+    a8 = models.FloatField(null=True)
+    a9 = models.FloatField(null=True)
+    a10 = models.FloatField(null=True)
+    created = models.DateTimeField(null=True)
 
     class Meta:
         verbose_name = u'Counselor Quiz'
