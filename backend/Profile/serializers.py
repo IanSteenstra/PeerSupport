@@ -20,7 +20,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         user.save()
         profile = Profile(user=user)
         profile.save()
-        return profile
+        return profile            
 
     class Meta:
         model = Profile

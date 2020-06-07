@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=hIOS783n@
+    ports:
+      - "5432:5432"
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+  django:
+    build: ./backend
+    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+    volumes:
+      - ./backend:/therapynow/backend
+    ports:
+      - "8000:8000"
+    depends_on: 
+      - postgres
+      - redis
+  react:
+    build: ./frontend
+    command: ["npm", "start"]
+    volumes:
+      - ./frontend:/therapynow/frontend
+      - node-modules:/therapynow/frontend/node_modules
+    ports:
+      - "3000:3000"
+    stdin_open: true
+
+volumes:
+  node-modules:
