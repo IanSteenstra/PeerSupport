@@ -1,0 +1,8 @@
+Features of toxicity
+- words with a negative meaning: swear words, death, etc.
+- looking at the use of pronouns
+- types of puncuation
+- length of comments
+- spelling
+- emoji/image/gif
+- identity attributes 

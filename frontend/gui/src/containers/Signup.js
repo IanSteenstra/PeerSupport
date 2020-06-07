@@ -82,10 +82,10 @@ class RegistrationForm extends React.Component {
                         rules: [{
                             type: 'email', message: 'The input is not valid E-mail!',
                         }, {
-                            required: true, message: 'Please input your E-mail!',
+                            required: true, message: 'Please input your RPI E-mail!',
                         }],
                     })(
-                        <Input prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Email" value = {this.state.email}
+                        <Input prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="RPI Email" value = {this.state.email}
                                onChange={this.onEmailChange}/>
                     )}
                 </FormItem>
