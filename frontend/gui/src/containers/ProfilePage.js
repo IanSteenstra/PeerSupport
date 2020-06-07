@@ -41,8 +41,8 @@ class ProfilePage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    authToken: state.auth.token,
-    username: state.auth.username
+    token: state.auth.token,
+    username: state.auth.username,
 });
 
 export default connect(mapStateToProps)(ProfilePage);
