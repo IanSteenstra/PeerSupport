@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Carousel, Button, Radio, Modal, message, Col, Row, Icon} from "antd";
-const { confirm } = Modal;
+import { Carousel, Button, Radio, message, Col, Row, Icon} from "antd";
 export default class QuizComponent extends Component {
 
     constructor(props) {

@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
-from Profile.views import ProfileViewSet, token_to_username, username_to_pk
+from Profile.views import ProfileViewSet, get_chats, get_friends
 from events.views import EventViewSet
 from chat.api.views import room
 
@@ -18,7 +18,8 @@ urlpatterns = [
     path('api/chats/', include('chat.api.urls', namespace='chat')),
     path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
-    path('api/username/', token_to_username),
-    path('api/user-pk/', username_to_pk),
     path('<int:pk>/', room, name='room'),
+    path('get-chats/', get_chats),
+    path('get-friends/', get_friends),
 ]
+

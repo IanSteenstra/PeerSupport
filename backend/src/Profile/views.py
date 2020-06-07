@@ -10,28 +10,12 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
 from rest_framework.decorators import action
 
-from .models import Profile, UserQuiz, CounselorQuiz, ResearchQuiz
+from .models import Profile
+from chat.models import Chat
 from rest_framework.authtoken.models import Token
-from .serializers import ProfileSerializer, UserQuizSerializer, CounselorQuizSerializer, ResearchQuizSerializer
-
-
-@api_view(['POST'])
-@renderer_classes([JSONRenderer])
-@permission_classes((permissions.AllowAny,))
-def token_to_username(request, format=None):
-    token = request.data['token']
-    username = Token.objects.get(key=token).user.username
-    payload = {'username': username}
-    return Response(payload)
-
-@api_view(['POST'])
-@renderer_classes([JSONRenderer])
-@permission_classes((permissions.AllowAny,))
-def username_to_pk(request, format=None):
-    username = request.data['username']
-    pk = User.objects.get(username=username).pk
-    payload = {'pk': pk}
-    return Response(payload)
+from .serializers import ProfileSerializer
+from chat.api.serializers import ChatSerializer
+import json
 
 class ProfileViewSet(viewsets.ViewSet):
     """
@@ -109,9 +93,23 @@ def friends_with(profile, p):
             return True
     return False
 
+def add_to_queue(pk, score):
+    queue = ChatQueue.objects.all()
+    queue.chatQ.add(pk, score)
 
+#create list of the users in queue with the 3 closest personality scores to this user
 def matching_algorithm(pk):
-    matches = []
+    queue = ChatQueue.objects.all()
+    matches = list()
+    minDiff = -1
+    thisScore = ChatQueue.objects.get(pk)
+    for i in range(min(queue.count(), 3)):
+        nextMatch = 0;
+        for user in queue:
+            if minDiff == -1 or abs(user[1] - userScore) <= minDiff and not user[0] in matches:
+                minDiff = user[1] - userScore
+                nextMatch = user[0]
+        matches.append(nextMatch)
     return matches
 
 class UserQuizViewSet(viewsets.ViewSet):
@@ -263,3 +261,32 @@ class ResearchQuizViewSet(viewsets.ViewSet):
             setattr(instance, attr, value)
         instance.save()
         return instance
+@api_view(['GET'])
+@renderer_classes([JSONRenderer])
+@permission_classes((permissions.IsAuthenticated,))
+def get_chats(request):
+    profile = get_object_or_404(Profile, pk=request.user.pk)
+    queryset = profile.chat_rooms.all()
+    chat_list = []
+    for chat in queryset:
+        chat_user = chat.participants.exclude(pk=request.user.pk)[0]
+        chat_list.append(
+            {
+                'key': str(chat.pk),
+                'name': chat_user.user.username
+            })
+    return Response(chat_list)
+
+@api_view(['GET'])
+@renderer_classes([JSONRenderer])
+@permission_classes((permissions.IsAuthenticated,))
+def get_friends(request):
+    profile = get_object_or_404(Profile, pk=request.user.pk)
+    queryset = profile.friends.all()
+    friends = []
+    for idx, friend in enumerate(queryset):
+        friends.append({
+            'key': str(idx),
+            'name': friend.user.username
+        })
+    return Response(friends)
