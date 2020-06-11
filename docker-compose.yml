@@ -3,12 +3,14 @@ version: '3'
 services:
   postgres:
     image: postgres
+    restart: always
     environment:
       - POSTGRES_PASSWORD=hIOS783n@
     ports:
       - "5432:5432"
   redis:
     image: redis
+    restart: always
     ports:
       - "6379:6379"
   django:

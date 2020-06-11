@@ -79,7 +79,7 @@ class ChatUI extends React.Component {
         const currentUser = this.props.username;
         return messages.map((message, i, arr) => (
           <li
-            key={message.id}
+            key={i}
             style={{ marginBottom: arr.length - 1 === i ? "300px" : "15px" }}
             className={message.author === currentUser ? "sent" : "replies"}
           >
