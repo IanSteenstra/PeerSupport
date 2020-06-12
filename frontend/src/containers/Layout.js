@@ -7,22 +7,22 @@ import * as actions from '../store/actions/auth';
 const { Header, Content, Footer } = Layout;
 
 class CustomLayout extends React.Component {
-
-
     render() {
         return (
             <Layout className="layout">
-                <Header>
-                    <div className="logo" />
+                <Header style={{ background: '#97d47cff' }}>
+                    
                     <Menu
-                        theme="dark"
+                        theme="light"
                         mode="horizontal"
                         defaultSelectedKeys={['1']}
-                        style={{ lineHeight: '64px' }}
-                    >
+                        style={{ lineHeight: '64px', background: '#97d47cff' }}
+                    >   
+                        
                         <Menu.Item key="1">
                             <Link to="/">Home</Link>
                         </Menu.Item>
+                        
                         <Menu.Item key="2">
                             <Link to="/events">Events</Link>
                         </Menu.Item>
@@ -60,11 +60,13 @@ class CustomLayout extends React.Component {
                                     <Link to="/login/">Login</Link>
                                 </Menu.Item>
                         }
+                        
                     </Menu>
+                    
                 </Header>
                 <Content style={{ padding: '0 50px' }}>
                     <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
-                        {this.props.children}
+                        {this.props.children}     
                     </div>
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>TherapyNow 2020 | Contact: Ian Steenstra - steenstra.ian@gmail.com</Footer>
