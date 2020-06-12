@@ -12,5 +12,11 @@ TherapyNow is an anonymous peer-counseling web application that provides easy ac
   - [http://127.0.0.1:8000](http://127.0.0.1:8000) is the Django app
   - [http://127.0.0.1:3000](http://127.0.0.1:3000) is the React app
 
+## Issue Running Codebase / Servers Not Working
+1. In another terminal while the servers are still running, enter 'docker ps'
+1. Find the Container ID for the therapynow_django server (ex: db54a724e9a4)
+1. Run 'docker exec -it <container ID> bash'
+1. 'python manage.py migrate'
+
 ## Contact
 Feel free to contact me for any questions at steenstra.ian@gmail.com
