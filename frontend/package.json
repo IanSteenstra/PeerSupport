@@ -8,6 +8,8 @@
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
     "antd": "^3.26.6",
+    "moment": "^2.26.0",
+    "shave": "^2.5.9",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "core-js": "^3.6.4",

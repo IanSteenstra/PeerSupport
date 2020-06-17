@@ -5,7 +5,6 @@ import axios from 'axios';
 import ChatUI from './ChatUI'
 import WebSocketInstance from "../websocket";
 import * as messageActions from "../store/actions/message";
-import { UserOutlined, LaptopOutlined } from '@ant-design/icons';
 const { SubMenu } = Menu;
 const { Content, Sider } = Layout;
 
@@ -107,18 +106,18 @@ class ChatPage extends React.Component {
     render() {
         return (
             <Layout>
-                <Sider width={200} className="site-layout-background">
+                <Sider width={350} className="site-layout-background">
                     <Menu
                     mode="inline"
                     defaultOpenKeys={['sub1']}
                     style={{ height: '100%', borderRight: 0 }}
                     >
-                    <SubMenu key="sub1" icon={<UserOutlined />} title="Current Chats">
+                    <SubMenu key="sub1" title="Current Chats">
                         {this.state.currChats.map(chat =>
                             <Menu.Item key={chat.key} onClick={() => this.showChat(chat.key)}>{chat.name}</Menu.Item>
                         )}
                     </SubMenu>
-                    <SubMenu key="sub2" icon={<LaptopOutlined />} title="Friends">
+                    <SubMenu key="sub2" title="Friends">
                         {this.state.friends.map(friend =>
                             <Menu.Item key={friend.key} onClick={() => this.getNewChat(friend.name)}>{friend.name}</Menu.Item>
                         )}

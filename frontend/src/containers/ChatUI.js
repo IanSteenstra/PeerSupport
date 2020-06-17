@@ -1,6 +1,13 @@
 import React from 'react';
+import moment from 'moment';
 import WebSocketInstance from '../websocket';
+import Message from "./Message";
+import '../assets/MessageList.css';
+import '../assets/ChatTitle.css';
+
 import { connect } from 'react-redux';
+
+const title = 'Hi'
 
 class ChatUI extends React.Component {
 
@@ -52,92 +59,92 @@ class ChatUI extends React.Component {
         this.setState({ message: "" });
       };
 
-    renderTimestamp = timestamp => {
-        let prefix = "";
-        const timeDiff = Math.round(
-          (new Date().getTime() - new Date(timestamp).getTime()) / 60000
-        );
-        if (timeDiff < 1) {
-          // less than one minute ago
-          prefix = "just now...";
-        } else if (timeDiff < 60 && timeDiff > 1) {
-          // less than sixty minutes ago
-          prefix = `${timeDiff} minutes ago`;
-        } else if (timeDiff < 24 * 60 && timeDiff > 60) {
-          // less than 24 hours ago
-          prefix = `${Math.round(timeDiff / 60)} hours ago`;
-        } else if (timeDiff < 31 * 24 * 60 && timeDiff > 24 * 60) {
-          // less than 7 days ago
-          prefix = `${Math.round(timeDiff / (60 * 24))} days ago`;
-        } else {
-          prefix = `${new Date(timestamp)}`;
-        }
-        return prefix;
-      };
-
     renderMessages = messages => {
-        const currentUser = this.props.username;
-        return messages.map((message, i, arr) => (
-          <li
+      let i = 0;
+      let messageCount = messages.length;
+      let tempMessages = [];
+  
+      while (i < messageCount) {
+        let previous = messages[i - 1];
+        let current = messages[i];
+        let next = messages[i + 1];
+        let isMine = current.author === this.props.username;
+        let currentMoment = moment(current.timestamp);
+        let prevBySameAuthor = false;
+        let nextBySameAuthor = false;
+        let startsSequence = true;
+        let endsSequence = true;
+        let showTimestamp = true;
+  
+        if (previous) {
+          let previousMoment = moment(previous.timestamp);
+          let previousDuration = moment.duration(currentMoment.diff(previousMoment));
+          prevBySameAuthor = previous.author === current.author;
+          
+          if (prevBySameAuthor && previousDuration.as('hours') < 1) {
+            startsSequence = false;
+          }
+  
+          if (previousDuration.as('hours') < 1) {
+            showTimestamp = false;
+          }
+        }
+  
+        if (next) {
+          let nextMoment = moment(next.timestamp);
+          let nextDuration = moment.duration(nextMoment.diff(currentMoment));
+          nextBySameAuthor = next.author === current.author;
+  
+          if (nextBySameAuthor && nextDuration.as('hours') < 1) {
+            endsSequence = false;
+          }
+        }
+  
+        tempMessages.push(
+          <Message
             key={i}
-            style={{ marginBottom: arr.length - 1 === i ? "300px" : "15px" }}
-            className={message.author === currentUser ? "sent" : "replies"}
-          >
-            <p>
-              {message.content}
-              <br />
-              <small>{this.renderTimestamp(message.timestamp)}</small>
-            </p>
-          </li>
-        ));
-      };
-
-    scrollToBottom = () => {
-        this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+            isMine={isMine}
+            startsSequence={startsSequence}
+            endsSequence={endsSequence}
+            showTimestamp={showTimestamp}
+            data={current}
+          />
+        );
+  
+        // Proceed to the next message.
+        i += 1;
+      }
+  
+      return tempMessages;
     };
-
-    componentDidMount() {
-        this.scrollToBottom();
-    }
-
-    componentDidUpdate() {
-        this.scrollToBottom();
-    }
 
 
     render() {
         return (
-            <div>            
-                <div className="messages">
-                    <ul id="chat-log">
-                        {this.props.messages && this.renderMessages(this.props.messages)}
-                        <div
-                        style={{ float: "left", clear: "both" }}
-                        ref={el => {
-                            this.messagesEnd = el;
-                        }}
-                        />
-                    </ul>
-                </div>
-                <div className="message-input">
-                    <form onSubmit={this.sendMessageHandler}>
-                        <div className="wrap">
-                        <input
-                            onChange={this.messageChangeHandler}
-                            value={this.state.message}
-                            required
-                            id="chat-message-input"
-                            type="text"
-                            placeholder="Write your message..."
-                        />
-                        <i className="fa fa-paperclip attachment" aria-hidden="true" />
-                        <button id="chat-message-submit" className="submit">
-                            <i className="fa fa-paper-plane" aria-hidden="true" />
-                        </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+          <div>
+              <div className="message-list">
+                <div className="header"><h1 className="chat-title">{ this.props.chatId }</h1></div>
+                <div className="message-list-container">{this.renderMessages(this.props.messages)}</div>
+              </div>
+              <div className="message-input">
+                  <form onSubmit={this.sendMessageHandler}>
+                      <div className="wrap">
+                      <input
+                          onChange={this.messageChangeHandler}
+                          value={this.state.message}
+                          required
+                          id="chat-message-input"
+                          type="text"
+                          placeholder="Write your message..."
+                      />
+                      <i className="fa fa-paperclip attachment" aria-hidden="true" />
+                      <button id="chat-message-submit" className="submit">
+                          <i className="fa fa-paper-plane" aria-hidden="true" />
+                      </button>
+                      </div>
+                  </form>
+              </div>
+          </div>
         );
     }
 }
