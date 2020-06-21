@@ -1,13 +1,12 @@
 import React from 'react';
 import WebSocketInstance from '../websocket';
-import { Input, Row } from 'antd';
-import { SendOutlined } from '@ant-design/icons';
+import { Input, Row, Popover, Radio, Button } from 'antd';
+import { SendOutlined, FlagFilled } from '@ant-design/icons';
+import * as messageActions from "../store/actions/message";
 import '../assets/MessageList.css';
 import { connect } from 'react-redux';
 
 class ChatUI extends React.Component {
-
-  state = { message: "" };
 
   initialiseChat() {
     this.waitForSocketConnection(() => {
@@ -22,9 +21,16 @@ class ChatUI extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      message: "" 
+      message: "",
+      flagType: 1 
     };
+
     this.initialiseChat();
+
+    WebSocketInstance.addCallbacks(
+      this.props.setMessages.bind(this),
+      this.props.addMessage.bind(this)
+    );
   }
 
   waitForSocketConnection(callback) {
@@ -56,6 +62,16 @@ class ChatUI extends React.Component {
     this.setState({ message: "" });
   };
 
+  onFlagChange = e => {
+    this.setState({
+      flagType: e.target.value
+    })
+  }
+
+  onFlagSubmit = () => {
+    console.log(this.state.flagType)
+  }
+
   renderTimestamp = timestamp => {
     let prefix = "";
     const timeDiff = Math.round(
@@ -64,16 +80,56 @@ class ChatUI extends React.Component {
     if (timeDiff < 1) {
       // less than one minute ago
       prefix = "just now...";
-    } else if (timeDiff < 60 && timeDiff > 1) {
+    } else if (timeDiff < 2) {
+      prefix = `${timeDiff} minute ago`;
+    } else if (timeDiff < 60) {
       // less than sixty minutes ago
       prefix = `${timeDiff} minutes ago`;
-    } else if (timeDiff < 24 * 60 && timeDiff > 60) {
+    } else if (timeDiff < 24 * 60 && timeDiff / 60 < 2) {
+      // less than 24 hours ago
+      prefix = `${Math.round(timeDiff / 60)} hour ago`;
+    } else if (timeDiff < 24 * 60) {
       // less than 24 hours ago
       prefix = `${Math.round(timeDiff / 60)} hours ago`;
+    } else if (timeDiff > 24 * 60 && timeDiff / (60 * 24) < 2) {
+      prefix = `${Math.round(timeDiff / (60 * 24))} day ago`
     } else {
       prefix = `${Math.round(timeDiff / (60 * 24))} days ago`;
     } 
     return prefix;
+  };
+
+  renderFlagForm = message => {
+    const radioStyle = {
+      display: 'block',
+      height: '30px',
+      lineHeight: '30px',
+    };
+
+    return (
+      <div>
+        <Row>
+          <Radio.Group onChange={this.onFlagChange} value={this.state.flagType}>
+            <Radio style={radioStyle} value={1}>
+              The message inidates a suicidal ideation
+            </Radio>
+            <Radio style={radioStyle} value={2}>
+              The message inidates planning to hurt someone
+            </Radio>
+            <Radio style={radioStyle} value={3}>
+              The message is harassment          
+            </Radio>
+          </Radio.Group>
+        </Row>
+        <Row>
+          <center>
+            <Button onClick={this.onFlagSubmit}>
+              Submit
+            </Button>
+          </center>
+        </Row>
+      </div>
+    );
   };
 
   renderMessages = messages => {
@@ -92,6 +148,11 @@ class ChatUI extends React.Component {
           {message.content}
           <br />
           <small>{this.renderTimestamp(message.timestamp)}</small>
+          {message.author === currentUser || <small>
+          <Popover title={<center>Why are you flagging this message?</center>} trigger="click" content={this.renderFlagForm(message)} placement="right">
+              <FlagFilled style={{ padding: '10px', color: '#ffa9a3' }}/>
+            </Popover>
+          </small>}
         </p>
       </li>
     ));
@@ -105,11 +166,8 @@ class ChatUI extends React.Component {
     this.scrollToBottom();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(newProps) {
     this.scrollToBottom();
-  }
-
-  componentWillReceiveProps(newProps) {
     if (this.props.chatId !== newProps.chatId) {
       WebSocketInstance.disconnect();
       this.waitForSocketConnection(() => {
@@ -167,5 +225,12 @@ const mapStateToProps = state => ({
     messages: state.message.messages
 });
 
-export default connect(mapStateToProps)(ChatUI);
+const mapDispatchToProps = dispatch => {
+  return {
+    addMessage: message => dispatch(messageActions.addMessage(message)),
+    setMessages: messages => dispatch(messageActions.setMessages(messages))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatUI);
   

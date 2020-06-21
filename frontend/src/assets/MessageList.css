@@ -10,9 +10,6 @@
   width: calc(100% - 25px);
   font-size: 0.9em;
 }
-.messages ul li:nth-last-child(1) {
-  margin-bottom: 20px;
-}
 .messages ul li.replies img {
   margin: 6px 8px 0 0;
 }
@@ -30,7 +27,7 @@
   float: right;
 }
 .messages ul li img {
-  width: 42px;
+  width: 60px;
   border-radius: 50%;
   float: left;
 }
@@ -39,6 +36,8 @@
   padding: 10px 15px;
   border-radius: 20px;
   max-width: 300px;
-  line-height: 130%;
-  font-size: 18px;
+  font-size: 20px;
+}
+.popover {
+  overflow: hidden;
 }

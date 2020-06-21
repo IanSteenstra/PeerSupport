@@ -3,12 +3,9 @@ import { Layout, Menu} from 'antd';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import ChatUI from './ChatUI'
-import WebSocketInstance from "../websocket";
-import * as messageActions from "../store/actions/message";
+
 const { SubMenu } = Menu;
 const { Content, Sider } = Layout;
-
-
 
 class ChatPage extends React.Component {
     constructor(props) {
@@ -24,11 +21,6 @@ class ChatPage extends React.Component {
                 'name': ''
             }],
         };
-
-        WebSocketInstance.addCallbacks(
-            this.props.setMessages.bind(this),
-            this.props.addMessage.bind(this)
-          );
 
         this.getCurrChats()
         this.getFriends()
@@ -81,9 +73,9 @@ class ChatPage extends React.Component {
         };
         axios.get(url).then(response => response.data)
             .then((data) => {
-                    this.setState({ 
-                        currChats: data
-                    })
+                this.setState({ 
+                    currChats: data
+                })
             })
       }
 
@@ -122,17 +114,9 @@ class ChatPage extends React.Component {
     }
 }
 
-
 const mapStateToProps = state => ({
     token: state.auth.token,
     username: state.auth.username,
 });
 
-const mapDispatchToProps = dispatch => {
-    return {
-      addMessage: message => dispatch(messageActions.addMessage(message)),
-      setMessages: messages => dispatch(messageActions.setMessages(messages))
-    };
-  };
-
-export default connect(mapStateToProps, mapDispatchToProps)(ChatPage);
+export default connect(mapStateToProps)(ChatPage);
