@@ -64,10 +64,17 @@ class CustomLayout extends React.Component {
                     </Menu>
                     
                 </Header>
-                <Content style={{ padding: '0 50px' }}>
-                    <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
-                        {this.props.children}     
-                    </div>
+                <Content
+                    style={{
+                        padding: 24,
+                        margin: 0,
+                        minHeight: 280,
+                        background: '#fff'
+                    }}
+                    >
+                    <Layout style={{ padding: '24px 0', background: '#fff'}}>
+                        {this.props.children} 
+                    </Layout>
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>TherapyNow 2020 | Contact: Ian Steenstra - steenstra.ian@gmail.com</Footer>
             </Layout>

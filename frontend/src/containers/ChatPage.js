@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Layout, Menu} from 'antd';
+import { Layout, Menu} from 'antd';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import ChatUI from './ChatUI'
@@ -14,7 +14,6 @@ class ChatPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            chatVisible: false,
             currentChat: '',
             currChats: [{
                 'key': '',
@@ -64,8 +63,7 @@ class ChatPage extends React.Component {
             .then((data) => {
                 console.log(data)
                 this.setState({ 
-                    currentChat: data['pk'],
-                    chatVisible: true
+                    currentChat: data['pk']
                 })
                 this.setState(state => {
                     return [...state.currChats, {'key': data['pk'], 'name': value}]
@@ -91,22 +89,14 @@ class ChatPage extends React.Component {
 
     showChat = value => {
         this.setState({
-            currentChat: value,
-            chatVisible: true 
+            currentChat: value
         }); 
     }
-
-    closeChat = () => {
-        this.setState({
-            chatVisible: false 
-        }); 
-    }
-
 
     render() {
         return (
             <Layout>
-                <Sider width={350} className="site-layout-background">
+                <Sider>
                     <Menu
                     mode="inline"
                     defaultOpenKeys={['sub1']}
@@ -124,19 +114,9 @@ class ChatPage extends React.Component {
                     </SubMenu>
                     </Menu>
                 </Sider>
-            <Layout style={{ padding: '0 24px 24px' }}>
-                <Content
-                className="site-layout-background"
-                style={{
-                    padding: 24,
-                    margin: 0,
-                    minHeight: 280,
-                }}
-                >
-                {this.state.chatVisible && <ChatUI chatId={this.state.currentChat} username={this.props.username}/>}
-                {this.state.chatVisible && <Button onClick={this.closeChat}>Close Chat</Button>}
+                <Content>
+                    {this.state.currentChat && <ChatUI chatId={this.state.currentChat} username={this.props.username}/>}
                 </Content>
-                </Layout>
             </Layout>
         )
     }
