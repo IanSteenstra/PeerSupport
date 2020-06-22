@@ -1,6 +1,6 @@
 .messages {
   max-height: 80vh;
-  overflow: auto; 
+  overflow: auto;
 }
 .messages ul li {
   display: inline-block;

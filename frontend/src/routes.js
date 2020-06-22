@@ -1,6 +1,5 @@
-
-import React from 'react';
-import { Route } from 'react-router-dom';
+import React from "react";
+import { Route } from "react-router-dom";
 import Login from "./containers/Login";
 import Signup from "./containers/Signup";
 import Profile from "./containers/ProfilePage";
@@ -10,18 +9,17 @@ import Home from "./containers/Home";
 import ChatPage from "./containers/ChatPage";
 // import ChangePassword from "./containers/ChangePassword";
 
-
 const BaseRouter = () => (
-    <div>
-        <Route exact path="/login/" component={Login} />
-        <Route exact path="/signup/" component={Signup} />
-        <Route exact path="/events/" component={Events} />
-        <Route exact path="/chat/" component={ChatPage} />
-        <Route exact path="/profile/" component={Profile} />
-        <Route exact path="/quiz/" component={Quiz} />
-        {/* <Route exact path="/changepassword/" component={ChangePassword} /> */}
-        <Route exact path="/" component={Home} />
-    </div>
+  <div>
+    <Route exact path="/login/" component={Login} />
+    <Route exact path="/signup/" component={Signup} />
+    <Route exact path="/events/" component={Events} />
+    <Route exact path="/chat/" component={ChatPage} />
+    <Route exact path="/profile/" component={Profile} />
+    <Route exact path="/quiz/" component={Quiz} />
+    {/* <Route exact path="/changepassword/" component={ChangePassword} /> */}
+    <Route exact path="/" component={Home} />
+  </div>
 );
 
 export default BaseRouter;

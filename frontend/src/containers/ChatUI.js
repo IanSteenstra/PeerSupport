@@ -1,28 +1,24 @@
-import React from 'react';
-import WebSocketInstance from '../websocket';
-import { Input, Row, Popover, Radio, Button } from 'antd';
-import { SendOutlined, FlagFilled } from '@ant-design/icons';
+import React from "react";
+import WebSocketInstance from "../websocket";
+import { Input, Row, Popover, Radio, Button } from "antd";
+import { SendOutlined, FlagFilled } from "@ant-design/icons";
 import * as messageActions from "../store/actions/message";
-import '../assets/MessageList.css';
-import { connect } from 'react-redux';
+import "../assets/MessageList.css";
+import { connect } from "react-redux";
 
 class ChatUI extends React.Component {
-
   initialiseChat() {
     this.waitForSocketConnection(() => {
-      WebSocketInstance.fetchMessages(
-        this.props.username,
-        this.props.chatId
-      );
+      WebSocketInstance.fetchMessages(this.props.username, this.props.chatId);
     });
     WebSocketInstance.connect(this.props.chatId);
   }
 
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       message: "",
-      flagType: 1 
+      flagType: 1,
     };
 
     this.initialiseChat();
@@ -35,7 +31,7 @@ class ChatUI extends React.Component {
 
   waitForSocketConnection(callback) {
     const component = this;
-    setTimeout(function() {
+    setTimeout(function () {
       if (WebSocketInstance.state() === 1) {
         console.log("Connection is made");
         callback();
@@ -47,32 +43,32 @@ class ChatUI extends React.Component {
     }, 100);
   }
 
-  messageChangeHandler = event => {
+  messageChangeHandler = (event) => {
     this.setState({ message: event.target.value });
   };
 
-  sendMessageHandler = e => {
+  sendMessageHandler = (e) => {
     e.preventDefault();
     const messageObject = {
       from: this.props.username,
       content: this.state.message,
-      chatId: this.props.chatId
+      chatId: this.props.chatId,
     };
     WebSocketInstance.newChatMessage(messageObject);
     this.setState({ message: "" });
   };
 
-  onFlagChange = e => {
+  onFlagChange = (e) => {
     this.setState({
-      flagType: e.target.value
-    })
-  }
+      flagType: e.target.value,
+    });
+  };
 
   onFlagSubmit = () => {
-    console.log(this.state.flagType)
-  }
+    console.log(this.state.flagType);
+  };
 
-  renderTimestamp = timestamp => {
+  renderTimestamp = (timestamp) => {
     let prefix = "";
     const timeDiff = Math.round(
       (new Date().getTime() - new Date(timestamp).getTime()) / 60000
@@ -92,18 +88,18 @@ class ChatUI extends React.Component {
       // less than 24 hours ago
       prefix = `${Math.round(timeDiff / 60)} hours ago`;
     } else if (timeDiff > 24 * 60 && timeDiff / (60 * 24) < 2) {
-      prefix = `${Math.round(timeDiff / (60 * 24))} day ago`
+      prefix = `${Math.round(timeDiff / (60 * 24))} day ago`;
     } else {
       prefix = `${Math.round(timeDiff / (60 * 24))} days ago`;
-    } 
+    }
     return prefix;
   };
 
-  renderFlagForm = message => {
+  renderFlagForm = (message) => {
     const radioStyle = {
-      display: 'block',
-      height: '30px',
-      lineHeight: '30px',
+      display: "block",
+      height: "30px",
+      lineHeight: "30px",
     };
 
     return (
@@ -117,22 +113,20 @@ class ChatUI extends React.Component {
               The message inidates planning to hurt someone
             </Radio>
             <Radio style={radioStyle} value={3}>
-              The message is harassment          
+              The message is harassment
             </Radio>
           </Radio.Group>
         </Row>
         <Row>
           <center>
-            <Button onClick={this.onFlagSubmit}>
-              Submit
-            </Button>
+            <Button onClick={this.onFlagSubmit}>Submit</Button>
           </center>
         </Row>
       </div>
     );
   };
 
-  renderMessages = messages => {
+  renderMessages = (messages) => {
     const currentUser = this.props.username;
     return messages.map((message, i, arr) => (
       <li
@@ -148,11 +142,18 @@ class ChatUI extends React.Component {
           {message.content}
           <br />
           <small>{this.renderTimestamp(message.timestamp)}</small>
-          {message.author === currentUser || <small>
-          <Popover title={<center>Why are you flagging this message?</center>} trigger="click" content={this.renderFlagForm(message)} placement="right">
-              <FlagFilled style={{ padding: '10px', color: '#ffa9a3' }}/>
-            </Popover>
-          </small>}
+          {message.author === currentUser || (
+            <small>
+              <Popover
+                title={<center>Why are you flagging this message?</center>}
+                trigger="click"
+                content={this.renderFlagForm(message)}
+                placement="right"
+              >
+                <FlagFilled style={{ padding: "10px", color: "#ffa9a3" }} />
+              </Popover>
+            </small>
+          )}
         </p>
       </li>
     ));
@@ -166,15 +167,16 @@ class ChatUI extends React.Component {
     this.scrollToBottom();
   }
 
+  componentWillUnmount() {
+    WebSocketInstance.disconnect();
+  }
+
   componentDidUpdate(newProps) {
     this.scrollToBottom();
     if (this.props.chatId !== newProps.chatId) {
       WebSocketInstance.disconnect();
       this.waitForSocketConnection(() => {
-        WebSocketInstance.fetchMessages(
-          this.props.username,
-          newProps.chatId
-        );
+        WebSocketInstance.fetchMessages(this.props.username, newProps.chatId);
       });
       WebSocketInstance.connect(newProps.chatId);
     }
@@ -182,9 +184,9 @@ class ChatUI extends React.Component {
 
   render() {
     const enter = (
-      <SendOutlined 
-       style={{ color: '#97d47cff', fontSize: 'large' }}
-       onClick={this.sendMessageHandler}
+      <SendOutlined
+        style={{ color: "#97d47cff", fontSize: "large" }}
+        onClick={this.sendMessageHandler}
       />
     );
     return (
@@ -195,7 +197,7 @@ class ChatUI extends React.Component {
               {this.props.messages && this.renderMessages(this.props.messages)}
               <div
                 style={{ float: "left", clear: "both" }}
-                ref={el => {
+                ref={(el) => {
                   this.messagesEnd = el;
                 }}
               />
@@ -208,12 +210,12 @@ class ChatUI extends React.Component {
               onPressEnter={this.sendMessageHandler}
               onChange={this.messageChangeHandler}
               value={this.state.message}
-              size='large'
+              size="large"
               id="chat-message-input"
               type="text"
               placeholder="Type your message..."
               suffix={enter}
-              />
+            />
           </div>
         </Row>
       </div>
@@ -221,16 +223,15 @@ class ChatUI extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-    messages: state.message.messages
+const mapStateToProps = (state) => ({
+  messages: state.message.messages,
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    addMessage: message => dispatch(messageActions.addMessage(message)),
-    setMessages: messages => dispatch(messageActions.setMessages(messages))
+    addMessage: (message) => dispatch(messageActions.addMessage(message)),
+    setMessages: (messages) => dispatch(messageActions.setMessages(messages)),
   };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatUI);
-  
