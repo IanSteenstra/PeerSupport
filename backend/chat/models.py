@@ -37,3 +37,19 @@ class Chat(models.Model):
 
 # class ChatQueue(models.Model):
 #     chatQ = models.ManyToManyField(pk, score)
+
+class MessageFlag(models.Model):
+  flag_suicidal = 'Suicidal'
+  flag_violent = 'Violent'
+  flag_harassment = 'Harassment'
+  flags = [
+    (flag_suicidal, 'Suicidal Ideation'),
+    (flag_violent, 'Potential Violence'),
+    (flag_harassment, 'Harassment')
+  ]
+
+  flag = models.CharField(choices=flags, max_length=32)
+  message = models.ManyToManyField(Message, related_name='message')
+  chat = models.ForeignKey(Chat, related_name='chat', on_delete=models.CASCADE)
+
+

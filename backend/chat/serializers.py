@@ -1,7 +1,8 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse
-from chat.models import Chat, Message
+
+from .models import Chat, Message, MessageFlag
 from Profile.models import Profile
 from Profile.serializers import ProfileSerializer, ProfileUsernameSerializer
 
@@ -23,6 +24,7 @@ class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
         fields = ('pk', 'username','content','timestamp')
+        read_only = ('pk',)
 
 
 class ChatSerializer(serializers.ModelSerializer):
@@ -45,4 +47,11 @@ class ChatSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chat
         fields = ('pk', 'messages', 'participants',)
+        read_only = ('pk',)
+
+class MessageFlagSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = MessageFlag
+        fields = ('flag', 'chat', 'message')
         read_only = ('pk',)

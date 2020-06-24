@@ -3,7 +3,6 @@ from django.shortcuts import get_object_or_404, redirect
 from django.http import HttpResponseForbidden
 from rest_framework.decorators import api_view, renderer_classes, permission_classes
 from rest_framework.renderers import JSONRenderer
-from rest_framework.views import APIView
 
 from rest_framework import viewsets, permissions
 from rest_framework.response import Response
@@ -14,7 +13,7 @@ from .models import Profile, UserQuiz, CounselorQuiz, ResearchQuiz, Counselor
 from chat.models import Chat
 from rest_framework.authtoken.models import Token
 from .serializers import ProfileSerializer, UserQuizSerializer, CounselorQuizSerializer, ResearchQuizSerializer
-from chat.api.serializers import ChatSerializer
+from chat.serializers import ChatSerializer
 import json
 
 class ProfileViewSet(viewsets.ViewSet):
