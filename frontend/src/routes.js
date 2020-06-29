@@ -7,19 +7,20 @@ import Quiz from "./containers/Quiz";
 import Events from "./containers/Events";
 import Home from "./containers/Home";
 import ChatPage from "./containers/ChatPage";
+import Hoc from "./hoc/hoc";
 // import ChangePassword from "./containers/ChangePassword";
 
 const BaseRouter = () => (
-  <div>
-    <Route exact path="/login/" component={Login} />
-    <Route exact path="/signup/" component={Signup} />
-    <Route exact path="/events/" component={Events} />
-    <Route exact path="/chat/" component={ChatPage} />
-    <Route exact path="/profile/" component={Profile} />
-    <Route exact path="/quiz/" component={Quiz} />
-    {/* <Route exact path="/changepassword/" component={ChangePassword} /> */}
+  <Hoc>
     <Route exact path="/" component={Home} />
-  </div>
+    <Route path="/login" component={Login} />
+    <Route path="/signup" component={Signup} />
+    <Route path="/events" component={Events} />
+    <Route exact path="/profile" component={Profile} />
+    <Route path="/quiz" component={Quiz} />
+    {/* <Route exact path="/changepassword/" component={ChangePassword} /> */}
+    <Route path="/chat" component={ChatPage} />
+  </Hoc>
 );
 
 export default BaseRouter;

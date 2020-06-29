@@ -2,16 +2,19 @@ import React from "react";
 import WebSocketInstance from "../websocket";
 import { Input, Row, Popover, Radio, Button } from "antd";
 import { SendOutlined, FlagFilled } from "@ant-design/icons";
-import * as messageActions from "../store/actions/message";
 import "../assets/MessageList.css";
 import { connect } from "react-redux";
+import Hoc from "../hoc/hoc";
 
 class ChatUI extends React.Component {
   initialiseChat() {
     this.waitForSocketConnection(() => {
-      WebSocketInstance.fetchMessages(this.props.username, this.props.chatId);
+      WebSocketInstance.fetchMessages(
+        this.props.username,
+        this.props.match.params.chatId
+      );
     });
-    WebSocketInstance.connect(this.props.chatId);
+    WebSocketInstance.connect(this.props.match.params.chatId);
   }
 
   constructor(props) {
@@ -20,13 +23,7 @@ class ChatUI extends React.Component {
       message: "",
       flagType: 1,
     };
-
     this.initialiseChat();
-
-    WebSocketInstance.addCallbacks(
-      this.props.setMessages.bind(this),
-      this.props.addMessage.bind(this)
-    );
   }
 
   waitForSocketConnection(callback) {
@@ -49,10 +46,11 @@ class ChatUI extends React.Component {
 
   sendMessageHandler = (e) => {
     e.preventDefault();
+    console.log(this.state.message);
     const messageObject = {
       from: this.props.username,
       content: this.state.message,
-      chatId: this.props.chatId,
+      chatId: this.props.match.params.chatId,
     };
     WebSocketInstance.newChatMessage(messageObject);
     this.setState({ message: "" });
@@ -128,6 +126,7 @@ class ChatUI extends React.Component {
 
   renderMessages = (messages) => {
     const currentUser = this.props.username;
+    console.log(messages);
     return messages.map((message, i, arr) => (
       <li
         key={i}
@@ -167,18 +166,20 @@ class ChatUI extends React.Component {
     this.scrollToBottom();
   }
 
-  componentWillUnmount() {
-    WebSocketInstance.disconnect();
+  componentDidUpdate() {
+    this.scrollToBottom();
   }
 
-  componentDidUpdate(newProps) {
-    this.scrollToBottom();
-    if (this.props.chatId !== newProps.chatId) {
+  componentWillReceiveProps(newProps) {
+    if (this.props.match.params.chatId !== newProps.match.params.chatId) {
       WebSocketInstance.disconnect();
       this.waitForSocketConnection(() => {
-        WebSocketInstance.fetchMessages(this.props.username, newProps.chatId);
+        WebSocketInstance.fetchMessages(
+          this.props.username,
+          newProps.match.params.chatId
+        );
       });
-      WebSocketInstance.connect(newProps.chatId);
+      WebSocketInstance.connect(newProps.match.params.chatId);
     }
   }
 
@@ -190,7 +191,7 @@ class ChatUI extends React.Component {
       />
     );
     return (
-      <div className="message-list">
+      <Hoc>
         <Row>
           <div className="messages">
             <ul id="chat-log">
@@ -218,20 +219,14 @@ class ChatUI extends React.Component {
             />
           </div>
         </Row>
-      </div>
+      </Hoc>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
   messages: state.message.messages,
+  username: state.auth.username,
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addMessage: (message) => dispatch(messageActions.addMessage(message)),
-    setMessages: (messages) => dispatch(messageActions.setMessages(messages)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ChatUI);
+export default connect(mapStateToProps)(ChatUI);

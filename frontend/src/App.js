@@ -4,10 +4,16 @@ import { connect } from "react-redux";
 import BaseRouter from "./routes";
 import * as actions from "./store/actions/auth";
 import CustomLayout from "./containers/Layout";
+import WebSocketInstance from "./websocket";
+import * as messageActions from "./store/actions/message";
 
 class App extends Component {
   componentDidMount() {
     this.props.onTryAutoSignup();
+    WebSocketInstance.addCallbacks(
+      this.props.setMessages.bind(this),
+      this.props.addMessage.bind(this)
+    );
   }
 
   render() {
@@ -32,6 +38,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onTryAutoSignup: () => dispatch(actions.authCheckState()),
+    addMessage: (message) => dispatch(messageActions.addMessage(message)),
+    setMessages: (messages) => dispatch(messageActions.setMessages(messages)),
   };
 };
 

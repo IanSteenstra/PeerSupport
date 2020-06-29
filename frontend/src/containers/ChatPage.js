@@ -2,6 +2,7 @@ import React from "react";
 import { Layout, Menu } from "antd";
 import { connect } from "react-redux";
 import axios from "axios";
+import { NavLink, Route } from "react-router-dom";
 import ChatUI from "./ChatUI";
 
 const { SubMenu } = Menu;
@@ -104,11 +105,11 @@ class ChatPage extends React.Component {
           >
             <SubMenu key="sub1" title="Current Chats">
               {this.state.currChats.map((chat) => (
-                <Menu.Item
-                  key={chat.key}
-                  onClick={() => this.showChat(chat.key)}
-                >
-                  {chat.name}
+                <Menu.Item key={chat.key}>
+                  <NavLink to={`/chat/${chat.key}`}>
+                    {chat.name}
+                    {chat.key}
+                  </NavLink>
                 </Menu.Item>
               ))}
             </SubMenu>
@@ -125,12 +126,7 @@ class ChatPage extends React.Component {
           </Menu>
         </Sider>
         <Content>
-          {this.state.currentChat && (
-            <ChatUI
-              chatId={this.state.currentChat}
-              username={this.props.username}
-            />
-          )}
+          <Route exact path={`/chat/:chatId`} component={ChatUI} />
         </Content>
       </Layout>
     );

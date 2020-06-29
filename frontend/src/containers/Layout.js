@@ -14,7 +14,6 @@ class CustomLayout extends React.Component {
           <Menu
             theme="light"
             mode="horizontal"
-            defaultSelectedKeys={["1"]}
             style={{ lineHeight: "64px", background: "#97d47cff" }}
           >
             <Menu.Item key="1">
