@@ -1,8 +1,7 @@
 import React from "react";
-import { Table, Tabs } from "antd";
+import { Table, Tabs, Button } from "antd";
 import axios from "axios";
 import { connect } from "react-redux";
-import Button from "react-bootstrap/Button";
 import "antd/dist/antd.css";
 import { CarryOutTwoTone, CalendarTwoTone } from "@ant-design/icons";
 
@@ -16,7 +15,7 @@ class Events extends React.Component {
         title: "Event",
         dataIndex: "name",
         key: "name",
-        render: (text) => <a>{text}</a>,
+        render: (text) => <Button>{text}</Button>,
       },
       {
         title: "Start Time",
@@ -39,7 +38,7 @@ class Events extends React.Component {
         title: "Event",
         dataIndex: "name",
         key: "name",
-        render: (text) => <a>{text}</a>,
+        render: (text) => <Button>{text}</Button>,
       },
       {
         title: "Start Time",
@@ -139,12 +138,13 @@ class Events extends React.Component {
       "Content-Type": "application/json",
       Authorization: `Token ${this.props.token}`,
     };
-    // axios.post({
-    //     method: 'get',
-    //     url: url,
-    //     })
-    //     .then(res => {})
-    //     .catch(err => console.log(err));
+    axios
+      .post({
+        method: "get",
+        url: url,
+      })
+      .then((res) => {})
+      .catch((err) => console.log(err));
   };
 
   render() {

@@ -1,7 +1,6 @@
 import React from "react";
-import { Form, Input, Icon, Button } from "antd";
+import { Form, Input, Icon, Button, Alert } from "antd";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
 import * as actions from "../store/actions/auth";
 
 const FormItem = Form.Item;
@@ -14,6 +13,7 @@ class RegistrationForm extends React.Component {
     password: "",
     loading: "",
     error: "",
+    errorMessage: "",
   };
   onNameChange = ({ target: { value } }) => {
     this.setState({ userName: value });
@@ -35,6 +35,7 @@ class RegistrationForm extends React.Component {
         );
         this.props.history.push("/");
       } else {
+        this.setState({ errorMessage: err });
         console.log(err);
       }
     });
@@ -62,6 +63,15 @@ class RegistrationForm extends React.Component {
     callback();
   };
 
+  validateRPIEmail = (rule, value, callback) => {
+    const form = this.props.form;
+    if ("@rpi.edu" in form.getFieldValue("email")) {
+      callback();
+    } else {
+      callback("This is not an RPI email!");
+    }
+  };
+
   render() {
     const { getFieldDecorator } = this.props.form;
 
@@ -84,11 +94,11 @@ class RegistrationForm extends React.Component {
             rules: [
               {
                 type: "email",
-                message: "The input is not valid E-mail!",
+                message: "The input is not a valid RPI email!",
               },
               {
                 required: true,
-                message: "Please input your RPI E-mail!",
+                message: "Please input your RPI email!",
               },
             ],
           })(
@@ -153,6 +163,14 @@ class RegistrationForm extends React.Component {
             Signup
           </Button>
         </FormItem>
+        {this.state.errorMessage && (
+          <Alert
+            message="Error"
+            description={this.state.errorMessage}
+            type="error"
+            showIcon
+          />
+        )}
       </Form>
     );
   }

@@ -43,8 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    
-    'uniauth',
+
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -54,7 +53,7 @@ INSTALLED_APPS = [
     'rest_auth',
     'rest_auth.registration',
 
-  
+
 
 ]
 
@@ -175,9 +174,7 @@ REST_FRAMEWORK = {
     ]
 }
 
-
 CORS_ORIGIN_ALLOW_ALL = True
-
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_AUTHENTICATION_METHOD = 'username'
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
