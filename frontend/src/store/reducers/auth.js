@@ -6,12 +6,19 @@ const initialState = {
   username: null,
   error: null,
   loading: false,
+  registered: false,
 };
 
 const authStart = (state, action) => {
   return updateObject(state, {
     error: null,
     loading: true,
+  });
+};
+
+const registerSuccess = (state, action) => {
+  return updateObject(state, {
+    registered: true,
   });
 };
 
@@ -48,6 +55,8 @@ const reducer = (state = initialState, action) => {
       return authFail(state, action);
     case actionTypes.AUTH_LOGOUT:
       return authLogout(state, action);
+    case actionTypes.REGISTER_SUCCESS:
+      return registerSuccess(state, action);
     default:
       return state;
   }

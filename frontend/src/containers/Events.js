@@ -113,6 +113,12 @@ class Events extends React.Component {
     this.listEventsData();
   }
 
+  componentDidUpdate() {
+    if (!this.props.isAuthenticated) {
+      this.props.history.push("/login");
+    }
+  }
+
   listEventsData = () => {
     console.log(this.props.token);
     const url = "http://localhost:8000/api/events/";
@@ -191,6 +197,7 @@ class Events extends React.Component {
 const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
+    isAuthenticated: state.auth.token !== null,
   };
 };
 

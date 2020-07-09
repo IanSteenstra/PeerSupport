@@ -8,9 +8,17 @@ class ProfilePage extends React.Component {
     super(props);
     this.state = { username: "", email: "" };
   }
+
+  componentDidUpdate() {
+    if (!this.props.isAuthenticated) {
+      this.props.history.push("/login");
+    }
+  }
+
   openQuiz() {
     window.location = "/quiz/";
   }
+
   render() {
     return (
       <div
@@ -60,6 +68,7 @@ class ProfilePage extends React.Component {
 const mapStateToProps = (state) => ({
   token: state.auth.token,
   username: state.auth.username,
+  isAuthenticated: state.auth.token !== null,
 });
 
 export default connect(mapStateToProps)(ProfilePage);

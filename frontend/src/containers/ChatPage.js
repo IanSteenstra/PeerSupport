@@ -31,6 +31,12 @@ class ChatPage extends React.Component {
     this.getFriends();
   }
 
+  componentDidUpdate() {
+    if (!this.props.isAuthenticated) {
+      this.props.history.push("/login");
+    }
+  }
+
   getFriends = () => {
     const url = "http://127.0.0.1:8000/get-friends/";
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
@@ -136,6 +142,7 @@ class ChatPage extends React.Component {
 const mapStateToProps = (state) => ({
   token: state.auth.token,
   username: state.auth.username,
+  isAuthenticated: state.auth.token !== null,
 });
 
 export default connect(mapStateToProps)(ChatPage);
