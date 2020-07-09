@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from django.urls import reverse_lazy
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,6 +28,13 @@ SECRET_KEY = '*0jf&6(8275)4mlc^5wo7fy$(c@^=50o#z30bza2%#_)6(6xx^'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+# Email backend settings for Django
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'mutualhelptechnologies@gmail.com'
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 
 # Application definition
@@ -43,8 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    
-    'uniauth',
+
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -54,7 +62,7 @@ INSTALLED_APPS = [
     'rest_auth',
     'rest_auth.registration',
 
-  
+
 
 ]
 
@@ -72,11 +80,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'TherapyNow.urls'
-
+TEMPLATES_ROOT = os.path.join(BASE_DIR, "templates")
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATES_ROOT],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -162,7 +170,7 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissions',
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
@@ -175,9 +183,19 @@ REST_FRAMEWORK = {
     ]
 }
 
+AUTHENTICATION_BACKENDS = (
+    # default
+    'django.contrib.auth.backends.ModelBackend',
+    # email login
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
 CORS_ORIGIN_ALLOW_ALL = True
-
 ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = reverse_lazy(
+    'account_confirm_complete')
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = reverse_lazy(
+    'account_confirm_complete')

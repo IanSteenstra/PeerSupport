@@ -1,0 +1,11 @@
+{% load account %}{% user_display user as user_display %}{% load i18n %}{% autoescape off %}{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}
+Greetings from the MutualHelp Tech Team!
+
+You're receiving this e-mail because you have registered a new user under the username of {{ user_display }}. 
+To activate this new account please click the following link: {{ activate_url }} 
+{% endblocktrans %}{% endautoescape %}
+{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}
+Thank you, 
+
+MutualHelp Tech Team
+{% endblocktrans %}
