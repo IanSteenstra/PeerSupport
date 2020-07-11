@@ -142,7 +142,16 @@ class PreStudyQuizViewSet(viewsets.ViewSet):
             self.permission_classes = [IsAdminUser, IsAuthenticated]
         elif self.action == 'retrieve':
             self.permission_classes = [IsAuthenticated]
-        return super(self.__class__, self).get_permissions()
+        return [permission() for permission in self.permission_classes]
+
+    def create(self, request):
+
+        serializer = self.serializer_class.create(
+            self, validated_data=request.data)
+
+        return Response(
+            request.data, status=status.HTTP_201_CREATED
+        )
 
     def list(self, request):
         queryset = PreStudyQuiz.objects.all()

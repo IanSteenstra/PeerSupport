@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import axios from "axios";
 import { Carousel, message } from "antd";
 import Question from "../components/Question";
+import moment from "moment";
 
 class PreStudyQuestionnaire extends Component {
   constructor(props) {
@@ -43,20 +44,44 @@ class PreStudyQuestionnaire extends Component {
   //use API to upload answers from this.state.radiovalues
   logAnswers() {
     console.log(this.state.radioValues);
-    // const url = "http://127.0.0.1:8000/api/prestudyquiz/";
-    // axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-    // axios.defaults.xsrfCookieName = "csrftoken";
-    // axios.defaults.headers = {
-    //   "Content-Type": "application/json",
-    //   Authorization: `Token ${this.props.token}`,
-    // };
-    // axios
-    //   .post(url, { profile: 1 })
-    //   .then((response) => response.data)
-    //   .then((data) => {
-    //     console.log(data);
-    //     this.succ();
-    //   });
+    const url = "http://127.0.0.1:8000/api/prestudyquiz/";
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+    axios.defaults.xsrfCookieName = "csrftoken";
+    axios.defaults.headers = {
+      "Content-Type": "application/json",
+      Authorization: `Token ${this.props.token}`,
+    };
+    axios
+      .post(url, {
+        username: this.props.username,
+        q1: 3,
+        q2: 3,
+        q3: 3,
+        q4: 3,
+        q5: 3,
+        q6: 3,
+        q7: 3,
+        q8: 3,
+        q9: 3,
+        q10: 3,
+        q11: 3,
+        q12: 3,
+        q13: 3,
+        q14: 3,
+        q15: 3,
+        q16: 3,
+        q17: 3,
+        q18: 3,
+        q19: 3,
+        q20: 3,
+        q21: 3,
+        created: moment().format(),
+      })
+      .then((response) => response.data)
+      .then((data) => {
+        console.log(data);
+        this.succ();
+      });
   }
   enterLoading = () => {
     this.setState({ loading: true });
@@ -98,7 +123,7 @@ class PreStudyQuestionnaire extends Component {
 
   render() {
     const props = {
-      dots: false,
+      dots: true,
       speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1,
@@ -317,6 +342,7 @@ class PreStudyQuestionnaire extends Component {
 
 const mapStateToProps = (state) => ({
   token: state.auth.token,
+  username: state.auth.username,
 });
 
 export default connect(mapStateToProps)(PreStudyQuestionnaire);

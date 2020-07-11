@@ -18,7 +18,6 @@ class QuizPage extends React.Component {
           minHeight: 0,
         }}
       >
-        {this.props}
         <Row type="flex" justify="center" align="middle">
           <Col span={12}>
             <Divider>Pre-Study Questionare</Divider>

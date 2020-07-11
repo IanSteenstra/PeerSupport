@@ -16,10 +16,6 @@ class ProfilePage extends React.Component {
     }
   }
 
-  openQuiz() {
-    window.location = "/quiz/";
-  }
-
   render() {
     return (
       <center>
@@ -41,17 +37,17 @@ class ProfilePage extends React.Component {
           </Row>
           <Divider />
           <Row style={{ padding: "5px" }}>
-            <Button type="primary" onClick={this.openQuiz}>
+            <Button type="primary" href="/quiz/">
               Pre-Study Quiz
             </Button>
           </Row>
           <Row style={{ padding: "5px" }}>
-            <Button type="primary" onClick={this.openQuiz}>
+            <Button type="primary" href="/quiz/">
               Post-Study Quiz
             </Button>
           </Row>
           <Row style={{ padding: "5px" }}>
-            <Button type="primary" onClick={this.openQuiz}>
+            <Button type="primary" href="/quiz/">
               1-Week Post-Study Quiz
             </Button>
           </Row>

@@ -48,7 +48,7 @@ class ProfileUsernameSerializer(serializers.ModelSerializer):
 
 
 class PreStudyQuizSerializer(serializers.ModelSerializer):
-    profile = serializers.SerializerMethodField()
+    profile = serializers.SerializerMethodField('get_profile')
     q1 = serializers.IntegerField()
     q2 = serializers.IntegerField()
     q3 = serializers.IntegerField()
@@ -74,16 +74,14 @@ class PreStudyQuizSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PreStudyQuiz
-        fields = ('profile', 'q1', 'q2', 'q3', 'q4', 'q5', 'q7', 'q8', 'q9',
+        fields = ('profile', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9',
                   'q10', 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17',
                   'q18', 'q19', 'q20', 'q21', 'created')
 
     def create(self, validated_data):
-        profile = Profile(
-            username=validated_data['username'],
-            alias=validated_data['alias'],
-        )
-        profile.save()
+        user = User.objects.get(username=validated_data['username'])
+        profile = Profile.objects.get(user=user)
+
         prestudyquiz = PreStudyQuiz(
             profile=profile,
             q1=validated_data['q1'],
@@ -105,12 +103,16 @@ class PreStudyQuizSerializer(serializers.ModelSerializer):
             q17=validated_data['q17'],
             q18=validated_data['q18'],
             q19=validated_data['q19'],
-            q20=validated_data['20'],
+            q20=validated_data['q20'],
             q21=validated_data['q21'],
             created=validated_data['created'],
         )
         prestudyquiz.save()
         return prestudyquiz
+
+    def get_profile(self, obj):
+        print(obj)
+        return obj.profile.pk
 
 
 class UserQuizSerializer(serializers.ModelSerializer):
