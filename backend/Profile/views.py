@@ -10,10 +10,10 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
 from rest_framework.decorators import action
 
-from .models import Profile, UserQuiz, CounselorQuiz, ResearchQuiz, Counselor
+from .models import Profile, PreStudyQuiz, UserQuiz, CounselorQuiz, ResearchQuiz, Counselor
 from chat.models import Chat
 from rest_framework.authtoken.models import Token
-from .serializers import ProfileSerializer, UserQuizSerializer, CounselorQuizSerializer, ResearchQuizSerializer
+from .serializers import ProfileSerializer, PreStudyQuizSerializer, UserQuizSerializer, CounselorQuizSerializer, ResearchQuizSerializer
 from chat.api.serializers import ChatSerializer
 import json
 
@@ -125,6 +125,29 @@ def matching_algorithm(pk):
                 nextMatch = user[0]
         matches.append(nextMatch)
     return matches
+
+
+class PreStudyQuizViewSet(viewsets.ViewSet):
+    serializer_class = PreStudyQuizSerializer
+    queryset = PreStudyQuiz.objects.all()
+
+    def retrieve(self, request, pk=None):
+        queryset = PreStudyQuiz.objects.all()
+        prestudyQuiz = get_object_or_404(queryset, pk=pk)
+        serializer = PreStudyQuizSerializer(prestudyQuiz)
+        return Response(serializer.data)
+
+    def get_permission(self):
+        if self.action == 'list':
+            self.permission_classes = [IsAdminUser, IsAuthenticated]
+        elif self.action == 'retrieve':
+            self.permission_classes = [IsAuthenticated]
+        return super(self.__class__, self).get_permissions()
+
+    def list(self, request):
+        queryset = PreStudyQuiz.objects.all()
+        serializer = PreStudyQuizSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 
 class UserQuizViewSet(viewsets.ViewSet):

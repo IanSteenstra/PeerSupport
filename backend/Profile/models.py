@@ -19,6 +19,36 @@ class Profile(models.Model):
         return self.user.username
 
 
+class PreStudyQuiz(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    q1 = models.IntegerField(null=True)
+    q2 = models.IntegerField(null=True)
+    q3 = models.IntegerField(null=True)
+    q4 = models.IntegerField(null=True)
+    q5 = models.IntegerField(null=True)
+    q6 = models.IntegerField(null=True)
+    q7 = models.IntegerField(null=True)
+    q8 = models.IntegerField(null=True)
+    q9 = models.IntegerField(null=True)
+    q10 = models.IntegerField(null=True)
+    q11 = models.IntegerField(null=True)
+    q12 = models.IntegerField(null=True)
+    q13 = models.IntegerField(null=True)
+    q14 = models.IntegerField(null=True)
+    q15 = models.IntegerField(null=True)
+    q16 = models.IntegerField(null=True)
+    q17 = models.IntegerField(null=True)
+    q18 = models.IntegerField(null=True)
+    q19 = models.IntegerField(null=True)
+    q20 = models.IntegerField(null=True)
+    q21 = models.IntegerField(null=True)
+    created = models.DateTimeField(null=True)
+
+    class Meta:
+        verbose_name = u'PreStudy Quiz'
+        verbose_name_plural = u'PreStudy Quizzes'
+
+
 class UserQuiz(models.Model):
     '''
     Quiz model that holds responses to questions asked on the perosnality quiz for users

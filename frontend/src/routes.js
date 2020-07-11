@@ -1,26 +1,23 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import Login from "./containers/Login";
-import Register from "./containers/Register";
+import Login from "./containers/LoginPage";
+import Register from "./containers/RegisterPage";
 import Profile from "./containers/ProfilePage";
-import Quiz from "./containers/Quiz";
-import Events from "./containers/Events";
-import Home from "./containers/Home";
-import ChatPage from "./containers/ChatPage";
-import Hoc from "./hoc/hoc";
-// import ChangePassword from "./containers/ChangePassword";
+import Quiz from "./containers/QuizPage";
+import Events from "./containers/EventsPage";
+import Home from "./containers/HomePage";
+import Chat from "./containers/ChatPage";
 
 const BaseRouter = () => (
-  <Hoc>
+  <div>
     <Route exact path="/" component={Home} />
     <Route exact path="/login" component={Login} />
     <Route exact path="/register" component={Register} />
     <Route exact path="/events" component={Events} />
     <Route exact path="/profile" component={Profile} />
     <Route exact path="/quiz" component={Quiz} />
-    {/* <Route exact path="/changepassword/" component={ChangePassword} /> */}
-    <Route path="/chat" component={ChatPage} />
-  </Hoc>
+    <Route path="/chat" component={Chat} />
+  </div>
 );
 
 export default BaseRouter;

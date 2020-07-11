@@ -4,7 +4,6 @@ import { Input, Row, Popover, Radio, Button } from "antd";
 import { SendOutlined, FlagFilled } from "@ant-design/icons";
 import "../assets/MessageList.css";
 import { connect } from "react-redux";
-import Hoc from "../hoc/hoc";
 
 class ChatUI extends React.Component {
   initialiseChat() {
@@ -191,7 +190,7 @@ class ChatUI extends React.Component {
       />
     );
     return (
-      <Hoc>
+      <div>
         <Row>
           <div className="messages">
             <ul id="chat-log">
@@ -219,7 +218,7 @@ class ChatUI extends React.Component {
             />
           </div>
         </Row>
-      </Hoc>
+      </div>
     );
   }
 }
