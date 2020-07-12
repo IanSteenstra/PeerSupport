@@ -10,10 +10,10 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
 from rest_framework.decorators import action
 
-from .models import Profile, PreStudyQuiz, UserQuiz, CounselorQuiz, ResearchQuiz, Counselor
+from .models import Profile, PreStudyQuiz, PostStudyQuiz, WeekPostStudyQuiz, UserQuiz, CounselorQuiz, ResearchQuiz, Counselor
 from chat.models import Chat
 from rest_framework.authtoken.models import Token
-from .serializers import ProfileSerializer, PreStudyQuizSerializer, UserQuizSerializer, CounselorQuizSerializer, ResearchQuizSerializer
+from .serializers import ProfileSerializer, PreStudyQuizSerializer, PostStudyQuizSerializer, WeekPostStudyQuizSerializer, UserQuizSerializer, CounselorQuizSerializer, ResearchQuizSerializer
 from chat.api.serializers import ChatSerializer
 import json
 
@@ -156,6 +156,70 @@ class PreStudyQuizViewSet(viewsets.ViewSet):
     def list(self, request):
         queryset = PreStudyQuiz.objects.all()
         serializer = PreStudyQuizSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+class PostStudyQuizViewSet(viewsets.ViewSet):
+    serializer_class = PostStudyQuizSerializer
+    queryset = PostStudyQuiz.objects.all()
+
+    def retrieve(self, request, pk=None):
+        queryset = PostStudyQuiz.objects.all()
+        poststudyQuiz = get_object_or_404(queryset, pk=pk)
+        serializer = PostStudyQuizSerializer(poststudyQuiz)
+        return Response(serializer.data)
+
+    def get_permission(self):
+        if self.action == 'list':
+            self.permission_classes = [IsAdminUser, IsAuthenticated]
+        elif self.action == 'retrieve':
+            self.permission_classes = [IsAuthenticated]
+        return [permission() for permission in self.permission_classes]
+
+    def create(self, request):
+
+        serializer = self.serializer_class.create(
+            self, validated_data=request.data)
+
+        return Response(
+            request.data, status=status.HTTP_201_CREATED
+        )
+
+    def list(self, request):
+        queryset = PostStudyQuiz.objects.all()
+        serializer = PostStudyQuizSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+class WeekPostStudyQuizViewSet(viewsets.ViewSet):
+    serializer_class = WeekPostStudyQuizSerializer
+    queryset = WeekPostStudyQuiz.objects.all()
+
+    def retrieve(self, request, pk=None):
+        queryset = WeekPostStudyQuiz.objects.all()
+        weekpoststudyQuiz = get_object_or_404(queryset, pk=pk)
+        serializer = WeekPostStudyQuizSerializer(poststudyQuiz)
+        return Response(serializer.data)
+
+    def get_permission(self):
+        if self.action == 'list':
+            self.permission_classes = [IsAdminUser, IsAuthenticated]
+        elif self.action == 'retrieve':
+            self.permission_classes = [IsAuthenticated]
+        return [permission() for permission in self.permission_classes]
+
+    def create(self, request):
+
+        serializer = self.serializer_class.create(
+            self, validated_data=request.data)
+
+        return Response(
+            request.data, status=status.HTTP_201_CREATED
+        )
+
+    def list(self, request):
+        queryset = WeekPostStudyQuiz.objects.all()
+        serializer = WeekPostStudyQuizSerializer(queryset, many=True)
         return Response(serializer.data)
 
 

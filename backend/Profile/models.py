@@ -49,6 +49,65 @@ class PreStudyQuiz(models.Model):
         verbose_name_plural = u'PreStudy Quizzes'
 
 
+class PostStudyQuiz(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    q1 = models.IntegerField(default=3)
+    q2 = models.IntegerField(default=3)
+    q3 = models.IntegerField(default=3)
+    q4 = models.IntegerField(default=3)
+    q5 = models.IntegerField(default=3)
+    q6 = models.IntegerField(default=3)
+    q7 = models.IntegerField(default=3)
+    q8 = models.IntegerField(default=3)
+    q9 = models.IntegerField(default=3)
+    q10 = models.IntegerField(default=3)
+    q11 = models.IntegerField(default=3)
+    q12 = models.IntegerField(default=3)
+    q13 = models.IntegerField(default=3)
+    q14 = models.IntegerField(default=3)
+    q15 = models.IntegerField(default=3)
+    q16 = models.IntegerField(default=3)
+    q17 = models.IntegerField(default=3)
+    q18 = models.IntegerField(default=3)
+    q19 = models.IntegerField(default=3)
+    q20 = models.IntegerField(default=3)
+    created = models.DateTimeField(null=True)
+
+    class Meta:
+        verbose_name = u'PostStudy Quiz'
+        verbose_name_plural = u'PostStudy Quizzes'
+
+
+class WeekPostStudyQuiz(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    q1 = models.IntegerField(default=3)
+    q2 = models.IntegerField(default=3)
+    q3 = models.IntegerField(default=3)
+    q4 = models.IntegerField(default=3)
+    q5 = models.IntegerField(default=3)
+    q6 = models.IntegerField(default=3)
+    q7 = models.IntegerField(default=3)
+    q8 = models.IntegerField(default=3)
+    q9 = models.IntegerField(default=3)
+    q10 = models.IntegerField(default=3)
+    q11 = models.IntegerField(default=3)
+    q12 = models.IntegerField(default=3)
+    q13 = models.IntegerField(default=3)
+    q14 = models.IntegerField(default=3)
+    q15 = models.IntegerField(default=3)
+    q16 = models.IntegerField(default=3)
+    q17 = models.IntegerField(default=3)
+    q18 = models.IntegerField(default=3)
+    q19 = models.IntegerField(default=3)
+    q20 = models.IntegerField(default=3)
+    q21 = models.IntegerField(default=3)
+    created = models.DateTimeField(null=True)
+
+    class Meta:
+        verbose_name = u'WeekPostStudy Quiz'
+        verbose_name_plural = u'WeekPostStudy Quizzes'
+
+
 class UserQuiz(models.Model):
     '''
     Quiz model that holds responses to questions asked on the perosnality quiz for users

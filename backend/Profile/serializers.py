@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Profile, PreStudyQuiz, UserQuiz, CounselorQuiz, ResearchQuiz
+from .models import Profile, PreStudyQuiz, PostStudyQuiz, WeekPostStudyQuiz, UserQuiz, CounselorQuiz, ResearchQuiz
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.hashers import make_password
@@ -112,6 +112,138 @@ class PreStudyQuizSerializer(serializers.ModelSerializer):
 
     def get_profile(self, obj):
         print(obj)
+        return obj.profile.pk
+
+
+class PostStudyQuizSerializer(serializers.ModelSerializer):
+    profile = serializers.SerializerMethodField('get_profile')
+    q1 = serializers.IntegerField()
+    q2 = serializers.IntegerField()
+    q3 = serializers.IntegerField()
+    q4 = serializers.IntegerField()
+    q5 = serializers.IntegerField()
+    q6 = serializers.IntegerField()
+    q7 = serializers.IntegerField()
+    q8 = serializers.IntegerField()
+    q9 = serializers.IntegerField()
+    q10 = serializers.IntegerField()
+    q11 = serializers.IntegerField()
+    q12 = serializers.IntegerField()
+    q13 = serializers.IntegerField()
+    q14 = serializers.IntegerField()
+    q15 = serializers.IntegerField()
+    q16 = serializers.IntegerField()
+    q17 = serializers.IntegerField()
+    q18 = serializers.IntegerField()
+    q19 = serializers.IntegerField()
+    q20 = serializers.IntegerField()
+    created = serializers.DateTimeField()
+
+    class Meta:
+        model = PostStudyQuiz
+        fields = ('profile', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9',
+                  'q10', 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17',
+                  'q18', 'q19', 'q20', 'created')
+
+    def create(self, validated_data):
+        user = User.objects.get(username=validated_data['username'])
+        profile = Profile.objects.get(user=user)
+
+        poststudyquiz = PostStudyQuiz(
+            profile=profile,
+            q1=validated_data['q1'],
+            q2=validated_data['q2'],
+            q3=validated_data['q3'],
+            q4=validated_data['q4'],
+            q5=validated_data['q5'],
+            q6=validated_data['q6'],
+            q7=validated_data['q7'],
+            q8=validated_data['q8'],
+            q9=validated_data['q9'],
+            q10=validated_data['q10'],
+            q11=validated_data['q11'],
+            q12=validated_data['q12'],
+            q13=validated_data['q13'],
+            q14=validated_data['q14'],
+            q15=validated_data['q15'],
+            q16=validated_data['q16'],
+            q17=validated_data['q17'],
+            q18=validated_data['q18'],
+            q19=validated_data['q19'],
+            q20=validated_data['q20'],
+            created=validated_data['created'],
+        )
+        poststudyquiz.save()
+        return poststudyquiz
+
+    def get_profile(self, obj):
+        return obj.profile.pk
+
+
+class WeekPostStudyQuizSerializer(serializers.ModelSerializer):
+    profile = serializers.SerializerMethodField('get_profile')
+    q1 = serializers.IntegerField()
+    q2 = serializers.IntegerField()
+    q3 = serializers.IntegerField()
+    q4 = serializers.IntegerField()
+    q5 = serializers.IntegerField()
+    q6 = serializers.IntegerField()
+    q7 = serializers.IntegerField()
+    q8 = serializers.IntegerField()
+    q9 = serializers.IntegerField()
+    q10 = serializers.IntegerField()
+    q11 = serializers.IntegerField()
+    q12 = serializers.IntegerField()
+    q13 = serializers.IntegerField()
+    q14 = serializers.IntegerField()
+    q15 = serializers.IntegerField()
+    q16 = serializers.IntegerField()
+    q17 = serializers.IntegerField()
+    q18 = serializers.IntegerField()
+    q19 = serializers.IntegerField()
+    q20 = serializers.IntegerField()
+    q21 = serializers.IntegerField()
+    created = serializers.DateTimeField()
+
+    class Meta:
+        model = WeekPostStudyQuiz
+        fields = ('profile', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9',
+                  'q10', 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17',
+                  'q18', 'q19', 'q20', 'q21', 'created')
+
+    def create(self, validated_data):
+        user = User.objects.get(username=validated_data['username'])
+        profile = Profile.objects.get(user=user)
+
+        weekpoststudyquiz = WeekPostStudyQuiz(
+            profile=profile,
+            q1=validated_data['q1'],
+            q2=validated_data['q2'],
+            q3=validated_data['q3'],
+            q4=validated_data['q4'],
+            q5=validated_data['q5'],
+            q6=validated_data['q6'],
+            q7=validated_data['q7'],
+            q8=validated_data['q8'],
+            q9=validated_data['q9'],
+            q10=validated_data['q10'],
+            q11=validated_data['q11'],
+            q12=validated_data['q12'],
+            q13=validated_data['q13'],
+            q14=validated_data['q14'],
+            q15=validated_data['q15'],
+            q16=validated_data['q16'],
+            q17=validated_data['q17'],
+            q18=validated_data['q18'],
+            q19=validated_data['q19'],
+            q20=validated_data['q20'],
+            q21=validated_data['q21'],
+            created=validated_data['created'],
+        )
+        weekpoststudyquiz.save()
+        return weekpoststudyquiz
+
+    def get_profile(self, obj):
         return obj.profile.pk
 
 

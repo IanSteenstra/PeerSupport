@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Avatar, Card, Button, Row, Divider } from "antd";
+import { NavLink } from "react-router-dom";
 // import Editprofile from "./Editprofile";
 import { UserOutlined } from "@ant-design/icons";
 
@@ -37,19 +38,19 @@ class ProfilePage extends React.Component {
           </Row>
           <Divider />
           <Row style={{ padding: "5px" }}>
-            <Button type="primary" href="/quiz/">
+            <NavLink to={{ pathname: "/quiz", aboutProps: { type: 1 } }}>
               Pre-Study Quiz
-            </Button>
+            </NavLink>
           </Row>
           <Row style={{ padding: "5px" }}>
-            <Button type="primary" href="/quiz/">
+            <NavLink to={{ pathname: "/quiz", aboutProps: { type: 2 } }}>
               Post-Study Quiz
-            </Button>
+            </NavLink>
           </Row>
           <Row style={{ padding: "5px" }}>
-            <Button type="primary" href="/quiz/">
+            <NavLink to={{ pathname: "/quiz", aboutProps: { type: 3 } }}>
               1-Week Post-Study Quiz
-            </Button>
+            </NavLink>
           </Row>
         </Card>
       </center>

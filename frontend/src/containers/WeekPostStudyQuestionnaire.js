@@ -5,7 +5,7 @@ import { Carousel, message } from "antd";
 import Question from "../components/Question";
 import moment from "moment";
 
-class PreStudyQuestionnaire extends Component {
+class WeekPostStudyQuestionnaire extends Component {
   constructor(props) {
     super(props);
     this.next = this.next.bind(this);
@@ -44,7 +44,7 @@ class PreStudyQuestionnaire extends Component {
   //use API to upload answers from this.state.radiovalues
   logAnswers() {
     console.log(this.state.radioValues);
-    const url = "http://127.0.0.1:8000/api/prestudyquiz/";
+    const url = "http://127.0.0.1:8000/api/weekpoststudyquiz/";
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
     axios.defaults.xsrfCookieName = "csrftoken";
     axios.defaults.headers = {
@@ -345,4 +345,4 @@ const mapStateToProps = (state) => ({
   username: state.auth.username,
 });
 
-export default connect(mapStateToProps)(PreStudyQuestionnaire);
+export default connect(mapStateToProps)(WeekPostStudyQuestionnaire);

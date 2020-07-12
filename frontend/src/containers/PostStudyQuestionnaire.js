@@ -5,36 +5,14 @@ import { Carousel, message } from "antd";
 import Question from "../components/Question";
 import moment from "moment";
 
-class PreStudyQuestionnaire extends Component {
+class PostStudyQuestionnaire extends Component {
   constructor(props) {
     super(props);
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
     this.carousel = React.createRef();
     this.state = {
-      radioValues: [
-        3,
-        3,
-        3,
-        3,
-        3,
-        3,
-        3,
-        3,
-        3,
-        3,
-        3,
-        3,
-        3,
-        3,
-        3,
-        3,
-        3,
-        3,
-        3,
-        3,
-        3,
-      ],
+      radioValues: [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
       slideNumber: 0,
       loading: false,
       iconLoading: false,
@@ -44,7 +22,7 @@ class PreStudyQuestionnaire extends Component {
   //use API to upload answers from this.state.radiovalues
   logAnswers() {
     console.log(this.state.radioValues);
-    const url = "http://127.0.0.1:8000/api/prestudyquiz/";
+    const url = "http://127.0.0.1:8000/api/poststudyquiz/";
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
     axios.defaults.xsrfCookieName = "csrftoken";
     axios.defaults.headers = {
@@ -74,7 +52,6 @@ class PreStudyQuestionnaire extends Component {
         q18: this.state.radioValues[17],
         q19: this.state.radioValues[18],
         q20: this.state.radioValues[19],
-        q21: this.state.radioValues[20],
         created: moment().format(),
       })
       .then((response) => response.data)
@@ -158,8 +135,98 @@ class PreStudyQuestionnaire extends Component {
           next={this.next}
         />
         <Question
+          questionTitle={"I feel sad or depressed."}
+          radioChange={this.radioChange}
+          slideNumber={this.state.slideNumber}
+          radioValues={this.state.radioValues}
+          position={"middle"}
+          previous={this.previous}
+          next={this.next}
+        />
+        <Question
+          questionTitle={"I feel confident."}
+          radioChange={this.radioChange}
+          slideNumber={this.state.slideNumber}
+          radioValues={this.state.radioValues}
+          position={"middle"}
+          previous={this.previous}
+          next={this.next}
+        />
+        <Question
+          questionTitle={"I feel loved."}
+          radioChange={this.radioChange}
+          slideNumber={this.state.slideNumber}
+          radioValues={this.state.radioValues}
+          position={"middle"}
+          previous={this.previous}
+          next={this.next}
+        />
+        <Question
+          questionTitle={"I feel optimistic about the future."}
+          radioChange={this.radioChange}
+          slideNumber={this.state.slideNumber}
+          radioValues={this.state.radioValues}
+          position={"middle"}
+          previous={this.previous}
+          next={this.next}
+        />
+        <Question
+          questionTitle={"I feel useful."}
+          radioChange={this.radioChange}
+          slideNumber={this.state.slideNumber}
+          radioValues={this.state.radioValues}
+          position={"middle"}
+          previous={this.previous}
+          next={this.next}
+        />
+        <Question
+          questionTitle={"I feel relaxed."}
+          radioChange={this.radioChange}
+          slideNumber={this.state.slideNumber}
+          radioValues={this.state.radioValues}
+          position={"middle"}
+          previous={this.previous}
+          next={this.next}
+        />
+        <Question
+          questionTitle={"I feel interested in other people."}
+          radioChange={this.radioChange}
+          slideNumber={this.state.slideNumber}
+          radioValues={this.state.radioValues}
+          position={"middle"}
+          previous={this.previous}
+          next={this.next}
+        />
+        <Question
+          questionTitle={"I feel good about myself."}
+          radioChange={this.radioChange}
+          slideNumber={this.state.slideNumber}
+          radioValues={this.state.radioValues}
+          position={"middle"}
+          previous={this.previous}
+          next={this.next}
+        />
+        <Question
+          questionTitle={"I feel close to other people."}
+          radioChange={this.radioChange}
+          slideNumber={this.state.slideNumber}
+          radioValues={this.state.radioValues}
+          position={"middle"}
+          previous={this.previous}
+          next={this.next}
+        />
+        <Question
+          questionTitle={"I feel cheerful."}
+          radioChange={this.radioChange}
+          slideNumber={this.state.slideNumber}
+          radioValues={this.state.radioValues}
+          position={"middle"}
+          previous={this.previous}
+          next={this.next}
+        />
+        <Question
           questionTitle={
-            "My mental health has been interfering with my personal relationships."
+            "I enjoyed the 30-minute support conversation with the other student."
           }
           radioChange={this.radioChange}
           slideNumber={this.state.slideNumber}
@@ -170,7 +237,7 @@ class PreStudyQuestionnaire extends Component {
         />
         <Question
           questionTitle={
-            "My mental health has been interfering with my ability to get work done or accomplish tasks. "
+            "I felt comfortable talking about my mental health or emotions to the other student."
           }
           radioChange={this.radioChange}
           slideNumber={this.state.slideNumber}
@@ -180,7 +247,7 @@ class PreStudyQuestionnaire extends Component {
           next={this.next}
         />
         <Question
-          questionTitle={"I’ve been feeling sad or depressed."}
+          questionTitle={"I felt like the other student respected me."}
           radioChange={this.radioChange}
           slideNumber={this.state.slideNumber}
           radioValues={this.state.radioValues}
@@ -189,7 +256,16 @@ class PreStudyQuestionnaire extends Component {
           next={this.next}
         />
         <Question
-          questionTitle={"I’ve been having suicidal thoughts."}
+          questionTitle={"I felt like the other student understood me."}
+          radioChange={this.radioChange}
+          slideNumber={this.state.slideNumber}
+          radioValues={this.state.radioValues}
+          position={"middle"}
+          previous={this.previous}
+          next={this.next}
+        />
+        <Question
+          questionTitle={"I felt comfortable supporting the other student."}
           radioChange={this.radioChange}
           slideNumber={this.state.slideNumber}
           radioValues={this.state.radioValues}
@@ -199,7 +275,7 @@ class PreStudyQuestionnaire extends Component {
         />
         <Question
           questionTitle={
-            "I’ve  been struggling to fall asleep or stay asleep, or sleep too much."
+            "I felt comfortable flagging the other students' risky message. (Answer only if you flagged a message)."
           }
           radioChange={this.radioChange}
           slideNumber={this.state.slideNumber}
@@ -209,7 +285,7 @@ class PreStudyQuestionnaire extends Component {
           next={this.next}
         />
         <Question
-          questionTitle={"I’ve  been feeling confident."}
+          questionTitle={"I believe this service should be implemented at RPI."}
           radioChange={this.radioChange}
           slideNumber={this.state.slideNumber}
           radioValues={this.state.radioValues}
@@ -218,115 +294,9 @@ class PreStudyQuestionnaire extends Component {
           next={this.next}
         />
         <Question
-          questionTitle={"I’ve been feeling loved."}
-          radioChange={this.radioChange}
-          slideNumber={this.state.slideNumber}
-          radioValues={this.state.radioValues}
-          position={"middle"}
-          previous={this.previous}
-          next={this.next}
-        />
-        <Question
-          questionTitle={"I’ve  been feeling optimistic about the future."}
-          radioChange={this.radioChange}
-          slideNumber={this.state.slideNumber}
-          radioValues={this.state.radioValues}
-          position={"middle"}
-          previous={this.previous}
-          next={this.next}
-        />
-        <Question
-          questionTitle={"I’ve been feeling useful."}
-          radioChange={this.radioChange}
-          slideNumber={this.state.slideNumber}
-          radioValues={this.state.radioValues}
-          position={"middle"}
-          previous={this.previous}
-          next={this.next}
-        />
-        <Question
-          questionTitle={"I’ve been feeling relaxed."}
-          radioChange={this.radioChange}
-          slideNumber={this.state.slideNumber}
-          radioValues={this.state.radioValues}
-          position={"middle"}
-          previous={this.previous}
-          next={this.next}
-        />
-        <Question
-          questionTitle={"I’ve been feeling interested in other people."}
-          radioChange={this.radioChange}
-          slideNumber={this.state.slideNumber}
-          radioValues={this.state.radioValues}
-          position={"middle"}
-          previous={this.previous}
-          next={this.next}
-        />
-        <Question
-          questionTitle={"I’ve been dealing with problems well."}
-          radioChange={this.radioChange}
-          slideNumber={this.state.slideNumber}
-          radioValues={this.state.radioValues}
-          position={"middle"}
-          previous={this.previous}
-          next={this.next}
-        />
-        <Question
-          questionTitle={"I’ve had energy to spare."}
-          radioChange={this.radioChange}
-          slideNumber={this.state.slideNumber}
-          radioValues={this.state.radioValues}
-          position={"middle"}
-          previous={this.previous}
-          next={this.next}
-        />
-        <Question
-          questionTitle={"I’ve been thinking clearly."}
-          radioChange={this.radioChange}
-          slideNumber={this.state.slideNumber}
-          radioValues={this.state.radioValues}
-          position={"middle"}
-          previous={this.previous}
-          next={this.next}
-        />
-        <Question
-          questionTitle={"I’ve been feeling good about myself."}
-          radioChange={this.radioChange}
-          slideNumber={this.state.slideNumber}
-          radioValues={this.state.radioValues}
-          position={"middle"}
-          previous={this.previous}
-          next={this.next}
-        />
-        <Question
-          questionTitle={"I’ve been feeling close to other people."}
-          radioChange={this.radioChange}
-          slideNumber={this.state.slideNumber}
-          radioValues={this.state.radioValues}
-          position={"middle"}
-          previous={this.previous}
-          next={this.next}
-        />
-        <Question
-          questionTitle={"I’ve been able to make up my own mind about things."}
-          radioChange={this.radioChange}
-          slideNumber={this.state.slideNumber}
-          radioValues={this.state.radioValues}
-          position={"middle"}
-          previous={this.previous}
-          next={this.next}
-        />
-        <Question
-          questionTitle={"I’ve been interested in new things."}
-          radioChange={this.radioChange}
-          slideNumber={this.state.slideNumber}
-          radioValues={this.state.radioValues}
-          position={"middle"}
-          previous={this.previous}
-          next={this.next}
-        />
-        <Question
-          questionTitle={"I’ve been feeling cheerful."}
+          questionTitle={
+            "I would use this service if it was implemented at RPI."
+          }
           radioChange={this.radioChange}
           slideNumber={this.state.slideNumber}
           radioValues={this.state.radioValues}
@@ -345,4 +315,4 @@ const mapStateToProps = (state) => ({
   username: state.auth.username,
 });
 
-export default connect(mapStateToProps)(PreStudyQuestionnaire);
+export default connect(mapStateToProps)(PostStudyQuestionnaire);

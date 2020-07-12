@@ -3,7 +3,7 @@ from django.urls import path, include
 from rest_framework import routers
 from allauth.account.views import ConfirmEmailView
 from rest_framework.authtoken.views import obtain_auth_token
-from Profile.views import null_view, complete_view, ProfileViewSet, PreStudyQuizViewSet, UserQuizViewSet, CounselorQuizViewSet, ResearchQuizViewSet, get_chats, get_friends
+from Profile.views import null_view, complete_view, ProfileViewSet, PreStudyQuizViewSet, PostStudyQuizViewSet, WeekPostStudyQuizViewSet, UserQuizViewSet, CounselorQuizViewSet, ResearchQuizViewSet, get_chats, get_friends
 from events.views import EventViewSet
 from chat.api.views import room
 
@@ -11,6 +11,8 @@ router = routers.DefaultRouter()
 router.register('profiles', ProfileViewSet)
 router.register('events', EventViewSet)
 router.register('prestudyquiz', PreStudyQuizViewSet)
+router.register('poststudyquiz', PostStudyQuizViewSet)
+router.register('weekpoststudyquiz', WeekPostStudyQuizViewSet)
 
 urlpatterns = [
     path('api-token-auth/', obtain_auth_token),
