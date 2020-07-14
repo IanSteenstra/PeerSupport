@@ -107,8 +107,9 @@ class PostStudyQuestionnaire extends Component {
 
   render() {
     const props = {
+      swipe: false,
       dots: false,
-      speed: 500,
+      speed: 0,
       slidesToShow: 1,
       slidesToScroll: 1,
       minHeight: 0,
@@ -117,7 +118,12 @@ class PostStudyQuestionnaire extends Component {
     return (
       <Carousel
         ref={(node) => (this.carousel = node)}
-        style={{ minHeight: 0, minWidth: 0, maxHeight: 1000, maxWidth: 1000 }}
+        style={{
+          minHeight: 0,
+          minWidth: 0,
+          maxHeight: 1000,
+          maxWidth: 1000,
+        }}
         {...props}
       >
         <Question

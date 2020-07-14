@@ -29,14 +29,14 @@ class ProfilePage extends React.Component {
           <Row style={{ padding: "10px" }}>
             Username: <b>{this.props.username}</b>
           </Row>
-          <Divider />
+          <Divider> Account Updates </Divider>
           <Row style={{ padding: "5px" }}>
             <Button type="primary">Change Username</Button>
           </Row>
           <Row style={{ padding: "5px" }}>
             <Button type="primary">Change Password</Button>
           </Row>
-          <Divider />
+          <Divider>Questionnaires</Divider>
           <Row style={{ padding: "5px" }}>
             <NavLink to={{ pathname: "/quiz/1" }}>Pre-Study Quiz</NavLink>
           </Row>

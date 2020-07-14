@@ -21,7 +21,7 @@ const QuizPage = (props) => {
       }}
     >
       <Row type="flex" justify="center" align="middle">
-        <Col span={12}>
+        <Col span={8}>
           {props.location.pathname === "/quiz/1" ? (
             <div>
               <Divider>Pre-Study Questionare</Divider>

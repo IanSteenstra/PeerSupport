@@ -151,8 +151,9 @@ class PreStudyQuestionnaire extends Component {
 
   render() {
     const props = {
+      swipe: false,
       dots: false,
-      speed: 500,
+      speed: 0,
       slidesToShow: 1,
       slidesToScroll: 1,
       minHeight: 0,

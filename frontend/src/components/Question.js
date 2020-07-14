@@ -42,7 +42,7 @@ class Question extends React.Component {
 
         {this.props.position === "first" ? (
           <Row>
-            <Col span={7} offset={5}>
+            <Col span={6} offset={7}>
               <Button type="primary" onClick={this.props.next}>
                 Next Question
                 <Icon type={"right"}></Icon>
@@ -51,13 +51,13 @@ class Question extends React.Component {
           </Row>
         ) : this.props.position === "middle" ? (
           <Row>
-            <Col span={12}>
+            <Col span={6}>
               <Button type="secondary" onClick={this.props.previous}>
                 <Icon type={"left"}></Icon>
                 Previous Question
               </Button>
             </Col>
-            <Col span={7} offset={5}>
+            <Col span={6} offset={7}>
               <Button type="primary" onClick={this.props.next}>
                 Next Question
                 <Icon type={"right"}></Icon>
@@ -66,13 +66,13 @@ class Question extends React.Component {
           </Row>
         ) : (
           <Row>
-            <Col span={12}>
+            <Col span={6}>
               <Button type="secondary" onClick={this.props.previous}>
                 <Icon type={"left"}></Icon>
                 Previous Question
               </Button>
             </Col>
-            <Col span={6} offset={6}>
+            <Col span={6} offset={9}>
               <Button
                 type="primary"
                 loading={this.props.loading}
