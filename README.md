@@ -4,7 +4,7 @@
 
 ## Summary
 
-TherapyNow is an anonymous peer-support web application that provides easy access for college students get the help that they need in a safe and reliable manner.
+TherapyNow is an anonymous peer-support web application that provides easy access for college students to get the help they need in a safe and reliable manner.
 
 ## Run Codebase
 
