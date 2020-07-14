@@ -3,6 +3,7 @@ import { Row, Col, Divider } from "antd";
 import PreStudyQuestionnaire from "./PreStudyQuestionnaire";
 import PostStudyQuestionnaire from "./PostStudyQuestionnaire";
 import WeekPostStudyQuestionnaire from "./WeekPostStudyQuestionnaire";
+import { NavLink } from "react-router-dom";
 
 const QuizPage = (props) => {
   return (
@@ -21,7 +22,7 @@ const QuizPage = (props) => {
     >
       <Row type="flex" justify="center" align="middle">
         <Col span={12}>
-          {props.location.aboutProps.type === 1 ? (
+          {props.location.pathname === "/quiz/1" ? (
             <div>
               <Divider>Pre-Study Questionare</Divider>
               <p>
@@ -32,7 +33,7 @@ const QuizPage = (props) => {
               <PreStudyQuestionnaire />
               <Divider />
             </div>
-          ) : props.location.aboutProps.type === 2 ? (
+          ) : props.location.pathname === "/quiz/2" ? (
             <div>
               <Divider>Post-Study Questionare</Divider>
               <p>
@@ -43,7 +44,7 @@ const QuizPage = (props) => {
               <PostStudyQuestionnaire />
               <Divider />
             </div>
-          ) : (
+          ) : props.location.pathname === "/quiz/3" ? (
             <div>
               <Divider>1-Week Post-Study Questionare</Divider>
               <p>
@@ -53,6 +54,20 @@ const QuizPage = (props) => {
               <Divider />
               <WeekPostStudyQuestionnaire />
               <Divider />
+            </div>
+          ) : (
+            <div>
+              <Row style={{ padding: "5px" }}>
+                <NavLink to={{ pathname: "/quiz/1" }}>Pre-Study Quiz</NavLink>
+              </Row>
+              <Row style={{ padding: "5px" }}>
+                <NavLink to={{ pathname: "/quiz/2" }}>Post-Study Quiz</NavLink>
+              </Row>
+              <Row style={{ padding: "5px" }}>
+                <NavLink to={{ pathname: "/quiz/3" }}>
+                  1-Week Post-Study Quiz
+                </NavLink>
+              </Row>
             </div>
           )}
         </Col>

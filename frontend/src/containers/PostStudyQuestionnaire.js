@@ -19,6 +19,12 @@ class PostStudyQuestionnaire extends Component {
     };
   }
 
+  componentWillUnmount() {
+    this.setState({
+      radioValues: [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    });
+  }
+
   //use API to upload answers from this.state.radiovalues
   logAnswers() {
     console.log(this.state.radioValues);
@@ -70,8 +76,9 @@ class PostStudyQuestionnaire extends Component {
       this.logAnswers();
     }, 1500);
   };
+
   succ() {
-    message.success("Your responses have been submitted.", 8);
+    message.success("Your responses have been submitted.", 2);
   }
 
   next() {
@@ -100,7 +107,7 @@ class PostStudyQuestionnaire extends Component {
 
   render() {
     const props = {
-      dots: true,
+      dots: false,
       speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1,

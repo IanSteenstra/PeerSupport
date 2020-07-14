@@ -41,6 +41,34 @@ class WeekPostStudyQuestionnaire extends Component {
     };
   }
 
+  componentWillUnmount() {
+    this.setState({
+      radioValues: [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+      ],
+    });
+  }
+
   //use API to upload answers from this.state.radiovalues
   logAnswers() {
     console.log(this.state.radioValues);
@@ -94,7 +122,7 @@ class WeekPostStudyQuestionnaire extends Component {
     }, 1500);
   };
   succ() {
-    message.success("Your responses have been submitted.", 8);
+    message.success("Your responses have been submitted.", 2);
   }
 
   next() {
@@ -123,7 +151,7 @@ class WeekPostStudyQuestionnaire extends Component {
 
   render() {
     const props = {
-      dots: true,
+      dots: false,
       speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1,

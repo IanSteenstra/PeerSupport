@@ -38,17 +38,13 @@ class ProfilePage extends React.Component {
           </Row>
           <Divider />
           <Row style={{ padding: "5px" }}>
-            <NavLink to={{ pathname: "/quiz", aboutProps: { type: 1 } }}>
-              Pre-Study Quiz
-            </NavLink>
+            <NavLink to={{ pathname: "/quiz/1" }}>Pre-Study Quiz</NavLink>
           </Row>
           <Row style={{ padding: "5px" }}>
-            <NavLink to={{ pathname: "/quiz", aboutProps: { type: 2 } }}>
-              Post-Study Quiz
-            </NavLink>
+            <NavLink to={{ pathname: "/quiz/2" }}>Post-Study Quiz</NavLink>
           </Row>
           <Row style={{ padding: "5px" }}>
-            <NavLink to={{ pathname: "/quiz", aboutProps: { type: 3 } }}>
+            <NavLink to={{ pathname: "/quiz/3" }}>
               1-Week Post-Study Quiz
             </NavLink>
           </Row>

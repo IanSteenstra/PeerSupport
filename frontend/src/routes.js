@@ -15,7 +15,7 @@ const BaseRouter = () => (
     <Route exact path="/register" component={Register} />
     <Route exact path="/events" component={Events} />
     <Route exact path="/profile" component={Profile} />
-    <Route exact path="/quiz" component={Quiz} />
+    <Route path="/quiz" component={Quiz} />
     <Route path="/chat" component={Chat} />
   </div>
 );
