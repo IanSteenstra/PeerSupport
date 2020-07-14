@@ -7,7 +7,7 @@ import { CarryOutTwoTone, CalendarTwoTone } from "@ant-design/icons";
 
 const TabPane = Tabs.TabPane;
 
-class Events extends React.Component {
+class EventsPage extends React.Component {
   constructor(props) {
     super(props);
     this.pastColumns = [
@@ -201,4 +201,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Events);
+export default connect(mapStateToProps)(EventsPage);
