@@ -1,0 +1,43 @@
+.messages {
+  max-height: 80vh;
+  overflow: auto;
+}
+.messages ul li {
+  display: inline-block;
+  clear: both;
+  float: left;
+  margin: 15px 15px 5px 15px;
+  width: calc(100% - 25px);
+  font-size: 0.9em;
+}
+.messages ul li.replies img {
+  margin: 6px 8px 0 0;
+}
+.messages ul li.replies p {
+  background: white;
+  color: black;
+}
+.messages ul li.sent img {
+  float: right;
+  margin: 6px 0 0 8px;
+}
+.messages ul li.sent p {
+  background: #97d47cff;
+  color: white;
+  float: right;
+}
+.messages ul li img {
+  width: 60px;
+  border-radius: 50%;
+  float: left;
+}
+.messages ul li p {
+  display: inline-block;
+  padding: 10px 15px;
+  border-radius: 20px;
+  max-width: 300px;
+  font-size: 20px;
+}
+.popover {
+  overflow: hidden;
+}

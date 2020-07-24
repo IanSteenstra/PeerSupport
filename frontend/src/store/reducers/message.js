@@ -3,24 +3,24 @@ import { updateObject } from "../utility";
 
 const initialState = {
   messages: [],
-  chats: []
+  chats: [],
 };
 
 const addMessage = (state, action) => {
   return updateObject(state, {
-    messages: [...state.messages, action.message]
+    messages: [...state.messages, action.message],
   });
 };
 
 const setMessages = (state, action) => {
   return updateObject(state, {
-    messages: action.messages.reverse()
+    messages: action.messages.reverse(),
   });
 };
 
 const setChats = (state, action) => {
   return updateObject(state, {
-    chats: action.chats
+    chats: action.chats,
   });
 };
 

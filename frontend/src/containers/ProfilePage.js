@@ -1,48 +1,63 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import {Avatar, Descriptions, Button } from 'antd';
-import Editprofile from "./Editprofile";
+import React from "react";
+import { connect } from "react-redux";
+import { Avatar, Card, Button, Row, Divider } from "antd";
+import { NavLink } from "react-router-dom";
+// import Editprofile from "./Editprofile";
+import { UserOutlined } from "@ant-design/icons";
 
 class ProfilePage extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { username: "", email: ""};
-    }
-    openQuiz() {
-        window.location='/quiz/';
-    }
-    render() {
-        return(
-            <div style={{display:'flex',
-                flexDirection:'column',
-                alignItems:'center',
-                justifyContent:'left',
-                paddingBottom:20
-            }}>
-                <Avatar style={{backgroundColor: '#0066ff',
-                    verticalAlign: 'middle',
-                    alignContent: 'middle',
-                    fontSize: 64,}} size={128} > {String(this.props.username).charAt(0).toUpperCase()}</Avatar>
-                <p></p>
-                <Editprofile></Editprofile>
-                <p></p>
-                <Button type="primary" onClick={this.openQuiz}>Take Quiz</Button>
-                <Descriptions
-                    title="Your Profile"
-                    bordered
-                    column={{ xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }}>
-                    <Descriptions.Item label="Username">{this.props.username}</Descriptions.Item>
-                    <Descriptions.Item label="Email Address">{this.state.email}</Descriptions.Item>
-                </Descriptions>
-            </div>
+  constructor(props) {
+    super(props);
+    this.state = { username: "", email: "" };
+  }
 
-        );
+  componentDidUpdate() {
+    if (!this.props.isAuthenticated) {
+      this.props.history.push("/login");
     }
+  }
+
+  render() {
+    return (
+      <center>
+        <Card style={{ width: 240 }}>
+          <Row>
+            <Avatar size={120}>
+              <UserOutlined style={{ fontSize: "80px" }} />
+            </Avatar>
+          </Row>
+          <Row style={{ padding: "10px" }}>
+            Username: <b>{this.props.username}</b>
+          </Row>
+          <Divider> Account Updates </Divider>
+          <Row style={{ padding: "5px" }}>
+            <Button type="primary">Change Username</Button>
+          </Row>
+          <Row style={{ padding: "5px" }}>
+            <Button type="primary">Change Password</Button>
+          </Row>
+          <Divider>Questionnaires</Divider>
+          <Row style={{ padding: "5px" }}>
+            <NavLink to={{ pathname: "/quiz/1" }}>Pre-Study Quiz</NavLink>
+          </Row>
+          <Row style={{ padding: "5px" }}>
+            <NavLink to={{ pathname: "/quiz/2" }}>Post-Study Quiz</NavLink>
+          </Row>
+          <Row style={{ padding: "5px" }}>
+            <NavLink to={{ pathname: "/quiz/3" }}>
+              1-Week Post-Study Quiz
+            </NavLink>
+          </Row>
+        </Card>
+      </center>
+    );
+  }
 }
 
-const mapStateToProps = state => ({
-    token: state.auth.token,
-    username: state.auth.username,
+const mapStateToProps = (state) => ({
+  token: state.auth.token,
+  username: state.auth.username,
+  isAuthenticated: state.auth.token !== null,
 });
 
 export default connect(mapStateToProps)(ProfilePage);

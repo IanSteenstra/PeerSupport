@@ -2,7 +2,7 @@ from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ObjectDoesNotExist
-from chat.views import get_last_10_messages, get_user_profile, get_current_chat
+from chat.views import get_messages, get_user_profile, get_current_chat
 import json
 
 from chat.models import Chat, Message
@@ -15,7 +15,7 @@ User = get_user_model()
 class ChatConsumer(WebsocketConsumer):
  
     def fetch_messages(self, data):
-        messages = get_last_10_messages(data['chatId'])
+        messages = get_messages(data['chatId'])
         content = {
             'command': 'messages',
             'messages': self.messages_to_json(messages)
