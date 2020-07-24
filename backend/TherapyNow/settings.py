@@ -42,6 +42,7 @@ EMAIL_USE_TLS = True
 INSTALLED_APPS = [
     'channels',
     'chat',
+    'message',
     'events',
     'Profile',
     'django.contrib.admin',
