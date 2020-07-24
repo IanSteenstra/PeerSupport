@@ -1,11 +1,6 @@
 from rest_framework import serializers
 from .models import Profile, PreStudyQuiz, PostStudyQuiz, WeekPostStudyQuiz, UserQuiz, CounselorQuiz, ResearchQuiz
 from django.contrib.auth.models import User
-from rest_framework.authtoken.models import Token
-from django.contrib.auth.hashers import make_password
-from django.contrib.auth import get_user_model
-
-User = get_user_model()
 
 
 class ProfileSerializer(serializers.ModelSerializer):

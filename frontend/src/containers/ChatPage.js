@@ -55,7 +55,7 @@ class ChatPage extends React.Component {
   };
 
   getNewChat = (value) => {
-    const url = "http://127.0.0.1:8000/api/chats/create/";
+    const url = "http://127.0.0.1:8000/chats/create/";
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
     axios.defaults.xsrfCookieName = "csrftoken";
     axios.defaults.headers = {

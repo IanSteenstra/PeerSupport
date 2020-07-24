@@ -1,28 +1,10 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from django.http import HttpResponse
-from chat.models import Chat, Message
+from .models import Chat
 from Profile.models import Profile
-from Profile.serializers import ProfileSerializer, ProfileUsernameSerializer
+from Profile.serializers import ProfileSerializer
 
 User = get_user_model()
-
-class MessageSerializer(serializers.ModelSerializer):
-    username = serializers.SerializerMethodField('get_username')
-    content = serializers.CharField(max_length=100)
-
-    def create(self, validated_data):
-        content = validated_data.pop('content')
-        message = Message.objects.create(content=content)
-        return message
-
-    def get_username(self, obj):
-        if obj.sender:
-            return obj.sender.user.username
-
-    class Meta:
-        model = Message
-        fields = ('pk', 'username','content','timestamp')
 
 
 class ChatSerializer(serializers.ModelSerializer):

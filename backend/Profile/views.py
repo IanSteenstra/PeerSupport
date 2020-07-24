@@ -1,20 +1,15 @@
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404
 from django.http import HttpResponseForbidden
 from rest_framework.decorators import api_view, renderer_classes, permission_classes
 from rest_framework.renderers import JSONRenderer
-from rest_framework.views import APIView
-
 from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
 from rest_framework.decorators import action
-
 from .models import Profile, PreStudyQuiz, PostStudyQuiz, WeekPostStudyQuiz, UserQuiz, CounselorQuiz, ResearchQuiz, Counselor
 from chat.models import Chat
-from rest_framework.authtoken.models import Token
 from .serializers import ProfileSerializer, PreStudyQuizSerializer, PostStudyQuizSerializer, WeekPostStudyQuizSerializer, UserQuizSerializer, CounselorQuizSerializer, ResearchQuizSerializer
-from chat.api.serializers import ChatSerializer
 import json
 
 
@@ -26,6 +21,11 @@ def null_view(request):
 @api_view()
 def complete_view(request):
     return Response("Email account is activated")
+
+
+def get_user_profile(username):
+    user = get_object_or_404(User, username=username)
+    return get_object_or_404(Profile, user=user)
 
 
 class ProfileViewSet(viewsets.ViewSet):

@@ -5,10 +5,14 @@ from allauth.account.views import ConfirmEmailView
 from rest_framework.authtoken.views import obtain_auth_token
 from Profile.views import null_view, complete_view, ProfileViewSet, PreStudyQuizViewSet, PostStudyQuizViewSet, WeekPostStudyQuizViewSet, UserQuizViewSet, CounselorQuizViewSet, ResearchQuizViewSet, get_chats, get_friends
 from events.views import EventViewSet
-from chat.api.views import room
+from chat.views import ChatViewSet
+from message.views import MessageFlagViewSet
 
 router = routers.DefaultRouter()
 router.register('profiles', ProfileViewSet)
+router.register('events', EventViewSet, 'events')
+router.register('chats', ChatViewSet)
+router.register('flags', MessageFlagViewSet)
 router.register('events', EventViewSet)
 router.register('prestudyquiz', PreStudyQuizViewSet)
 router.register('poststudyquiz', PostStudyQuizViewSet)
@@ -16,10 +20,8 @@ router.register('weekpoststudyquiz', WeekPostStudyQuizViewSet)
 
 urlpatterns = [
     path('api-token-auth/', obtain_auth_token),
-    path('api/chats/', include('chat.api.urls', namespace='chat')),
     path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
-    path('<int:pk>/', room, name='room'),
     path('get-chats/', get_chats),
     path('get-friends/', get_friends),
     path('api-auth/', include('rest_framework.urls')),

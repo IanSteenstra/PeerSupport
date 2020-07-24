@@ -1,19 +1,13 @@
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
-from django.contrib.auth import get_user_model
-from django.core.exceptions import ObjectDoesNotExist
-from chat.views import get_messages, get_user_profile, get_current_chat
+from .views import get_current_chat, get_messages
+from Profile.views import get_user_profile
+from message.models import Message
 import json
-
-from chat.models import Chat, Message
-from Profile.models import Profile
-
-
-User = get_user_model()
 
 
 class ChatConsumer(WebsocketConsumer):
- 
+
     def fetch_messages(self, data):
         messages = get_messages(data['chatId'])
         content = {
