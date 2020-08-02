@@ -25,5 +25,5 @@ class MessageFlagSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MessageFlag
-        fields = ('flag', 'chat', 'message')
+        fields = ('flag', 'message', 'receiver')
         read_only = ('pk',)

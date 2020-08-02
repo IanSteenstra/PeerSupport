@@ -54,6 +54,14 @@ class CustomLayout extends React.Component {
                 </Link>
               </Menu.Item>
             )}
+            {this.props.isAuthenticated && (
+              <Menu.Item key="/admin">
+                <Link to="/admin">
+                  <UserOutlined />
+                  Admin Page
+                </Link>
+              </Menu.Item>
+            )}
             {this.props.isAuthenticated ? (
               <Menu.Item key="/login" onClick={this.props.logout}>
                 <LogoutOutlined />

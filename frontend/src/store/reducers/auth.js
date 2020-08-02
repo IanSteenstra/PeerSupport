@@ -7,6 +7,7 @@ const initialState = {
   error: null,
   loading: false,
   registered: false,
+  id: null,
 };
 
 const authStart = (state, action) => {
@@ -28,6 +29,12 @@ const authSuccess = (state, action) => {
     username: action.username,
     error: null,
     loading: false,
+  });
+};
+
+const authIdSuccess = (state, action) => {
+  return updateObject(state, {
+    id: action.id,
   });
 };
 
@@ -57,6 +64,8 @@ const reducer = (state = initialState, action) => {
       return authLogout(state, action);
     case actionTypes.REGISTER_SUCCESS:
       return registerSuccess(state, action);
+    case actionTypes.AUTH_ID_SUCCESS:
+      return authIdSuccess(state, action);
     default:
       return state;
   }

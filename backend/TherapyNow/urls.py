@@ -10,7 +10,7 @@ from message.views import MessageFlagViewSet
 
 router = routers.DefaultRouter()
 router.register('profiles', ProfileViewSet)
-router.register('events', EventViewSet, 'events')
+router.register('events', EventViewSet)
 router.register('chats', ChatViewSet)
 router.register('flags', MessageFlagViewSet)
 router.register('events', EventViewSet)

@@ -22,7 +22,7 @@ const getUserChatsSuccess = (chats) => {
   };
 };
 
-export const getUserChats = (username, token) => {
+export const getUserChats = (id, token) => {
   return (dispatch) => {
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
     axios.defaults.xsrfCookieName = "csrftoken";
@@ -31,7 +31,7 @@ export const getUserChats = (username, token) => {
       Authorization: `Token ${token}`,
     };
     axios
-      .get(`http://127.0.0.1:8000/chat/?username=${username}`)
+      .get(`http://127.0.0.1:8000/api/chats/?id=${id}`)
       .then((res) => dispatch(getUserChatsSuccess(res.data)));
   };
 };

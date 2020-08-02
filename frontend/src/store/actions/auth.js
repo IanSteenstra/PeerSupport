@@ -1,5 +1,6 @@
 import axios from "axios";
 import * as actionTypes from "./actionTypes";
+import { getUserChats } from "./message";
 
 export const authStart = () => {
   return {
@@ -18,6 +19,13 @@ export const authSuccess = (username, token) => {
     type: actionTypes.AUTH_SUCCESS,
     token: token,
     username: username,
+  };
+};
+
+export const authIdSuccess = (id) => {
+  return {
+    type: actionTypes.AUTH_ID_SUCCESS,
+    id: id,
   };
 };
 
@@ -60,7 +68,32 @@ export const authLogin = (username, password) => {
         localStorage.setItem("username", username);
         localStorage.setItem("expirationDate", expirationDate);
         dispatch(authSuccess(username, token));
+        dispatch(authId(username, token));
         dispatch(checkAuthTimeout(28800));
+      })
+      .catch((err) => {
+        dispatch(authFail(err));
+      });
+  };
+};
+
+export const authId = (username, token) => {
+  return (dispatch) => {
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+    axios.defaults.xsrfCookieName = "csrftoken";
+    axios.defaults.headers = {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`,
+    };
+    axios
+      .get(`http://127.0.0.1:8000/rest-auth/user/`, {
+        username: username,
+      })
+      .then((res) => {
+        const id = res.data.pk;
+        localStorage.setItem("id", id);
+        dispatch(authIdSuccess(id));
+        dispatch(getUserChats(id, token));
       })
       .catch((err) => {
         dispatch(authFail(err));
