@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseForbidden
 from rest_framework.decorators import api_view, renderer_classes, permission_classes
@@ -22,6 +22,15 @@ def null_view(request):
 def complete_view(request):
     return Response("Email account is activated")
 
+@api_view(['GET'])
+@renderer_classes([JSONRenderer])
+@permission_classes((permissions.IsAuthenticated,))
+def validate_risk_monitor_group(request):
+    user = User.objects.get(username=request.user)
+    if user.groups.filter(name = request.query_params.get('groupName')).exists():
+        return Response(True)
+    else:
+        return Response(False)
 
 def get_user_profile(username):
     user = get_object_or_404(User, username=username)

@@ -10,6 +10,7 @@ import {
   UserOutlined,
   LoginOutlined,
   LogoutOutlined,
+  ToolOutlined
 } from "@ant-design/icons";
 
 const { Header, Content, Footer } = Layout;
@@ -57,7 +58,7 @@ class CustomLayout extends React.Component {
             {this.props.isAuthenticated && (
               <Menu.Item key="/admin">
                 <Link to="/admin">
-                  <UserOutlined />
+                <ToolOutlined />
                   Admin Page
                 </Link>
               </Menu.Item>

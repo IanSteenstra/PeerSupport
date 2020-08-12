@@ -29,6 +29,27 @@ export const authIdSuccess = (id) => {
   };
 };
 
+export const validateUserGroup = (token) => {
+ return (dispatch) => {
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+    axios.defaults.xsrfCookieName = "csrftoken";
+    axios.defaults.headers = {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`,
+    };
+    axios
+      .get(`http://127.0.0.1:8000/validate-group/`, {
+        params: {
+          groupName: 'Risk Monitor'
+        }
+      })
+      .then((res) => {
+        console.log(res.data)
+      })
+      
+  };
+}
+
 export const authFail = (error) => {
   return {
     type: actionTypes.AUTH_FAIL,
@@ -69,6 +90,7 @@ export const authLogin = (username, password) => {
         localStorage.setItem("expirationDate", expirationDate);
         dispatch(authSuccess(username, token));
         dispatch(authId(username, token));
+        dispatch(validateUserGroup(token));
         dispatch(checkAuthTimeout(28800));
       })
       .catch((err) => {
