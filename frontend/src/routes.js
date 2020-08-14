@@ -7,6 +7,7 @@ import Quiz from "./containers/QuizPage";
 import Events from "./containers/EventsPage";
 import Home from "./containers/HomePage";
 import Chat from "./containers/ChatPage";
+import RiskMonitoring from "./containers/RiskMonitoring";
 
 const BaseRouter = () => (
   <div>
@@ -15,6 +16,7 @@ const BaseRouter = () => (
     <Route exact path="/register" component={Register} />
     <Route exact path="/events" component={Events} />
     <Route exact path="/profile" component={Profile} />
+    <Route exact path="/risk-monitoring" component={RiskMonitoring} />
     <Route path="/quiz" component={Quiz} />
     <Route path="/chat" component={Chat} />
   </div>

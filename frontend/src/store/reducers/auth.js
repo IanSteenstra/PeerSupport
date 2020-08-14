@@ -7,6 +7,7 @@ const initialState = {
   error: null,
   loading: false,
   registered: false,
+  isRiskMonitor: false,
   id: null,
 };
 
@@ -20,6 +21,12 @@ const authStart = (state, action) => {
 const registerSuccess = (state, action) => {
   return updateObject(state, {
     registered: true,
+  });
+};
+
+const riskMonitorSuccess = (state, action) => {
+  return updateObject(state, {
+    isRiskMonitor: action.isRiskMonitor,
   });
 };
 
@@ -64,6 +71,8 @@ const reducer = (state = initialState, action) => {
       return authLogout(state, action);
     case actionTypes.REGISTER_SUCCESS:
       return registerSuccess(state, action);
+    case actionTypes.RISK_MONITOR_SUCCESS:
+      return riskMonitorSuccess(state, action);
     case actionTypes.AUTH_ID_SUCCESS:
       return authIdSuccess(state, action);
     default:

@@ -22,7 +22,18 @@ class MessageFlag(models.Model):
         (flag_harassment, 'Harassment')
     ]
 
-    flag = models.CharField(choices=flags, max_length=32)
-    message = models.ManyToManyField(Message, related_name='message')
-    receiver = models.ForeignKey(
+    flag_type = models.CharField(choices=flags, max_length=32)
+    content = models.TextField(null=False)
+    flagged_user = models.ForeignKey(
         Profile, related_name='receiver', on_delete=models.CASCADE, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def get_or_create(**kwargs):
+        try:
+            m = MessageFlag.objects.get(**kwargs)
+        except ObjectDoesNotExist:
+            m = MessageFlag.objects.create(**kwargs)
+        return m
+
+    def __str__(self):
+        return str(self.pk)

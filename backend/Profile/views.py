@@ -22,15 +22,30 @@ def null_view(request):
 def complete_view(request):
     return Response("Email account is activated")
 
+
 @api_view(['GET'])
 @renderer_classes([JSONRenderer])
 @permission_classes((permissions.IsAuthenticated,))
-def validate_risk_monitor_group(request):
+def validate_user_group(request):
     user = User.objects.get(username=request.user)
-    if user.groups.filter(name = request.query_params.get('groupName')).exists():
+    if user.groups.filter(name=request.query_params.get('groupName')).exists():
         return Response(True)
     else:
         return Response(False)
+
+
+@api_view(['GET'])
+@renderer_classes([JSONRenderer])
+@permission_classes((permissions.IsAuthenticated,))
+def getUserEmail(request):
+    user = User.objects.get(username=request.user)
+    if user.groups.filter(name=request.query_params.get('groupName')).exists():
+        flaggeed_profile_pk = request.query_params.get('flaggedProfilePk')
+        email = Profile.objects.get(pk=flaggeed_profile_pk).user.email
+        return Response(email)
+    else:
+        return Response(False)
+
 
 def get_user_profile(username):
     user = get_object_or_404(User, username=username)
