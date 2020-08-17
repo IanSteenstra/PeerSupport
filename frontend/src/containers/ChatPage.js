@@ -13,7 +13,7 @@ class ChatPage extends React.Component {
     super(props);
     this.state = {
       currentChat: "",
-      currChats: [
+      chats: [
         {
           key: "",
           name: "",
@@ -28,7 +28,7 @@ class ChatPage extends React.Component {
     };
 
     this.getCurrChats();
-    this.getFriends();
+    // this.getFriends();
   }
 
   componentDidUpdate() {
@@ -89,7 +89,7 @@ class ChatPage extends React.Component {
       .then((response) => response.data)
       .then((data) => {
         this.setState({
-          currChats: data,
+          chats: data,
         });
       });
   };
@@ -110,7 +110,7 @@ class ChatPage extends React.Component {
             style={{ height: "100%", borderRight: 0 }}
           >
             <SubMenu key="sub1" title="Current Chats">
-              {this.state.currChats.map((chat) => (
+              {this.state.chats.map((chat) => (
                 <Menu.Item key={chat.key}>
                   <NavLink to={`/chat/${chat.key}`}>
                     {chat.name}
@@ -143,6 +143,7 @@ const mapStateToProps = (state) => ({
   token: state.auth.token,
   username: state.auth.username,
   isAuthenticated: state.auth.token !== null,
+  // chats: state.message.chats,
 });
 
 export default connect(mapStateToProps)(ChatPage);

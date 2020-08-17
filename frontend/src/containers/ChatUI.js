@@ -1,6 +1,7 @@
 import React from "react";
+import axios from "axios";
 import WebSocketInstance from "../websocket";
-import { Input, Row, Popover, Radio, Button } from "antd";
+import { Input, Row, Popover, Radio, Button, Divider } from "antd";
 import { SendOutlined, FlagFilled } from "@ant-design/icons";
 import "../assets/MessageList.css";
 import { connect } from "react-redux";
@@ -21,6 +22,7 @@ class ChatUI extends React.Component {
     this.state = {
       message: "",
       flagType: 1,
+      showFlagPopup: false,
     };
     this.initialiseChat();
   }
@@ -45,7 +47,6 @@ class ChatUI extends React.Component {
 
   sendMessageHandler = (e) => {
     e.preventDefault();
-    console.log(this.state.message);
     const messageObject = {
       from: this.props.username,
       content: this.state.message,
@@ -61,8 +62,28 @@ class ChatUI extends React.Component {
     });
   };
 
-  onFlagSubmit = () => {
-    console.log(this.state.flagType);
+  showFlagPopup = () => {
+    this.setState({ showFlagPopup: true });
+  };
+
+  onFlagSubmit = (message) => {
+    const url = "http://127.0.0.1:8000/api/flags/";
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+    axios.defaults.xsrfCookieName = "csrftoken";
+    axios.defaults.headers = {
+      "Content-Type": "application/json",
+      Authorization: `Token ${this.props.token}`,
+    };
+    axios
+      .post(url, {
+        flag_type: this.state.flagType,
+        content: message.content,
+        flagged_user: message.author,
+      })
+      .then((res) => this.setState({ showFlagPopup: false }))
+      .catch((err) => {
+        console.log("Error:", err);
+      });
   };
 
   renderTimestamp = (timestamp) => {
@@ -101,6 +122,8 @@ class ChatUI extends React.Component {
 
     return (
       <div>
+        <Row>{message.content}</Row>
+        <Divider />
         <Row>
           <Radio.Group onChange={this.onFlagChange} value={this.state.flagType}>
             <Radio style={radioStyle} value={1}>
@@ -114,9 +137,13 @@ class ChatUI extends React.Component {
             </Radio>
           </Radio.Group>
         </Row>
-        <Row>
+        <Row
+          style={{
+            padding: 8,
+          }}
+        >
           <center>
-            <Button onClick={this.onFlagSubmit}>Submit</Button>
+            <Button onClick={() => this.onFlagSubmit(message)}>Submit</Button>
           </center>
         </Row>
       </div>
@@ -125,7 +152,6 @@ class ChatUI extends React.Component {
 
   renderMessages = (messages) => {
     const currentUser = this.props.username;
-    console.log(messages);
     return messages.map((message, i, arr) => (
       <li
         key={i}
@@ -146,6 +172,8 @@ class ChatUI extends React.Component {
                 title={<center>Why are you flagging this message?</center>}
                 trigger="click"
                 content={this.renderFlagForm(message)}
+                visible={this.state.showFlagPopup}
+                onClick={() => this.showFlagPopup()}
                 placement="right"
               >
                 <FlagFilled style={{ padding: "10px", color: "#ffa9a3" }} />
@@ -224,6 +252,7 @@ class ChatUI extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+  token: state.auth.token,
   messages: state.message.messages,
   username: state.auth.username,
 });

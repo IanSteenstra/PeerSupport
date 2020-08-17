@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseForbidden
 from rest_framework.decorators import api_view, renderer_classes, permission_classes
@@ -21,6 +21,30 @@ def null_view(request):
 @api_view()
 def complete_view(request):
     return Response("Email account is activated")
+
+
+@api_view(['GET'])
+@renderer_classes([JSONRenderer])
+@permission_classes((permissions.IsAuthenticated,))
+def validate_user_group(request):
+    user = User.objects.get(username=request.user)
+    if user.groups.filter(name=request.query_params.get('groupName')).exists():
+        return Response(True)
+    else:
+        return Response(False)
+
+
+@api_view(['GET'])
+@renderer_classes([JSONRenderer])
+@permission_classes((permissions.IsAuthenticated,))
+def getUserEmail(request):
+    user = User.objects.get(username=request.user)
+    if user.groups.filter(name=request.query_params.get('groupName')).exists():
+        flaggeed_profile_pk = request.query_params.get('flaggedProfilePk')
+        email = Profile.objects.get(pk=flaggeed_profile_pk).user.email
+        return Response(email)
+    else:
+        return Response(False)
 
 
 def get_user_profile(username):

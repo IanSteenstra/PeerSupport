@@ -1,8 +1,8 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from .models import Chat
-from Profile.models import Profile
-from Profile.serializers import ProfileSerializer
+from profile.models import Profile
+from profile.serializers import ProfileSerializer
 
 User = get_user_model()
 

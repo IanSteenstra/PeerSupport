@@ -1,5 +1,6 @@
 import axios from "axios";
 import * as actionTypes from "./actionTypes";
+import { getUserChats } from "./message";
 
 export const authStart = () => {
   return {
@@ -13,11 +14,47 @@ export const registerSuccess = () => {
   };
 };
 
+export const riskMonitorSuccess = (isRiskMonitor) => {
+  return {
+    type: actionTypes.RISK_MONITOR_SUCCESS,
+    isRiskMonitor: isRiskMonitor,
+  };
+};
+
 export const authSuccess = (username, token) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
     token: token,
     username: username,
+  };
+};
+
+export const authIdSuccess = (id) => {
+  return {
+    type: actionTypes.AUTH_ID_SUCCESS,
+    id: id,
+  };
+};
+
+export const validateRiskMonitorGroup = (token) => {
+  return (dispatch) => {
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+    axios.defaults.xsrfCookieName = "csrftoken";
+    axios.defaults.headers = {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`,
+    };
+    axios
+      .get(`http://127.0.0.1:8000/validate-user-group/`, {
+        params: {
+          groupName: "Risk Monitor",
+        },
+      })
+      .then((res) => {
+        const isRiskMonitor = res.data;
+        localStorage.setItem("isRiskMonitor", isRiskMonitor);
+        dispatch(riskMonitorSuccess(isRiskMonitor));
+      });
   };
 };
 
@@ -32,6 +69,8 @@ export const logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("username");
   localStorage.removeItem("expirationDate");
+  localStorage.removeItem("id");
+  localStorage.removeItem("isRiskMonitor");
   return {
     type: actionTypes.AUTH_LOGOUT,
   };
@@ -60,7 +99,33 @@ export const authLogin = (username, password) => {
         localStorage.setItem("username", username);
         localStorage.setItem("expirationDate", expirationDate);
         dispatch(authSuccess(username, token));
+        dispatch(authId(username, token));
+        dispatch(validateRiskMonitorGroup(token));
         dispatch(checkAuthTimeout(28800));
+      })
+      .catch((err) => {
+        dispatch(authFail(err));
+      });
+  };
+};
+
+export const authId = (username, token) => {
+  return (dispatch) => {
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+    axios.defaults.xsrfCookieName = "csrftoken";
+    axios.defaults.headers = {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`,
+    };
+    axios
+      .get(`http://127.0.0.1:8000/rest-auth/user/`, {
+        username: username,
+      })
+      .then((res) => {
+        const id = res.data.pk;
+        localStorage.setItem("id", id);
+        dispatch(authIdSuccess(id));
+        dispatch(getUserChats(id, token));
       })
       .catch((err) => {
         dispatch(authFail(err));
@@ -91,6 +156,8 @@ export const authCheckState = () => {
   return (dispatch) => {
     const token = localStorage.getItem("token");
     const username = localStorage.getItem("username");
+    const isRiskMonitor = localStorage.getItem("isRiskMonitor");
+    const id = localStorage.getItem("id");
     if (token === undefined) {
       dispatch(logout());
     } else {
@@ -99,6 +166,8 @@ export const authCheckState = () => {
         dispatch(logout());
       } else {
         dispatch(authSuccess(username, token));
+        dispatch(riskMonitorSuccess(isRiskMonitor));
+        dispatch(authIdSuccess(id));
         dispatch(
           checkAuthTimeout(
             (expirationDate.getTime() - new Date().getTime()) / 1000

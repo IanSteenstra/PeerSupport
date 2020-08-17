@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   postgres:
@@ -17,18 +17,18 @@ services:
     build: ./backend
     command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
     volumes:
-      - ./backend:/therapynow/backend
+      - ./backend:/peersupport/backend
     ports:
       - "8000:8000"
-    depends_on: 
+    depends_on:
       - postgres
       - redis
   react:
     build: ./frontend
     command: ["npm", "start"]
     volumes:
-      - ./frontend:/therapynow/frontend
-      - node-modules:/therapynow/frontend/node_modules
+      - ./frontend:/peersupport/frontend
+      - node-modules:/peersupport/frontend/node_modules
     ports:
       - "3000:3000"
     stdin_open: true

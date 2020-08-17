@@ -10,6 +10,7 @@ import {
   UserOutlined,
   LoginOutlined,
   LogoutOutlined,
+  MonitorOutlined,
 } from "@ant-design/icons";
 
 const { Header, Content, Footer } = Layout;
@@ -54,6 +55,14 @@ class CustomLayout extends React.Component {
                 </Link>
               </Menu.Item>
             )}
+            {this.props.isAuthenticated && this.props.isRiskMonitor && (
+              <Menu.Item key="/risk-monitoring">
+                <Link to="/risk-monitoring">
+                  <MonitorOutlined />
+                  Risk Monitoring
+                </Link>
+              </Menu.Item>
+            )}
             {this.props.isAuthenticated ? (
               <Menu.Item key="/login" onClick={this.props.logout}>
                 <LogoutOutlined />
@@ -87,7 +96,7 @@ class CustomLayout extends React.Component {
             textAlign: "center",
           }}
         >
-          TherapyNow 2020 | Contact: Ian Steenstra - steenstra.ian@gmail.com
+          PeerSupport 2020 | Contact: Ian Steenstra - steenstra.ian@gmail.com
         </Footer>
       </Layout>
     );
