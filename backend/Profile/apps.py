@@ -2,7 +2,7 @@ from django.apps import AppConfig
 
 
 class ProfileConfig(AppConfig):
-  name = 'Profile'
+    name = 'profile'
 
-  def ready(self):
-    import Profile.signals
+    def ready(self):
+        import profile.signals

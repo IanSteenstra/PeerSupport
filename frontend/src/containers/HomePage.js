@@ -5,9 +5,9 @@ class HomeLayout extends React.Component {
   render() {
     return (
       <center>
-        <img src={logo} alt="TherapyNow Logo" />
+        <img src={logo} alt="PeerSupport Logo" />
         <p>
-          TherapyNow is an anonymous peer-support web application that provides
+          PeerSupport is an anonymous peer-support web application that provides
           easy access for college students to get the help they need in a safe
           and reliable manner.
         </p>

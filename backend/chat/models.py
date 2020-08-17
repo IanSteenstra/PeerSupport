@@ -1,5 +1,5 @@
 from django.db import models
-from Profile.models import Profile
+from profile.models import Profile
 from events.models import Event
 from django.core.exceptions import ObjectDoesNotExist
 from message.models import Message

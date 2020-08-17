@@ -3,7 +3,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 
-from Profile.models import Profile, UserQuiz, CounselorQuiz
+from profile.models import Profile, UserQuiz, CounselorQuiz
 
 
 @receiver(post_save, sender=User)

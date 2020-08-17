@@ -3,7 +3,7 @@ from django.urls import path, include
 from rest_framework import routers
 from allauth.account.views import ConfirmEmailView
 from rest_framework.authtoken.views import obtain_auth_token
-from Profile.views import null_view, getUserEmail, complete_view, ProfileViewSet, PreStudyQuizViewSet, PostStudyQuizViewSet, WeekPostStudyQuizViewSet, UserQuizViewSet, CounselorQuizViewSet, ResearchQuizViewSet, get_chats, get_friends, validate_user_group
+from profile.views import null_view, getUserEmail, complete_view, ProfileViewSet, PreStudyQuizViewSet, PostStudyQuizViewSet, WeekPostStudyQuizViewSet, UserQuizViewSet, CounselorQuizViewSet, ResearchQuizViewSet, get_chats, get_friends, validate_user_group
 from events.views import EventViewSet
 from chat.views import ChatViewSet
 from message.views import MessageFlagViewSet

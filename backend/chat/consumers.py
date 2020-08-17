@@ -1,7 +1,7 @@
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 from .views import get_current_chat, get_messages
-from Profile.views import get_user_profile
+from profile.views import get_user_profile
 from message.models import Message
 import json
 

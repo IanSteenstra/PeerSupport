@@ -1,10 +1,10 @@
-![text](https://github.com/IanSteenstra/TherapyNow/blob/master/frontend/src/images/logo-hori.jpg)
+![text](https://github.com/IanSteenstra/PeerSupport/blob/master/frontend/src/images/logo-hori.jpg)
 
-# TherapyNow
+# PeerSupport
 
 ## Summary
 
-TherapyNow is an anonymous peer-support web application that provides easy access for college students to get the help they need in a safe and reliable manner.
+PeerSupport is an anonymous peer-support web application that provides easy access for college students to get the help they need in a safe and reliable manner.
 
 ## Run Codebase
 
@@ -18,7 +18,7 @@ TherapyNow is an anonymous peer-support web application that provides easy acces
 ## Issue Running Codebase / Servers Not Working
 
 1. In another terminal while the servers are still running, enter `docker ps`
-1. Find the Container ID for the therapynow_django server (ex: db54a724e9a4)
+1. Find the Container ID for the peersupport_django server (ex: db54a724e9a4)
 1. Run `docker exec -it <container ID> bash`
 1. `python manage.py migrate`
 

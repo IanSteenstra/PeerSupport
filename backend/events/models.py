@@ -7,11 +7,13 @@ from django.dispatch import receiver
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 from django.utils.translation import gettext as _
-from Profile.models import Profile
+from profile.models import Profile
 
-# Essentially an object that references the Django Models and creates an event that is used for 
+# Essentially an object that references the Django Models and creates an event that is used for
 # holding information regarding a scheduled therapy event
 # Django Model: https://docs.djangoproject.com/en/3.0/topics/db/models/
+
+
 class Event(models.Model):
     name = models.CharField(
         u'Name of Event', max_length=200, help_text=u'Name of Event', null=False, blank=False)

@@ -1,8 +1,8 @@
 FROM node
 
-WORKDIR /therapynow/frontend
+WORKDIR /peersupport/frontend
 ENV CHOKIDAR_USEPOLLING 1
-COPY package.json /therapynow/frontend
+COPY package.json /peersupport/frontend
 
 RUN npm install
 

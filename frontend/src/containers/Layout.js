@@ -96,7 +96,7 @@ class CustomLayout extends React.Component {
             textAlign: "center",
           }}
         >
-          TherapyNow 2020 | Contact: Ian Steenstra - steenstra.ian@gmail.com
+          PeerSupport 2020 | Contact: Ian Steenstra - steenstra.ian@gmail.com
         </Footer>
       </Layout>
     );

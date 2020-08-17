@@ -1,5 +1,5 @@
 from django.db import models
-from Profile.models import Profile
+from profile.models import Profile
 
 
 class Message(models.Model):
