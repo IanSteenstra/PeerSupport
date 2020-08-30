@@ -27,7 +27,7 @@ SECRET_KEY = "yP[qaJ4#=ux+k3j[(kJBE%|YxQP*P3"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['34.123.195.8', 'api']
+ALLOWED_HOSTS = ['34.69.180.162', 'api']
 
 # Email backend settings for Django
 EMAIL_HOST = 'smtp.gmail.com'
