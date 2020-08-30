@@ -20,9 +20,11 @@ class RiskMonitoring extends React.Component {
       "Content-Type": "application/json",
       Authorization: `Token ${this.props.token}`,
     };
-    axios.get(`http://127.0.0.1:8000/api/flags/`).then((res) => {
-      this.setState({ flaggedMessages: res.data });
-    });
+    axios
+      .get(`${process.env.REACT_APP_HOST_IP_ADDRESS}/api/flags/`)
+      .then((res) => {
+        this.setState({ flaggedMessages: res.data });
+      });
   }
 
   deleteFlaggedMessage = (record) => {
@@ -32,9 +34,11 @@ class RiskMonitoring extends React.Component {
       "Content-Type": "application/json",
       Authorization: `Token ${this.props.token}`,
     };
-    axios.delete(`http://127.0.0.1:8000/api/flags/${record.pk}`).then((res) => {
-      this.retrieveFlaggedMessages();
-    });
+    axios
+      .delete(`${process.env.REACT_APP_HOST_IP_ADDRESS}/api/flags/${record.pk}`)
+      .then((res) => {
+        this.retrieveFlaggedMessages();
+      });
   };
 
   retrieveUserEmail = (record) => {
@@ -45,7 +49,7 @@ class RiskMonitoring extends React.Component {
       Authorization: `Token ${this.props.token}`,
     };
     axios
-      .get(`http://127.0.0.1:8000/get-user-email`, {
+      .get(`${process.env.REACT_APP_HOST_IP_ADDRESS}/get-user-email`, {
         params: {
           groupName: "Risk Monitor",
           flaggedProfilePk: record.flagged_user,

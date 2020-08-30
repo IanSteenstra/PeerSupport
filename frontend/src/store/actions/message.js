@@ -31,7 +31,7 @@ export const getUserChats = (id, token) => {
       Authorization: `Token ${token}`,
     };
     axios
-      .get(`http://127.0.0.1:8000/api/chats/?id=${id}`)
+      .get(`${process.env.REACT_APP_HOST_IP_ADDRESS}/api/chats/?id=${id}`)
       .then((res) => dispatch(getUserChatsSuccess(res.data)));
   };
 };

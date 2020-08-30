@@ -5,7 +5,7 @@ services:
     image: postgres
     restart: always
     environment:
-      - POSTGRES_PASSWORD=hIOS783n@
+      - POSTGRES_PASSWORD='Y1pP;C}uTK}wcly|s4MY[>3WDr:&VM'
     ports:
       - "5432:5432"
   redis:
@@ -13,25 +13,36 @@ services:
     restart: always
     ports:
       - "6379:6379"
-  django:
-    build: ./backend
-    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-    volumes:
-      - ./backend:/peersupport/backend
+  backend:
+    build:
+      context: ./backend
+      args:
+        DJANGO_ALLOWED_HOSTS: 34.123.195.8, 10.128.0.32, api
+        DJANGO_SECRET_KEY: "yP[qaJ4#=ux+k3j[(kJBE%|YxQP*P3"
+        POSTGRES_PASSWORD: "Y1pP;C}uTK}wcly|s4MY[>3WDr:&VM"
+        DJANGO_CORS_ORIGIN_WHITELIST: http://34.123.195.8
+    command: gunicorn PeerSupport.wsgi --bind 0.0.0.0:8000
     ports:
       - "8000:8000"
     depends_on:
       - postgres
       - redis
-  react:
-    build: ./frontend
-    command: ["npm", "start"]
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        API_URL: http://34.123.195.8
     volumes:
-      - ./frontend:/peersupport/frontend
-      - node-modules:/peersupport/frontend/node_modules
+      - build_folder:/frontend/build
+  nginx:
+    image: nginx:latest
     ports:
-      - "3000:3000"
-    stdin_open: true
-
+      - 80:8080
+    volumes:
+      - ./webserver/nginx-proxy.conf:/etc/nginx/conf.d/default.conf:ro
+      - build_folder:/var/www/frontend
+    depends_on:
+      - backend
+      - frontend
 volumes:
-  node-modules:
+  build_folder:

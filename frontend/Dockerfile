@@ -1,10 +1,8 @@
-FROM node
-
-WORKDIR /peersupport/frontend
-ENV CHOKIDAR_USEPOLLING 1
-COPY package.json /peersupport/frontend
-
-RUN npm install
-
-EXPOSE 3000
-CMD ["npm", "start"]
+FROM node:14.4.0-alpine3.10
+USER root
+WORKDIR /frontend
+COPY . /frontend
+ARG API_URL
+ENV REACT_APP_HOST_IP_ADDRESS $API_URL
+RUN yarn
+RUN yarn build

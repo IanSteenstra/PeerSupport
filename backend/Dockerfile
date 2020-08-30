@@ -1,19 +1,21 @@
 FROM python:3.7.7
-
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-    postgresql-client \
-    && rm -rf /var/lib/apt/lists/*
-
-ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-WORKDIR /peersupport/backend
-RUN pip install --upgrade pip
-COPY requirements.txt /peersupport/backend
-RUN pip install -r requirements.txt
+ARG DJANGO_ALLOWED_HOSTS
+ARG DJANGO_SECRET_KEY
+ARG POSTGRES_PASSWORD
+ARG DJANGO_CORS_ORIGIN_WHITELIST
 
-COPY . /peersupport/backend/
+ENV DJANGO_ALLOWED_HOSTS $DJANGO_ALLOWED_HOSTS
+ENV DJANGO_SECRET_KEY $DJANGO_SECRET_KEY
+ENV POSTGRES_PASSWORD $POSTGRES_PASSWORD
+ENV DJANGO_CORS_ORIGIN_WHITELIST $DJANGO_CORS_ORIGIN_WHITELIST
 
+RUN mkdir /backend
+WORKDIR /backend
+COPY requirements.txt /backend/
 EXPOSE 8000
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+RUN pip install -r requirements.txt
+COPY . /backend/
+CMD python manage.py makemigrations
+CMD python manage.py migrate

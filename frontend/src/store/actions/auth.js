@@ -45,7 +45,7 @@ export const validateRiskMonitorGroup = (token) => {
       Authorization: `Token ${token}`,
     };
     axios
-      .get(`http://127.0.0.1:8000/validate-user-group/`, {
+      .get(`${process.env.REACT_APP_HOST_IP_ADDRESS}/validate-user-group/`, {
         params: {
           groupName: "Risk Monitor",
         },
@@ -88,7 +88,7 @@ export const authLogin = (username, password) => {
   return (dispatch) => {
     dispatch(authStart());
     axios
-      .post(`http://127.0.0.1:8000/rest-auth/login/`, {
+      .post(`${process.env.REACT_APP_HOST_IP_ADDRESS}/rest-auth/login/`, {
         username: username,
         password: password,
       })
@@ -118,7 +118,7 @@ export const authId = (username, token) => {
       Authorization: `Token ${token}`,
     };
     axios
-      .get(`http://127.0.0.1:8000/rest-auth/user/`, {
+      .get(`${process.env.REACT_APP_HOST_IP_ADDRESS}/rest-auth/user/`, {
         username: username,
       })
       .then((res) => {
@@ -137,12 +137,15 @@ export const authRegister = (username, email, password1, password2) => {
   return (dispatch) => {
     dispatch(authStart());
     axios
-      .post(`http://127.0.0.1:8000/rest-auth/registration/`, {
-        username: username,
-        email: email,
-        password1: password1,
-        password2: password2,
-      })
+      .post(
+        `${process.env.REACT_APP_HOST_IP_ADDRESS}/rest-auth/registration/`,
+        {
+          username: username,
+          email: email,
+          password1: password1,
+          password2: password2,
+        }
+      )
       .then((res) => {
         dispatch(registerSuccess());
       })

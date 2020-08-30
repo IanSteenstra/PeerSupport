@@ -28,7 +28,7 @@ class PostStudyQuestionnaire extends Component {
   //use API to upload answers from this.state.radiovalues
   logAnswers() {
     console.log(this.state.radioValues);
-    const url = "http://127.0.0.1:8000/api/poststudyquiz/";
+    const url = `${process.env.REACT_APP_HOST_IP_ADDRESS}/api/poststudyquiz/`;
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
     axios.defaults.xsrfCookieName = "csrftoken";
     axios.defaults.headers = {

@@ -22,17 +22,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '*0jf&6(8275)4mlc^5wo7fy$(c@^=50o#z30bza2%#_)6(6xx^'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
 # Email backend settings for Django
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'mutualhelptechnologies@gmail.com'
-EMAIL_HOST_PASSWORD = 'iuxapcndqwaankhx'
+EMAIL_HOST_PASSWORD = 'cwgkixchdkhosgbo'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
@@ -40,11 +40,6 @@ EMAIL_USE_TLS = True
 # Application definition
 
 INSTALLED_APPS = [
-    'channels',
-    'chat',
-    'message',
-    'events',
-    'profile',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -53,25 +48,28 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
+    'corsheaders',
+    'channels',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
     'rest_auth.registration',
 
-
-
+    'chat',
+    'message',
+    'events',
+    'profile',
 ]
 
 SITE_ID = 1
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -116,7 +114,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': 'hIOS783n@',
+        'POSTGRES_PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
         'HOST': 'postgres',
         'PORT': '5432',
     }
@@ -190,7 +188,8 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = os.environ.get("CORS_ORIGIN_WHITELIST").split(" ")
+
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_AUTHENTICATION_METHOD = 'username'

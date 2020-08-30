@@ -38,7 +38,7 @@ class ChatPage extends React.Component {
   }
 
   getFriends = () => {
-    const url = "http://127.0.0.1:8000/get-friends/";
+    const url = `${process.env.REACT_APP_HOST_IP_ADDRESS}/get-friends/`;
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
     axios.defaults.xsrfCookieName = "csrftoken";
     axios.defaults.headers = {
@@ -55,7 +55,7 @@ class ChatPage extends React.Component {
   };
 
   getNewChat = (value) => {
-    const url = "http://127.0.0.1:8000/chats/create/";
+    const url = `${process.env.REACT_APP_HOST_IP_ADDRESS}/chats/create/`;
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
     axios.defaults.xsrfCookieName = "csrftoken";
     axios.defaults.headers = {
@@ -77,7 +77,7 @@ class ChatPage extends React.Component {
   };
 
   getCurrChats = () => {
-    const url = "http://127.0.0.1:8000/get-chats/";
+    const url = `${process.env.REACT_APP_HOST_IP_ADDRESS}/get-chats/`;
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
     axios.defaults.xsrfCookieName = "csrftoken";
     axios.defaults.headers = {
