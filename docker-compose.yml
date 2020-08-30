@@ -16,11 +16,6 @@ services:
   backend:
     build:
       context: ./backend
-      args:
-        DJANGO_ALLOWED_HOSTS: 34.123.195.8, 10.128.0.32, api
-        DJANGO_SECRET_KEY: "yP[qaJ4#=ux+k3j[(kJBE%|YxQP*P3"
-        POSTGRES_PASSWORD: "Y1pP;C}uTK}wcly|s4MY[>3WDr:&VM"
-        DJANGO_CORS_ORIGIN_WHITELIST: http://34.123.195.8
     command: gunicorn PeerSupport.wsgi --bind 0.0.0.0:8000
     ports:
       - "8000:8000"
@@ -30,8 +25,6 @@ services:
   frontend:
     build:
       context: ./frontend
-      args:
-        API_URL: http://34.123.195.8
     volumes:
       - build_folder:/frontend/build
   nginx:

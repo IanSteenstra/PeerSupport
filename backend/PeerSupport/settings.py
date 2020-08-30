@@ -22,12 +22,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = "yP[qaJ4#=ux+k3j[(kJBE%|YxQP*P3"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = ['34.123.195.8', 'api']
 
 # Email backend settings for Django
 EMAIL_HOST = 'smtp.gmail.com'
@@ -114,7 +114,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'postgres',
-        'POSTGRES_PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
+        'POSTGRES_PASSWORD': "Y1pP;C}uTK}wcly|s4MY[>3WDr:&VM",
         'HOST': 'postgres',
         'PORT': '5432',
     }
@@ -188,7 +188,7 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-CORS_ORIGIN_WHITELIST = os.environ.get("CORS_ORIGIN_WHITELIST").split(" ")
+CORS_ORIGIN_ALLOW_ALL = True
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
