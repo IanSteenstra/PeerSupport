@@ -67,7 +67,7 @@ class ChatUI extends React.Component {
   };
 
   onFlagSubmit = (message) => {
-    const url = `${process.env.REACT_APP_HOST_IP_ADDRESS}/api/flags/`;
+    const url = `${process.env.REACT_APP_HOST_IP_ADDRESS}/api/api/flags/`;
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
     axios.defaults.xsrfCookieName = "csrftoken";
     axios.defaults.headers = {

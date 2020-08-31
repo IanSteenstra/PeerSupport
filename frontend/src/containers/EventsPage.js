@@ -121,7 +121,7 @@ class EventsPage extends React.Component {
 
   listEventsData = () => {
     console.log(this.props.token);
-    const url = `${process.env.REACT_APP_HOST_IP_ADDRESS}/api/events/`;
+    const url = `${process.env.REACT_APP_HOST_IP_ADDRESS}/api/api/events/`;
     axios
       .get(url)
       .then((res) => {
@@ -137,7 +137,7 @@ class EventsPage extends React.Component {
 
   postParticipant = () => {
     console.log(this.props.token);
-    const url = `${process.env.REACT_APP_HOST_IP_ADDRESS}/api/events/`;
+    const url = `${process.env.REACT_APP_HOST_IP_ADDRESS}/api/api/events/`;
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
     axios.defaults.xsrfCookieName = "csrftoken";
     axios.defaults.headers = {

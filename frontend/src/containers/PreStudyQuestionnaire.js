@@ -72,7 +72,7 @@ class PreStudyQuestionnaire extends Component {
   //use API to upload answers from this.state.radiovalues
   logAnswers() {
     console.log(this.state.radioValues);
-    const url = `${process.env.REACT_APP_HOST_IP_ADDRESS}/api/prestudyquiz/`;
+    const url = `${process.env.REACT_APP_HOST_IP_ADDRESS}/api/api/prestudyquiz/`;
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
     axios.defaults.xsrfCookieName = "csrftoken";
     axios.defaults.headers = {

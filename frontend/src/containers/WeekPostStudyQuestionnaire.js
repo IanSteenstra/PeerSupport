@@ -72,7 +72,7 @@ class WeekPostStudyQuestionnaire extends Component {
   //use API to upload answers from this.state.radiovalues
   logAnswers() {
     console.log(this.state.radioValues);
-    const url = `${process.env.REACT_APP_HOST_IP_ADDRESS}/api/weekpoststudyquiz/`;
+    const url = `${process.env.REACT_APP_HOST_IP_ADDRESS}/api/api/weekpoststudyquiz/`;
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
     axios.defaults.xsrfCookieName = "csrftoken";
     axios.defaults.headers = {
