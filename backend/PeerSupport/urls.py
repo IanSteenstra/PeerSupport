@@ -19,14 +19,14 @@ router.register('poststudyquiz', PostStudyQuizViewSet)
 router.register('weekpoststudyquiz', WeekPostStudyQuizViewSet)
 
 urlpatterns = [
-    path('api/api-token-auth/', obtain_auth_token),
     path('api/api/', include(router.urls)),
-    path('api/admin/', admin.site.urls),
+    path('admin/', include(admin.site.urls)),
     path('api/get-chats/', get_chats),
     path('api/get-user-email', getUserEmail),
     path('api/get-friends/', get_friends),
     path('api/validate-user-group/', validate_user_group),
     path('api/api-auth/', include('rest_framework.urls')),
+    path('api/api-token-auth/', obtain_auth_token),
     path('api/rest-auth/', include('rest_auth.urls')),
     path('api/rest-auth/registration/', include('rest_auth.registration.urls')),
     path('api/rest-auth/registration/account-email-verification-sent/',
