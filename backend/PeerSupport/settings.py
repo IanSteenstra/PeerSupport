@@ -25,9 +25,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = "yP[qaJ4#=ux+k3j[(kJBE%|YxQP*P3"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['34.69.180.162', 'api']
+ALLOWED_HOSTS = ['35.238.235.146', 'mutualhelptech.com', 'api']
 
 # Email backend settings for Django
 EMAIL_HOST = 'smtp.gmail.com'
