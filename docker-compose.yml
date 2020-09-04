@@ -1,13 +1,6 @@
 version: "3"
 
 services:
-  postgres:
-    image: postgres
-    restart: always
-    environment:
-      - POSTGRES_PASSWORD='Y1pP;C}uTK}wcly|s4MY[>3WDr:&VM'
-    ports:
-      - "5432:5432"
   redis:
     image: redis
     restart: always
