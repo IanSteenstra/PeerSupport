@@ -20,7 +20,7 @@ router.register('weekpoststudyquiz', WeekPostStudyQuizViewSet)
 
 urlpatterns = [
     path('api/api/', include(router.urls)),
-    path('admin/', include(admin.site.urls)),
+    path('api/admin/', include(admin.site.urls)),
     path('api/get-chats/', get_chats),
     path('api/get-user-email', getUserEmail),
     path('api/get-friends/', get_friends),
