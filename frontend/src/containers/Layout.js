@@ -96,7 +96,7 @@ class CustomLayout extends React.Component {
             textAlign: "center",
           }}
         >
-          PeerSupport 2020 | Contact: Ian Steenstra - steenstra.ian@gmail.com
+          MutualHelp Technologies 2020 | Contact: mutualhelptechnologies@gmail.com
         </Footer>
       </Layout>
     );

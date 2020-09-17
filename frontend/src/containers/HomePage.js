@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../images/logo-hori.jpg";
+import logo from "../images/logo-vert.jpg";
 
 class HomeLayout extends React.Component {
   render() {
@@ -7,9 +7,8 @@ class HomeLayout extends React.Component {
       <center>
         <img src={logo} alt="PeerSupport Logo" />
         <p>
-          PeerSupport is an anonymous peer-support web application that provides
-          easy access for college students to get the help they need in a safe
-          and reliable manner.
+        PeerSupport is an anonymous peer support chat application that allows users to message each other without the worry of their identity being known. 
+        Users can flag risky messages (ex: Suicidal Ideation, Potential Violence, Harassment), which only monitor admins can view and decide the best course of action to ensure a safe environment. 
         </p>
       </center>
     );

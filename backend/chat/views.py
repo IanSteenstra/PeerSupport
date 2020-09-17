@@ -26,7 +26,7 @@ class ChatViewSet(viewsets.ViewSet):
 
     def get_permissions(self):
         if self.action == 'list':
-            self.permission_classes = [IsAdminUser, ]
+            self.permission_classes = [AllowAny, ]
         elif self.action == 'retrieve':
             self.permission_classes = [AllowAny, ]
 

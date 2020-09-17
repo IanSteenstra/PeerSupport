@@ -22,17 +22,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "yP[qaJ4#=ux+k3j[(kJBE%|YxQP*P3"
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['35.238.235.146', 'mutualhelptech.com', 'api']
+ALLOWED_HOSTS = os.environ['ALLOWED_HOSTS'].split(" ")
 
 # Email backend settings for Django
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'mutualhelptechnologies@gmail.com'
-EMAIL_HOST_PASSWORD = 'cwgkixchdkhosgbo'
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
@@ -164,7 +164,7 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
