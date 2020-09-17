@@ -13,12 +13,16 @@ Run the following commands inside the root directory:
 
 You can now view the main website at http://127.0.0.1 and the Django Admin Page at http://127.0.0.1/api/admin/.
 
-## Issue Running Codebase / Migrating Database
+## Connect to the backend server
+In case you need to make migrations to the database or create a superuser, who will need to connect to the running backend server.
 
 1. In another terminal, while the servers are still running, enter `docker ps`
 1. Find the Container ID for the peersupport_backend server (ex: db54a724e9a4)
 1. Run `docker exec -it <container ID> bash`
-1. `python manage.py migrate`
+1. Run your desired commands (ex: `python manage.py migrate`, `python manage.py createsuperuser`)
+
+## Docker for Windows Issue
+If Nginx is giving an error after running `docker-compose up`, you may need to turn filesharing on for the entire directory of the application. For help, look under FILE SHARING <a href='https://docs.docker.com/docker-for-windows/'> here </a>.
 
 ## License
 
