@@ -1,27 +1,25 @@
-![text](https://github.com/IanSteenstra/PeerSupport/blob/master/frontend/src/images/logo-hori.jpg)
+<img src="https://github.com/IanSteenstra/PeerSupport/blob/master/frontend/src/images/logo-hori.jpg" alt="PeerSupport logo" title="PeerSupport"  height="200" />
 
-# PeerSupport
+PeerSupport
+=========================
+PeerSupport is an anonymous peer support chat application that allows users to message each other without the worry of their identity being known. Users can flag risky messages (ex: Suicidal Ideation, Potential Violence, Harassment), which only monitor admins can view and decide the best course of action to ensure a safe environment. 
 
-## Summary
+## Installation
+Docker & Docker-Compose are needed in order to run this application. You can download Docker <a href='https://docs.docker.com/engine/install/'> here </a> and Docker-Compose <a href='https://docs.docker.com/compose/install/'> here </a>. Make sure to follow the directions according to the system you are running the application on. 
 
-PeerSupport is an anonymous peer-support web application that provides easy access for college students to get the help they need in a safe and reliable manner.
-
-## Run Codebase
-
+Run the following commands inside the root directory: 
 1. `docker-compose build`
 1. `docker-compose up`
-1. There should now be two servers running:
 
-- [http://127.0.0.1:8000](http://127.0.0.1:8000) is the Django app
-- [http://127.0.0.1:3000](http://127.0.0.1:3000) is the React app
+You can now view the main website at http://127.0.0.1 and the Django Admin Page at http://127.0.0.1/api/admin/.
 
-## Issue Running Codebase / Servers Not Working
+## Issue Running Codebase / Migrating Database
 
-1. In another terminal while the servers are still running, enter `docker ps`
-1. Find the Container ID for the peersupport_django server (ex: db54a724e9a4)
+1. In another terminal, while the servers are still running, enter `docker ps`
+1. Find the Container ID for the peersupport_backend server (ex: db54a724e9a4)
 1. Run `docker exec -it <container ID> bash`
 1. `python manage.py migrate`
 
-## Contact
+## License
 
-Feel free to contact me for any questions at steenstra.ian@gmail.com
+PeerSupport is licensed under the terms of the MIT license and is available for free.
