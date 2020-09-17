@@ -7,6 +7,10 @@ PeerSupport is an anonymous peer support chat application that allows users to m
 ## Installation
 Docker & Docker-Compose are needed in order to run this application. You can download Docker <a href='https://docs.docker.com/engine/install/'> here </a> and Docker-Compose <a href='https://docs.docker.com/compose/install/'> here. </a> Make sure to follow the directions according to the system you are running the application on. 
 
+To clone the repository, run the following command after downloading git <a href='https://git-scm.com/'> here </a>:
+1. `git clone https://github.com/IanSteenstra/PeerSupport.git`
+
+## Running Application
 Run the following commands inside the root directory: 
 1. `docker-compose build`
 1. `docker-compose up`
