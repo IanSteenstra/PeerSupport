@@ -2,7 +2,7 @@
 
 PeerSupport
 =========================
-PeerSupport is an anonymous peer support chat application that allows users to message each other without the worry of their identity being known. Users can flag risky messages (ex: Suicidal Ideation, Potential Violence, Harassment), which only monitor admins can view and decide the best course of action to ensure a safe environment. 
+PeerSupport is an anonymous peer support chat application that allows users to message each other without the worry of their identity being known by their peers. Users can flag risky messages (e.g. Suicidal Ideation, Potential Violence, Harassment), which only monitor admins (e.g. school counselors) can view and decide the best course of action to ensure a safe environment. The flagging of messages can also be done by a machine learning algorithm.
 
 ## Installation
 Docker & Docker-Compose are needed in order to run this application. You can download Docker <a href='https://docs.docker.com/engine/install/'> here </a> and Docker-Compose <a href='https://docs.docker.com/compose/install/'> here. </a> Make sure to follow the directions according to the system you are running the application on. 
